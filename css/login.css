@@ -594,3 +594,36 @@ body {
     }
 }
 
+.school-logo {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 18px auto; /* yatay ortalama */
+  text-align: center;
+}
+
+
+.school-logo img {
+    height: 60px;
+    width: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.school-logo img:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+@media (max-width: 480px) {
+  .school-logo img {
+    height: 45px;
+  }
+}
+
+.school-logo img {
+  height: 60px;
+  width: auto;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+

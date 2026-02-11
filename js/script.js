@@ -61,10 +61,11 @@ class LoginForm1 {
         }
         
         // Sign up link
-        const signupLink = document.querySelector('.signup-link a');
-        if (signupLink) {
-            signupLink.addEventListener('click', (e) => this.handleSignupLink(e));
+        handleSignupLink(e); {
+            e.preventDefault();
+            window.location.href = 'sign-up-page.html';
         }
+
         
         // Keyboard shortcuts
         this.setupKeyboardShortcuts();
@@ -260,11 +261,9 @@ class LoginForm1 {
     }
     
     simulateRedirect() {
-        // For demo, reset the form after 2 seconds
-        setTimeout(() => {
-            this.resetForm();
-        }, 2000);
+        window.location.href = 'dashboard.html';
     }
+
     
     showLoginError(message) {
         FormUtils.showNotification(message || 'Login failed. Please try again.', 'error', this.form);
