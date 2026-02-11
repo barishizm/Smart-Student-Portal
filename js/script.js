@@ -9,6 +9,7 @@ class LoginForm1 {
         this.passwordInput = document.getElementById('password');
         this.successMessage = document.getElementById('successMessage');
         this.isSubmitting = false;
+        this.submittedOnce = false;
         
         this.validators = {
             email: FormUtils.validateEmail,
@@ -35,7 +36,7 @@ class LoginForm1 {
         Object.keys(this.validators).forEach(fieldName => {
             const field = document.getElementById(fieldName);
             if (field) {
-                field.addEventListener('blur', () => this.validateField(fieldName));
+                field.addEventListener('blur', () => {if (this.submittedOnce) this.validateField(fieldName);});
                 field.addEventListener('input', () => FormUtils.clearError(fieldName));
             }
         });
@@ -155,6 +156,8 @@ class LoginForm1 {
         e.preventDefault();
         
         if (this.isSubmitting) return;
+
+        this.submittedOnce = true;
         
         const isValid = this.validateForm();
         
