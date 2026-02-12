@@ -480,3 +480,107 @@ body{
   background: #1e40af; /* koyu mavi */
   box-sizing: border-box;
 }
+
+.nav-group { display: block; }
+
+/* submenu artık solda, diğerleriyle aynı hizada başlar */
+.submenu {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.35s ease, opacity 0.25s ease;
+  padding-left: 56px;   /* icon + gap kadar içerden başlat */
+  margin-top: 6px;
+}
+
+/* alt linkler “nav-item” gibi görünmesin; sadece text satırı olsun */
+.nav-subitem {
+  display: block;
+  padding: 10px 0;
+  text-decoration: none;
+  color: rgba(255,255,255,0.85);
+  font-size: 15px;
+  text-align: left;
+}
+
+.nav-subitem:hover { color: #fff; }
+
+.has-submenu.open .submenu {
+  max-height: 520px;
+  opacity: 1;
+}
+
+/* Submenu rail */
+.submenu{
+  position: relative;
+  padding-left: 56px;      /* mevcut */
+  margin-top: 6px;
+}
+
+.submenu::before{
+  content:"";
+  position: absolute;
+  left: 28px;              /* rail’in x konumu */
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.12);
+}
+
+/* Each sub item gets a dot aligned to the rail */
+.nav-subitem{
+  position: relative;
+  padding: 10px 0 10px 18px;  /* text biraz sağa */
+}
+
+.nav-subitem::before{
+  content:"";
+  position: absolute;
+  left: -6px;                /* dot’un x konumu (rail’e göre) */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.06);
+}
+
+/* Hover/active hissi */
+.nav-subitem:hover::before{
+  background: rgba(255,255,255,0.55);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.10);
+}
+
+/* procedure bullet list look */
+.submenu-bullets{
+  padding-left: 46px;   /* icon hizası */
+  margin-top: 6px;
+}
+
+.nav-subitem.bullet{
+  position: relative;
+  display: block;
+  padding: 8px 0 8px 18px;   /* bullet sonrası boşluk */
+  font-size: 14px;
+  color: rgba(255,255,255,0.82);
+  text-decoration: none;
+  line-height: 1.25;
+}
+
+.nav-subitem.bullet::before{
+  content:"";
+  position: absolute;
+  left: 0;
+  top: 14px;                 /* satır ortası */
+  width: 6px;
+  height: 6px;
+  background: rgba(255,255,255,0.55);
+  border-radius: 2px;        /* kareye yakın */
+  opacity: 0.8;
+}
+
+.nav-subitem.bullet:hover{
+  color: #fff;
+}

@@ -51,3 +51,37 @@ document.addEventListener('DOMContentLoaded', () => {
   nextDay?.addEventListener('click', () => setToast('Next day (demo)'));
   todayBtn?.addEventListener('click', () => setToast('Today (demo)'));
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const studiesItem = document.getElementById('studiesItem');
+  const trigger = document.getElementById('studiesTrigger');
+
+  if (!studiesItem || !trigger) return;
+
+  trigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    studiesItem.classList.toggle('open');
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const item = document.getElementById('procedureItem');
+  const trigger = document.getElementById('procedureTrigger');
+  if (!item || !trigger) return;
+
+  trigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    item.classList.toggle('open');
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const item = document.getElementById('careerItem');
+  const trigger = document.getElementById('careerTrigger');
+  if (!item || !trigger) return;
+
+  trigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    item.classList.toggle('open');
+  });
+});
