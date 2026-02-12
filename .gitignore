@@ -1,0 +1,36 @@
+node_modules/
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Local DB
+database.sqlite
+database.sqlite-*
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Temp / cache
+tmp/
+temp/
+.cache/
+
+# Test / coverage
+coverage/
+.nyc_output/
+
+# OS
+.DS_Store
+
+# IDE (optional)
+.vscode/
+.idea/

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VILNIUS TECH | REGISTER</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <div class="login-container">
+    <a href="/" class="school-logo">
+    <img src="/images/Vilnius-Gediminas-Technical-University_logo-150x150-717593362.jpg" alt="Vilnius Tech Logo"></a>
+    
+        <div class="login-card">
+            <div class="login-header">
+                <h2>Sign Up</h2>
+                <p>Create your account to get started.</p>
+            </div>
+
+            <% if(error_msg && error_msg.length > 0){ %>
+                <div class="error-message show" style="display:block; color: white; background: #e74c3c; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+                    <%= error_msg %>
+                </div>
+            <% } %>
+
+            <% if(success_msg && success_msg.length > 0){ %>
+                <div class="success-message show" style="display:block; position: relative; transform: none; opacity: 1; margin-bottom: 15px;">
+                    <%= success_msg %>
+                </div>
+            <% } %>
+            
+            <form class="login-form" id="registerForm" action="/auth/register" method="POST" novalidate>
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <input type="text" id="username" name="username" placeholder=" " required autocomplete="username">
+                        <label for="username">Username</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <input type="email" id="email" name="email" placeholder=" " required autocomplete="email">
+                        <label for="email">Email Address</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-wrapper password-wrapper">
+                        <input type="password" id="password" name="password" placeholder=" " required autocomplete="new-password">
+                        <label for="password">Password</label>
+                        <button type="button" class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
+                            <span class="eye-icon"></span>
+                        </button>    
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-wrapper password-wrapper">
+                        <input type="password" id="confirm_password" name="confirm_password" placeholder=" " required autocomplete="new-password">
+                        <label for="confirm_password">Confirm Password</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="login-btn btn">
+                    <span class="btn-text">Sign Up</span>
+                    <span class="btn-loader"></span>
+                </button>
+            </form>
+
+            <div class="divider">
+                <span>or</span>
+            </div>
+
+            <div class="signup-link">
+                <p>Already have an account? <a href="/">Sign in</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/form-utils.js"></script>
+    <script src="/js/script.js"></script>
+</body>
+</html>

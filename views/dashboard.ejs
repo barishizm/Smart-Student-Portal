@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+  <title>VILNIUS TECH | DASHBOARD</title>
+</head>
+<body>
+  <div class="dash">
+    <!-- Sidebar -->
+    <%- include('partials/sidebar') %>
+
+    <!-- Main -->
+    <main class="main">
+      <!-- Topbar -->
+      <%- include('partials/header') %>
+
+      <!-- Content grid -->
+      <section class="grid">
+        <!-- Announcement -->
+         <article class="card hero">
+          <div class="card-head">
+            <h2>Welcome Back, <%= user.username %></h2>
+            <span class="badge">Info</span>
+          </div>
+          <p class="hero-title">System Status</p>
+          <p class="muted">
+            You are logged in as <strong><%= user.role %></strong>. 
+            <% if(user.role === 'admin') { %>
+                Navigate to the <strong>Students</strong> section to manage student records.
+            <% } else { %>
+                Check your schedule and grades below.
+            <% } %>
+          </p>
+          <div class="hero-actions">
+            <% if(user.role === 'admin') { %>
+            <a class="btn" href="/admin/students" role="button">Manage Students</a>
+            <% } %>
+          </div>
+        </article>
+
+        <% if(success_msg && success_msg.length > 0){ %>
+            <div class="alert alert-success" style="grid-column: span 3;">
+                <%= success_msg %>
+            </div>
+        <% } %>
+        <% if(error_msg && error_msg.length > 0){ %>
+            <div class="alert alert-danger" style="grid-column: span 3;">
+                <%= error_msg %>
+            </div>
+        <% } %>
+
+        <!-- Stats row can remain or be dynamic later -->
+        <!-- Just keeping the layout structure -->
+
+      </section>
+    </main>
+  </div>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

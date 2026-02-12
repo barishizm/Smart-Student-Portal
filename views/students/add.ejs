@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head') %>
+    <title>VILNIUS TECH | Add Student</title>
+</head>
+<body>
+    <div class="dash">
+        <%- include('../partials/sidebar') %>
+        
+        <main class="main">
+            <%- include('../partials/header') %>
+
+            <div class="content" style="max-width: 600px; margin: 0 auto;">
+                <div class="card">
+                    <div class="card-head">
+                        <h2>Add New Student</h2>
+                        <a href="/admin/students" class="btn ghost">Back</a>
+                    </div>
+                    
+                    <% if(error_msg && error_msg.length > 0){ %>
+                        <div style="background:#f8d7da; color:#721c24; padding:10px; margin-bottom:15px; border-radius:5px;">
+                            <%= error_msg %>
+                        </div>
+                    <% } %>
+
+                    <form action="/admin/students" method="POST">
+                        <div class="form-group" style="margin-bottom:15px;">
+                            <label>Student ID</label>
+                            <input type="text" name="student_id" required class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div class="form-group" style="margin-bottom:15px;">
+                            <label>Name</label>
+                            <input type="text" name="name" required class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div class="form-group" style="margin-bottom:15px;">
+                            <label>Surname</label>
+                            <input type="text" name="surname" required class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div class="form-group" style="margin-bottom:15px;">
+                            <label>Email</label>
+                            <input type="email" name="email" class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div class="form-group" style="margin-bottom:15px;">
+                            <label>Group</label>
+                            <input type="text" name="group_name" class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <button type="submit" class="btn">Add Student</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+    <%- include('../partials/footer') %>
+</body>
+</html>

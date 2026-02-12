@@ -4,20 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VILNIUS TECH | LOGIN</title>
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
     <div class="login-container">
-    <a href="index.html" class="school-logo">
-    <img src="images/Vilnius-Gediminas-Technical-University_logo-150x150-717593362.jpg" alt="Vilnius Tech Logo"></a>
+    <a href="/" class="school-logo">
+    <img src="/images/Vilnius-Gediminas-Technical-University_logo-150x150-717593362.jpg" alt="Vilnius Tech Logo"></a>
     
         <div class="login-card">
             <div class="login-header">
                 <h2>Sign In</h2>
                 <p>Enter your login details to sign in.</p>
             </div>
+
+            <% if(error_msg && error_msg.length > 0){ %>
+                <div class="error-message show" style="display:block; color: white; background: #e74c3c; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+                    <%= error_msg %>
+                </div>
+            <% } %>
+
+            <% if(success_msg && success_msg.length > 0){ %>
+                <div class="success-message show" style="display:block; position: relative; transform: none; opacity: 1; margin-bottom: 15px;">
+                    <%= success_msg %>
+                </div>
+            <% } %>
             
-            <form class="login-form" id="loginForm" novalidate>
+            <form class="login-form" id="loginForm" action="/auth/login" method="POST" novalidate>
                 <div class="form-group">
                     <div class="input-wrapper">
                         <input type="email" id="email" name="email" placeholder=" " required autocomplete="email">
@@ -70,9 +82,10 @@
             </div>
 
             <div class="signup-link">
-                <p>Don't have an account? <a href="sign-up-page.html">Sign up</a></p>
+                <p>Don't have an account? <a href="/auth/register">Sign up</a></p>
             </div>
 
+             <!-- Success message container kept for JS animations if needed, but handled by EJS above mostly -->
             <div class="success-message" id="successMessage">
                 <div class="success-icon">✓</div>
                 <h3>Login Successful!</h3>
@@ -81,7 +94,7 @@
         </div>
     </div>
 
-    <script src="js/form-utils.js"></script>
-    <script src="js/script.js"></script>
+    <script src="/js/form-utils.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>

@@ -13,9 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
     root?.classList.toggle('collapsed');
   });
 
-  // Fake logout -> back to login page
-  logoutBtn?.addEventListener('click', () => {
-    window.location.href = 'login.html';
+  // Logout using backend route so session is destroyed.
+  logoutBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.location.href = '/auth/logout';
   });
 
   // Dismiss announcement (UI only)
