@@ -1,137 +1,137 @@
-declined, etc.
-# Güvenlik Politikası
+# Security Policy
 
-Bu doküman, **Smart Student Portal** projesi için güvenlik açıklarının bildirilmesi,
-değerlendirilmesi ve giderilmesi süreçlerini tanımlar.
+This document defines how security vulnerabilities are reported, triaged, and remediated for **Smart Student Portal**.
 
-## Desteklenen Sürümler
+## Supported Versions
 
-Güvenlik güncellemeleri aşağıdaki kapsam için sağlanır:
+Security fixes are provided for the following scope:
 
-| Sürüm / Dal | Durum |
+| Version / Branch | Status |
 | --- | --- |
-| `main` (en güncel kod) | ✅ Destekleniyor |
-| En son yayınlanan sürüm (`v1.x`) | ✅ Destekleniyor |
-| Daha eski sürümler | ❌ Desteklenmiyor |
+| `main` (latest code) | ✅ Supported |
+| Latest released line (`v1.x`) | ✅ Supported |
+| Older releases | ❌ Not supported |
 
-Not: Güvenlik düzeltmeleri öncelikle `main` dalına uygulanır, ardından gerekli ise yayınlanan sürüme geri taşınır.
+Notes:
+- Security fixes are applied to `main` first.
+- Backports are made to the latest supported release when needed.
 
-## Güvenlik Açığı Bildirme
+## Reporting a Vulnerability
 
-### Tercih edilen yöntem (özel bildirim)
+### Preferred channel (private reporting)
 
-- GitHub'da **Private Vulnerability Reporting / Security Advisory** özelliğini kullanın.
-- Özel bildirim mümkün değilse repository bakımcısıyla doğrudan, özel bir kanaldan iletişime geçin.
+- Use GitHub **Private Vulnerability Reporting / Security Advisory** whenever possible.
+- If private reporting is unavailable, contact maintainers through a private channel.
 
-### Lütfen yapmayın
+### Please do not
 
-- Açık detaylarını ilk aşamada herkese açık issue/discussion içinde paylaşmayın.
-- Exploit kodunu, PoC URL’lerini veya hassas veriyi public ortamlara koymayın.
+- Open a public issue with full exploit details before coordinated disclosure.
+- Publish proof-of-concept links or sensitive data in public channels.
 
-### Bildirime eklenmesi gereken bilgiler
+### Include in your report
 
-- Açığın kısa özeti ve etkisi
-- Etkilenen endpoint/akış (ör. login, şifre sıfırlama, profil fotoğrafı yükleme)
-- Yeniden üretim adımları
-- Mümkünse PoC (minimum ve güvenli)
-- Tahmini etki düzeyi (Confidentiality/Integrity/Availability)
-- Ortam bilgisi (Node sürümü, OS, tarayıcı, ters proxy vb.)
+- Short summary and impact
+- Affected route/flow (e.g., login, password reset, avatar upload)
+- Reproduction steps
+- Minimal PoC (safe, non-destructive)
+- Estimated CIA impact (Confidentiality / Integrity / Availability)
+- Environment details (Node version, OS, browser, reverse proxy, etc.)
 
-## Yanıt ve Çözüm Süresi Hedefleri (SLA)
+## Response Targets (SLA)
 
-- **İlk geri dönüş:** 72 saat içinde
-- **Ön değerlendirme:** 5 iş günü içinde
-- **Kritik/Yüksek seviye açıklar:** mümkün olan en kısa sürede, hedef 7–14 gün
-- **Orta/Düşük seviye açıklar:** planlı bakım penceresinde
+- **Initial acknowledgment:** within 72 hours
+- **Initial triage:** within 5 business days
+- **Critical/High vulnerabilities:** target remediation in 7–14 days when feasible
+- **Medium/Low vulnerabilities:** handled in planned maintenance windows
 
-Bu süreler hedef niteliğindedir; açık karmaşıklığına ve doğrulama ihtiyacına göre değişebilir.
+These are target timelines and may vary based on complexity and validation needs.
 
-## Sorumlu Açıklama (Responsible Disclosure)
+## Responsible Disclosure
 
-- Açık doğrulanana ve düzeltme yayımlanana kadar gizlilik beklenir.
-- Düzeltme yayımlandığında etkilenen sürümler ve alınan aksiyonlar release notlarında paylaşılır.
-- Uygun görülen durumlarda araştırmacıya teşekkür verilebilir.
+- Please keep findings confidential until a fix is available.
+- After a fix is released, affected versions and remediation notes are published.
+- Researchers may be credited when appropriate.
 
-## Kapsam (Bu Proje İçin)
+## Scope (Project-Specific)
 
-Bu politika aşağıdaki ana bileşenleri kapsar:
+This policy covers:
 
-- Kimlik doğrulama ve oturum yönetimi (`/auth/*`)
-- Yetkilendirme ve admin erişimi (`/admin/students/*`)
-- Şifre sıfırlama akışları
-- Profil görseli yükleme/silme akışı
-- Veritabanı işlemleri (SQLite)
-- Docker ile dağıtım yapılandırması
+- Authentication and session flows (`/auth/*`)
+- Authorization and admin access (`/admin/students/*`)
+- Password reset flows
+- Profile image upload/delete flows
+- Database interactions (SQLite)
+- Docker deployment configuration
 
-Kapsam dışı tipik örnekler:
+Typical out-of-scope examples:
 
-- Sadece görsel/UI kusurları (güvenlik etkisi yoksa)
-- Açık kaynak bağımlılıklarda henüz pratik istismar yolu olmayan düşük etkili bulgular
+- Visual/UI-only issues without security impact
+- Dependency notices with no practical exploit path in this project context
 
-## Uygulanan Güvenlik Kontrolleri
+## Security Controls Currently Implemented
 
-Proje içinde halihazırda bulunan başlıca kontroller:
+Key controls present in the codebase include:
 
-- `helmet` ile temel HTTP güvenlik başlıkları
-- `express-session` ile `httpOnly`, `sameSite=lax`, üretimde `secure` cookie
-- CSRF koruması (HMAC tabanlı token doğrulama)
-- Giriş ve şifre sıfırlama uçlarında `express-rate-limit`
-- Şifrelerin `bcrypt` ile hashlenmesi
-- Şifre sıfırlama tokenlarının hashlenerek saklanması ve süre sonu kontrolü
-- Admin rotalarında kimlik + rol tabanlı kontrol
-- Profil fotoğrafı yüklemede MIME tipi ve boyut limiti
-- SQLite foreign key ve indekslerle veri bütünlüğü
+- `helmet` for baseline HTTP security headers
+- `express-session` with `httpOnly`, `sameSite=lax`, and `secure` in production
+- CSRF protection using HMAC-based token validation
+- `express-rate-limit` on authentication and password reset endpoints
+- Password hashing with `bcrypt`
+- Password reset tokens stored as hashes with expiry/usage checks
+- Role-based access enforcement for admin routes
+- Avatar upload MIME/type checks and size limits
+- SQLite foreign keys and indexes for data integrity
 
-## Operasyonel Güvenlik Gereksinimleri
+## Production Security Requirements
 
-Üretim ortamında aşağıdakiler zorunlu kabul edilir:
+For production deployments, the following are required:
 
-1. Güçlü ve rastgele `SESSION_SECRET` kullanımı
-2. `NODE_ENV=production` ile güvenli cookie davranışı
-3. HTTPS/TLS terminasyonu (reverse proxy veya load balancer)
-4. Loglarda hassas veri maskeleme (token, parola, oturum bilgisi)
-5. Düzenli bağımlılık taraması (`npm audit` + manuel doğrulama)
-6. Yedekleme, erişim kontrolü ve en az ayrıcalık prensibi
+1. Strong, random `SESSION_SECRET`
+2. `NODE_ENV=production` for secure-cookie behavior
+3. HTTPS/TLS termination (reverse proxy or load balancer)
+4. Sensitive data redaction in logs (tokens, passwords, session values)
+5. Regular dependency review (`npm audit` plus manual validation)
+6. Backup, access control, and least-privilege operational practices
 
-## Bilinen Riskler ve Güçlendirme Önerileri
+## Known Risks and Hardening Recommendations
 
-Bu proje eğitim/öğrenme odaklı bir portaldır; üretim öncesi aşağıdaki sertleştirmeler önerilir:
+This project is suitable for academic/learning scenarios. Before production use, apply hardening such as:
 
-- CSP politikasının devreye alınması (şu an gevşek/kapalı yapılandırma kullanılabilir)
-- Oturum depolamasının memory-store yerine kalıcı güvenli store’a taşınması
-- Şifre politikalarının güçlendirilmesi (uzunluk/karmaşıklık/denylist)
-- MFA, kritik aksiyonlarda yeniden kimlik doğrulama
-- Sentry/SIEM benzeri merkezi izleme + uyarı
-- Güvenli SDLC kontrolleri (SAST/DAST/secret scanning)
+- Enable strict Content Security Policy (CSP)
+- Move session storage from default memory store to a persistent secure store
+- Strengthen password policy (length, complexity, denylist)
+- Add MFA and step-up authentication for sensitive actions
+- Introduce centralized monitoring/alerting (e.g., SIEM/Sentry)
+- Add Secure SDLC controls (SAST/DAST/secret scanning)
 
-## Bağımlılık ve Tedarik Zinciri Güvenliği
+## Dependency and Supply Chain Security
 
-- Üçüncü parti paket sürümleri düzenli güncellenmelidir.
-- Yeni paket eklenirken bakım durumu, lisans, CVE geçmişi değerlendirilmelidir.
-- Kilit dosyası (`package-lock.json`) değişiklikleri code review sürecinden geçmelidir.
+- Keep third-party packages up to date.
+- Evaluate new dependencies for maintenance health, licensing, and CVE history.
+- Ensure lockfile changes (`package-lock.json`) are code-reviewed.
 
-## Veri Koruma ve Gizlilik
+## Data Protection and Privacy
 
-- Kullanıcı verileri (kimlik, e-posta, öğrenci kayıt bilgileri) asgari gerekli düzeyde işlenmelidir.
-- Hassas veriler debug loglarına yazdırılmamalıdır.
-- Gerektiğinde veri saklama ve silme süreçleri kurum politikalarıyla uyumlu yürütülmelidir.
+- Process user data (identity, email, student records) with data minimization principles.
+- Do not log sensitive payloads or secrets.
+- Align retention/deletion practices with institutional policy and legal obligations.
 
-## Güvenlik Testi ve Doğrulama
+## Security Testing Guidance
 
-Tavsiye edilen minimum doğrulamalar:
+Recommended minimum verification includes:
 
-- Kimlik doğrulama bypass testleri
-- Yetki yükseltme ve IDOR kontrolleri
-- CSRF/XSS/Injection testleri
-- Upload abuse testleri (tip, boyut, içerik)
-- Rate limit ve brute-force dayanıklılık testleri
+- Authentication bypass tests
+- Privilege escalation and IDOR checks
+- CSRF/XSS/injection validation
+- Upload abuse tests (type, size, content)
+- Brute-force and rate-limit resilience checks
 
-## Yasal ve Etik Çerçeve
+## Legal and Ethical Boundaries
 
-- Sadece izinli sistemlerde test yapın.
-- Hizmet kesintisine neden olacak saldırı simülasyonlarından kaçının.
-- Kullanıcı verisi içeren bulguları gizli tutun ve minimizasyon uygulayın.
+- Test only systems you are authorized to test.
+- Avoid disruptive testing that impacts availability.
+- Handle any personal data in findings with strict confidentiality.
 
-## İletişim Notu
+## Maintenance Note
 
-Bu dosya, teknik güvenlik koordinasyon rehberidir. İletişim kanalları değişirse bu doküman güncellenmelidir.
+This file is a technical coordination guide. Update it whenever security contacts, process, or scope changes.
