@@ -4,6 +4,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const { isAdminIdentity, getEffectiveRole } = require('../config/auth');
+const { normalizeLanguage } = require('../utils/i18n');
 
 const isSchoolEmail = (email) => /@(stud\.)?vilniustech\.lt$/i.test((email || '').trim());
 const RESET_TOKEN_TTL_MS = 15 * 60 * 1000;
@@ -70,7 +71,7 @@ exports.registerPage = (req, res) => {
     if (req.session.user) {
         return res.redirect('/dashboard');
     }
-    res.render('register');
+    res.render('register', { formData: {} });
 };
 
 exports.register = async (req, res) => {
@@ -80,6 +81,7 @@ exports.register = async (req, res) => {
     const email = (req.body.email || '').trim().toLowerCase();
     const password = req.body.password || '';
     const confirmPassword = req.body.confirm_password || '';
+    const preferredLanguage = normalizeLanguage(req.session?.preferred_language || 'en');
     const formData = { firstName, lastName, username, email };
     let errors = [];
 
@@ -125,8 +127,8 @@ exports.register = async (req, res) => {
 
         const passwordHash = await bcrypt.hash(password, 10);
         const createdUser = await dbRun(
-            'INSERT INTO users (first_name, last_name, username, email, password_hash, role) VALUES (?, ?, ?, ?, ?, ?)',
-            [firstName, lastName, username, email, passwordHash, 'student']
+            'INSERT INTO users (first_name, last_name, username, email, password_hash, role, preferred_language) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [firstName, lastName, username, email, passwordHash, 'student', preferredLanguage]
         );
 
         const autoStudentId = buildAutoStudentId(createdUser.lastID);
@@ -192,8 +194,11 @@ exports.login = async (req, res) => {
             avatar_url: user.avatar_url || null,
             first_name: user.first_name || null,
             last_name: user.last_name || null,
-            role: getEffectiveRole(user)
+            role: getEffectiveRole(user),
+            preferred_language: normalizeLanguage(user.preferred_language || req.session?.preferred_language || 'en')
         };
+
+        req.session.preferred_language = req.session.user.preferred_language;
 
         req.flash('success_msg', 'You are logged in');
         return res.redirect('/dashboard');
@@ -554,4 +559,22 @@ exports.logout = (req, res) => {
         }
         res.redirect('/');
     });
+};
+
+exports.updatePreferredLanguage = async (req, res) => {
+    const nextLanguage = normalizeLanguage(req.body?.language || req.body?.lang || 'en');
+
+    try {
+        req.session.preferred_language = nextLanguage;
+
+        if (req.session?.user?.id) {
+            await dbRun('UPDATE users SET preferred_language = ? WHERE id = ?', [nextLanguage, req.session.user.id]);
+            req.session.user.preferred_language = nextLanguage;
+        }
+
+        return res.json({ success: true, language: nextLanguage });
+    } catch (err) {
+        console.error('Update preferred language error:', err);
+        return res.status(500).json({ error: 'Could not update language preference' });
+    }
 };

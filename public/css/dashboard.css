@@ -269,6 +269,16 @@ body{
   gap: 10px;
 }
 
+.notifications-wrap{
+  position: relative;
+  z-index: 30;
+}
+
+.language-wrap{
+  position: relative;
+  z-index: 30;
+}
+
 .icon-btn{
   width: 42px;
   height: 42px;
@@ -293,6 +303,173 @@ body{
   border-radius: 999px;
   background: var(--cyan);
   box-shadow: 0 0 0 3px rgba(6,182,212,.18);
+}
+
+.dot[hidden]{
+  display: none;
+}
+
+.notifications-panel{
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  width: 340px;
+  max-width: calc(100vw - 40px);
+  max-height: 420px;
+  overflow: auto;
+  padding: 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(20,35,95,.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.20);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.language-trigger{
+  width: auto;
+  min-width: 52px;
+  padding: 0 10px;
+}
+
+.language-code{
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .4px;
+}
+
+.language-panel{
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  width: 180px;
+  padding: 8px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(20,35,95,.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.20);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.language-wrap.open .language-panel{
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.language-option{
+  width: 100%;
+  text-align: left;
+  appearance: none;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text);
+  border-radius: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.language-option:hover,
+.language-option.active{
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.14);
+}
+
+.notifications-wrap.open .notifications-panel{
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.notifications-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 4px 10px;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+  margin-bottom: 8px;
+}
+
+.notifications-list{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notifications-empty{
+  color: var(--muted);
+  font-size: 13px;
+  padding: 12px 8px;
+}
+
+.notification-item{
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notification-item.is-read{
+  opacity: .82;
+}
+
+.notification-item-head{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.notification-item-head strong{
+  font-size: 13px;
+}
+
+.notification-time{
+  color: var(--muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.notification-message{
+  font-size: 13px;
+  color: rgba(255,255,255,.86);
+  line-height: 1.35;
+}
+
+.notification-actions{
+  display: flex;
+  gap: 8px;
+}
+
+.notification-action{
+  appearance: none;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.12);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.notification-action:hover{
+  background: rgba(255,255,255,.18);
+}
+
+.notification-action.delete{
+  border-color: rgba(239,68,68,.35);
 }
 
 .profile{
@@ -861,23 +1038,23 @@ body{
   height: 32px;
   padding: 3px;
   border-radius: 12px;
-  background: #1e40af; /* koyu mavi */
+  background: #1e40af; /* dark blue */
   box-sizing: border-box;
 }
 
 .nav-group { display: block; }
 
-/* submenu artık solda, diğerleriyle aynı hizada başlar */
+/* submenu starts from the left and aligns with other items */
 .submenu {
   max-height: 0;
   overflow: hidden;
   opacity: 0;
   transition: max-height 0.35s ease, opacity 0.25s ease;
-  padding-left: 56px;   /* icon + gap kadar içerden başlat */
+  padding-left: 56px;   /* start with icon + gap offset */
   margin-top: 6px;
 }
 
-/* alt linkler “nav-item” gibi görünmesin; sadece text satırı olsun */
+/* make child links text-like instead of nav-item style */
 .nav-subitem {
   display: block;
   padding: 10px 0;
@@ -897,14 +1074,14 @@ body{
 /* Submenu rail */
 .submenu{
   position: relative;
-  padding-left: 56px;      /* mevcut */
+  padding-left: 56px;      /* existing */
   margin-top: 6px;
 }
 
 .submenu::before{
   content:"";
   position: absolute;
-  left: 28px;              /* rail’in x konumu */
+  left: 28px;              /* rail x position */
   top: 6px;
   bottom: 6px;
   width: 2px;
@@ -915,13 +1092,13 @@ body{
 /* Each sub item gets a dot aligned to the rail */
 .nav-subitem{
   position: relative;
-  padding: 10px 0 10px 18px;  /* text biraz sağa */
+  padding: 10px 0 10px 18px;  /* push text slightly right */
 }
 
 .nav-subitem::before{
   content:"";
   position: absolute;
-  left: -6px;                /* dot’un x konumu (rail’e göre) */
+  left: -6px;                /* dot x position (relative to rail) */
   top: 50%;
   transform: translateY(-50%);
   width: 8px;
@@ -931,7 +1108,7 @@ body{
   box-shadow: 0 0 0 3px rgba(255,255,255,0.06);
 }
 
-/* Hover/active hissi */
+/* Hover/active feel */
 .nav-subitem:hover::before{
   background: rgba(255,255,255,0.55);
   box-shadow: 0 0 0 3px rgba(255,255,255,0.10);
@@ -939,14 +1116,14 @@ body{
 
 /* procedure bullet list look */
 .submenu-bullets{
-  padding-left: 46px;   /* icon hizası */
+  padding-left: 46px;   /* icon alignment */
   margin-top: 6px;
 }
 
 .nav-subitem.bullet{
   position: relative;
   display: block;
-  padding: 8px 0 8px 18px;   /* bullet sonrası boşluk */
+  padding: 8px 0 8px 18px;   /* space after bullet */
   font-size: 14px;
   color: rgba(255,255,255,0.82);
   text-decoration: none;
@@ -957,11 +1134,11 @@ body{
   content:"";
   position: absolute;
   left: 0;
-  top: 14px;                 /* satır ortası */
+  top: 14px;                 /* vertical center of line */
   width: 6px;
   height: 6px;
   background: rgba(255,255,255,0.55);
-  border-radius: 2px;        /* kareye yakın */
+  border-radius: 2px;        /* near-square */
   opacity: 0.8;
 }
 

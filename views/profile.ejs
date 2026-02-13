@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= currentLanguage %>">
 <head>
   <%- include('partials/head') %>
   <link rel="stylesheet" href="https://unpkg.com/cropperjs@1.6.2/dist/cropper.min.css">
-  <title>VILNIUS TECH | Profile</title>
+  <title>VILNIUS TECH | <%= t('profile.title') %></title>
 </head>
 <body>
   <div class="dash">
@@ -15,8 +15,8 @@
       <section class="content">
         <article class="card">
           <div class="card-head">
-            <h2>Profile</h2>
-            <span class="badge">Account</span>
+            <h2><%= t('profile.title') %></h2>
+            <span class="badge"><%= t('profile.account') %></span>
           </div>
 
           <% if(success_msg && success_msg.length > 0){ %>
@@ -41,71 +41,71 @@
                 <% } %>
               </div>
               <div class="profile-photo-meta">
-                <strong>Profile Photo</strong>
-                <small><%= user && user.avatar_url ? 'Photo uploaded' : 'No photo uploaded' %></small>
+                <strong><%= t('profile.profilePhoto') %></strong>
+                <small><%= user && user.avatar_url ? t('profile.photoUploaded') : t('profile.photoMissing') %></small>
               </div>
             </div>
 
             <div class="profile-photo-actions">
               <div class="profile-photo-form">
                 <input type="file" id="profilePhotoInput" accept="image/png,image/jpeg,image/webp" class="profile-file-input" hidden>
-                <button type="button" id="uploadCroppedPhotoBtn" class="btn"><%= user && user.avatar_url ? 'Change Photo' : 'Upload Photo' %></button>
+                <button type="button" id="uploadCroppedPhotoBtn" class="btn"><%= user && user.avatar_url ? t('profile.changePhoto') : t('profile.uploadPhoto') %></button>
               </div>
 
               <% if (user && user.avatar_url) { %>
                 <form action="/auth/profile-photo/delete" method="POST">
-                  <button type="submit" class="btn ghost">Delete Photo</button>
+                  <button type="submit" class="btn ghost"><%= t('profile.deletePhoto') %></button>
                 </form>
               <% } %>
             </div>
 
             <div id="profileCropArea" class="profile-crop-area" hidden>
-              <img id="profileCropImage" alt="Crop preview">
+              <img id="profileCropImage" alt="<%= t('profile.cropPreview') %>">
             </div>
           </div>
 
           <div class="stats" style="grid-template-columns: repeat(2, minmax(220px, 1fr));">
             <div class="stat">
-              <strong>Real Name</strong>
+              <strong><%= t('profile.realName') %></strong>
               <small><%= (user?.first_name || '-') %> <%= (user?.last_name || '') %></small>
             </div>
             <div class="stat">
-              <strong>Username</strong>
+              <strong><%= t('profile.username') %></strong>
               <small><%= user ? user.username : '-' %></small>
             </div>
             <div class="stat">
-              <strong>Role</strong>
-              <small><%= user ? user.role : '-' %></small>
+              <strong><%= t('profile.role') %></strong>
+              <small><%= user ? t(`roles.${user.role}`) : '-' %></small>
             </div>
             <div class="stat">
-              <strong>Email</strong>
-              <small><%= user && user.email ? user.email : 'Not available' %></small>
+              <strong><%= t('profile.email') %></strong>
+              <small><%= user && user.email ? user.email : t('profile.notAvailable') %></small>
             </div>
             <div class="stat profile-action-stat">
               <div class="profile-action-buttons">
-                <button type="button" id="toggleUsernameCard" class="profile-change-btn profile-change-btn-large" aria-expanded="false" aria-controls="usernameChangeCard">Change Username</button>
-                <button type="button" id="togglePasswordCard" class="profile-change-btn profile-change-btn-large" aria-expanded="false" aria-controls="passwordChangeCard">Change Password</button>
+                <button type="button" id="toggleUsernameCard" class="profile-change-btn profile-change-btn-large" aria-expanded="false" aria-controls="usernameChangeCard"><%= t('profile.changeUsername') %></button>
+                <button type="button" id="togglePasswordCard" class="profile-change-btn profile-change-btn-large" aria-expanded="false" aria-controls="passwordChangeCard"><%= t('profile.changePassword') %></button>
               </div>
             </div>
           </div>
 
           <div id="usernameChangeCard" class="profile-change-card" hidden>
-            <h3 class="profile-change-title">Change Username</h3>
+            <h3 class="profile-change-title"><%= t('profile.changeUsername') %></h3>
             <form action="/auth/change-username" method="POST" class="profile-change-form">
-              <input type="text" name="current_identity" placeholder="Current email or username" required autocomplete="username" class="profile-change-input">
-              <input type="password" name="password" placeholder="Current password" required autocomplete="current-password" class="profile-change-input">
-              <input type="text" name="new_username" placeholder="New username" required autocomplete="username" class="profile-change-input">
-              <button type="submit" class="btn profile-change-submit">Update Username</button>
+              <input type="text" name="current_identity" placeholder="<%= t('profile.currentIdentity') %>" required autocomplete="username" class="profile-change-input">
+              <input type="password" name="password" placeholder="<%= t('profile.currentPassword') %>" required autocomplete="current-password" class="profile-change-input">
+              <input type="text" name="new_username" placeholder="<%= t('profile.newUsername') %>" required autocomplete="username" class="profile-change-input">
+              <button type="submit" class="btn profile-change-submit"><%= t('profile.updateUsername') %></button>
             </form>
           </div>
 
           <div id="passwordChangeCard" class="profile-change-card" hidden>
-            <h3 class="profile-change-title">Change Password</h3>
+            <h3 class="profile-change-title"><%= t('profile.changePassword') %></h3>
             <form action="/auth/change-password" method="POST" class="profile-change-form">
-              <input type="password" name="current_password" placeholder="Current password" required autocomplete="current-password" class="profile-change-input">
-              <input type="password" name="new_password" placeholder="New password" required autocomplete="new-password" class="profile-change-input">
-              <input type="password" name="confirm_password" placeholder="Confirm new password" required autocomplete="new-password" class="profile-change-input">
-              <button type="submit" class="btn profile-change-submit">Update Password</button>
+              <input type="password" name="current_password" placeholder="<%= t('profile.currentPassword') %>" required autocomplete="current-password" class="profile-change-input">
+              <input type="password" name="new_password" placeholder="<%= t('profile.newPassword') %>" required autocomplete="new-password" class="profile-change-input">
+              <input type="password" name="confirm_password" placeholder="<%= t('profile.confirmNewPassword') %>" required autocomplete="new-password" class="profile-change-input">
+              <button type="submit" class="btn profile-change-submit"><%= t('profile.updatePassword') %></button>
             </form>
           </div>
         </article>

@@ -4,6 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const collapseBtn = document.getElementById('collapseBtn');
   const profileMenu = document.getElementById('profileMenu');
   const profileTrigger = document.getElementById('profileTrigger');
+  const notificationsMenu = document.getElementById('notificationsMenu');
+  const notificationsTrigger = document.getElementById('notificationsTrigger');
+  const notificationsList = document.getElementById('notificationsList');
+  const notificationDot = document.getElementById('notificationDot');
+  const languageMenu = document.getElementById('languageMenu');
+  const languageTrigger = document.getElementById('languageTrigger');
+  const languagePanel = document.getElementById('languagePanel');
   const toggleUsernameCard = document.getElementById('toggleUsernameCard');
   const usernameChangeCard = document.getElementById('usernameChangeCard');
   const togglePasswordCard = document.getElementById('togglePasswordCard');
@@ -13,6 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const prevDay = document.getElementById('prevDay');
   const nextDay = document.getElementById('nextDay');
   const todayBtn = document.getElementById('todayBtn');
+  const i18nJsonEl = document.getElementById('dashboardI18n');
+  const dashboardI18n = i18nJsonEl ? JSON.parse(i18nJsonEl.textContent) : {};
 
   const formatDateLocal = (date) => {
     const year = date.getFullYear();
@@ -44,6 +53,69 @@ document.addEventListener('DOMContentLoaded', () => {
     return activeSlot ? activeSlot.label : 'Break';
   };
 
+  const escapeHtml = (value = '') => String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+
+  const formatNotificationTime = (timestamp) => {
+    const parsed = Number(timestamp);
+    if (!Number.isFinite(parsed)) return '';
+
+    const date = new Date(parsed);
+    if (Number.isNaN(date.getTime())) return '';
+
+    return `${formatDateLocal(date)} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+  };
+
+  const renderNotifications = (notifications = []) => {
+    if (!notificationsList) return;
+
+    if (!notifications.length) {
+      notificationsList.innerHTML = `<p class="notifications-empty">${escapeHtml(dashboardI18n.noNotifications || 'No notifications.')}</p>`;
+      return;
+    }
+
+    notificationsList.innerHTML = notifications.map((notification) => `
+      <article class="notification-item ${notification.is_read ? 'is-read' : ''}">
+        <div class="notification-item-head">
+          <strong>${escapeHtml(notification.title)}</strong>
+          <span class="notification-time">${escapeHtml(formatNotificationTime(notification.created_at))}</span>
+        </div>
+        <p class="notification-message">${escapeHtml(notification.message)}</p>
+        <div class="notification-actions">
+          ${notification.is_read ? '' : `<button type="button" class="notification-action" data-action="read" data-id="${notification.id}">${escapeHtml(dashboardI18n.markRead || 'Mark as Read')}</button>`}
+          <button type="button" class="notification-action delete" data-action="delete" data-id="${notification.id}">${escapeHtml(dashboardI18n.deleteLabel || 'Delete')}</button>
+        </div>
+      </article>
+    `).join('');
+  };
+
+  const loadNotifications = async () => {
+    if (!notificationsList) return;
+
+    try {
+      const response = await fetch('/notifications', {
+        headers: { Accept: 'application/json' }
+      });
+
+      if (!response.ok) {
+        throw new Error('notifications_fetch_failed');
+      }
+
+      const payload = await response.json();
+      renderNotifications(payload.notifications || []);
+
+      if (notificationDot) {
+        notificationDot.hidden = !payload.unreadCount;
+      }
+    } catch (_err) {
+      notificationsList.innerHTML = `<p class="notifications-empty">${escapeHtml(dashboardI18n.loadFailed || 'Failed to load notifications.')}</p>`;
+    }
+  };
+
   const updateHeaderScheduleInfo = () => {
     if (!headerScheduleInfo) return;
     const now = new Date();
@@ -62,14 +134,111 @@ document.addEventListener('DOMContentLoaded', () => {
   profileTrigger?.addEventListener('click', () => {
     const isOpen = profileMenu?.classList.toggle('open');
     profileTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+    if (isOpen) {
+      notificationsMenu?.classList.remove('open');
+      notificationsTrigger?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  notificationsTrigger?.addEventListener('click', async () => {
+    const isOpen = notificationsMenu?.classList.toggle('open');
+    notificationsTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+    if (isOpen) {
+      profileMenu?.classList.remove('open');
+      profileTrigger?.setAttribute('aria-expanded', 'false');
+      languageMenu?.classList.remove('open');
+      languageTrigger?.setAttribute('aria-expanded', 'false');
+      await loadNotifications();
+    }
+  });
+
+  languageTrigger?.addEventListener('click', () => {
+    const isOpen = languageMenu?.classList.toggle('open');
+    languageTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+    if (isOpen) {
+      profileMenu?.classList.remove('open');
+      profileTrigger?.setAttribute('aria-expanded', 'false');
+      notificationsMenu?.classList.remove('open');
+      notificationsTrigger?.setAttribute('aria-expanded', 'false');
+    }
   });
 
   document.addEventListener('click', (e) => {
-    if (!profileMenu || !profileTrigger) return;
-    if (profileMenu.contains(e.target)) return;
-    profileMenu.classList.remove('open');
-    profileTrigger.setAttribute('aria-expanded', 'false');
+    if (profileMenu && profileTrigger && !profileMenu.contains(e.target)) {
+      profileMenu.classList.remove('open');
+      profileTrigger.setAttribute('aria-expanded', 'false');
+    }
+
+    if (notificationsMenu && notificationsTrigger && !notificationsMenu.contains(e.target)) {
+      notificationsMenu.classList.remove('open');
+      notificationsTrigger.setAttribute('aria-expanded', 'false');
+    }
+
+    if (languageMenu && languageTrigger && !languageMenu.contains(e.target)) {
+      languageMenu.classList.remove('open');
+      languageTrigger.setAttribute('aria-expanded', 'false');
+    }
   });
+
+  languagePanel?.addEventListener('click', async (event) => {
+    const button = event.target.closest('[data-lang]');
+    if (!button) return;
+
+    const language = button.getAttribute('data-lang');
+    if (!language) return;
+
+    try {
+      const response = await fetch('/auth/language', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({ language })
+      });
+
+      if (!response.ok) {
+        throw new Error('language_update_failed');
+      }
+
+      window.location.reload();
+    } catch (_err) {
+      // keep current language if update fails
+    }
+  });
+
+  notificationsList?.addEventListener('click', async (event) => {
+    const button = event.target.closest('[data-action][data-id]');
+    if (!button) return;
+
+    const action = button.getAttribute('data-action');
+    const notificationId = button.getAttribute('data-id');
+    if (!action || !notificationId) return;
+
+    try {
+      const response = await fetch(
+        action === 'read' ? `/notifications/${notificationId}/read` : `/notifications/${notificationId}`,
+        {
+          method: action === 'read' ? 'PATCH' : 'DELETE',
+          headers: { Accept: 'application/json' }
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('notification_action_failed');
+      }
+
+      await loadNotifications();
+    } catch (_err) {
+      await loadNotifications();
+    }
+  });
+
+  loadNotifications();
+  setInterval(loadNotifications, 60 * 1000);
 
   toggleUsernameCard?.addEventListener('click', () => {
     if (!usernameChangeCard) return;

@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const db = require('./models/db');
 const { getEffectiveRole } = require('./config/auth');
+const { SUPPORTED_LANGUAGES, normalizeLanguage, translate } = require('./utils/i18n');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -73,6 +74,15 @@ app.use((req, res, next) => {
         req.session.user.role = getEffectiveRole(req.session.user);
     }
 
+    const languageFromSessionUser = req.session?.user?.preferred_language;
+    const languageFromSession = req.session?.preferred_language;
+    const currentLanguage = normalizeLanguage(languageFromSessionUser || languageFromSession || 'en');
+
+    req.session.preferred_language = currentLanguage;
+    if (req.session.user) {
+        req.session.user.preferred_language = currentLanguage;
+    }
+
     res.locals.headerInfo = {
         date: formatDateLocal(now),
         week: getWeekCycle(now),
@@ -83,6 +93,9 @@ app.use((req, res, next) => {
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
     res.locals.user = req.session.user || null;
+    res.locals.currentLanguage = currentLanguage;
+    res.locals.supportedLanguages = SUPPORTED_LANGUAGES;
+    res.locals.t = (key, params = {}) => translate(currentLanguage, key, params);
     next();
 });
 
@@ -90,10 +103,12 @@ app.use((req, res, next) => {
 const indexRoutes = require('./routes/index');
 const authRoutes = require('./routes/auth');
 const studentRoutes = require('./routes/students');
+const notificationRoutes = require('./routes/notifications');
 
 app.use('/', indexRoutes);
 app.use('/auth', authRoutes);
 app.use('/admin/students', studentRoutes); // Protected route will be handled in studentRoutes
+app.use('/notifications', notificationRoutes);
 
 // Start server only after DB migrations are ready.
 db.ready

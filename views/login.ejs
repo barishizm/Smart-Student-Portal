@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= currentLanguage %>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VILNIUS TECH | LOGIN</title>
+    <title>VILNIUS TECH | <%= t('auth.signIn') %></title>
     <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
@@ -13,8 +13,8 @@
     
         <div class="login-card">
             <div class="login-header">
-                <h2>Sign In</h2>
-                <p>Enter your login details to sign in.</p>
+                <h2><%= t('auth.loginTitle') %></h2>
+                <p><%= t('auth.loginSubtitle') %></p>
             </div>
 
             <% if(error_msg && error_msg.length > 0){ %>
@@ -33,7 +33,7 @@
                 <div class="form-group">
                     <div class="input-wrapper">
                         <input type="text" id="email" name="email" placeholder=" " required autocomplete="username">
-                        <label for="email">Email or Username</label>
+                        <label for="email"><%= t('auth.emailOrUsername') %></label>
                     </div>
                     <span class="error-message" id="emailError"></span>
                 </div>
@@ -41,7 +41,7 @@
                 <div class="form-group">
                     <div class="input-wrapper password-wrapper">
                         <input type="password" id="password" name="password" placeholder=" " required autocomplete="current-password">
-                        <label for="password">Password</label>
+                        <label for="password"><%= t('auth.password') %></label>
                         <button type="button" class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
                             <span class="eye-icon"></span>
                         </button>    
@@ -54,20 +54,20 @@
                         <input type="checkbox" id="remember" name="remember">
                         <span class="checkbox-label">
                             <span class="checkmark"></span>
-                            Remember me
+                            <%= t('auth.rememberMe') %>
                         </span>
                     </label>
-                    <a href="/auth/forgot-password" class="forgot-password">Forgot password?</a>
+                    <a href="/auth/forgot-password" class="forgot-password"><%= t('auth.forgotPassword') %></a>
                 </div>
 
                 <button type="submit" class="login-btn btn">
-                    <span class="btn-text">Sign In</span>
+                    <span class="btn-text"><%= t('auth.signIn') %></span>
                     <span class="btn-loader"></span>
                 </button>
             </form>
 
             <div class="divider">
-                <span>or continue with</span>
+                <span><%= t('auth.orContinueWith') %></span>
             </div>
 
             <div class="social-login">
@@ -82,7 +82,7 @@
             </div>
 
             <div class="signup-link">
-                <p>Don't have an account? <a href="/auth/register">Sign up</a></p>
+                <p><%= t('auth.dontHaveAccount') %> <a href="/auth/register"><%= t('auth.signUp') %></a></p>
             </div>
 
              <!-- Success message container kept for JS animations if needed, but handled by EJS above mostly -->
@@ -92,9 +92,12 @@
                 <p>Redirecting to your dashboard...</p>
             </div>
         </div>
+
+        <%- include('partials/auth-language') %>
     </div>
 
     <script src="/js/form-utils.js"></script>
     <script src="/js/script.js"></script>
+    <script src="/js/auth-language.js"></script>
 </body>
 </html>

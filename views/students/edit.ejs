@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= currentLanguage %>">
 <head>
     <%- include('../partials/head') %>
-    <title>VILNIUS TECH | Edit Student</title>
+    <title>VILNIUS TECH | <%= t('students.editStudent') %></title>
 </head>
 <body>
     <div class="dash">
@@ -14,8 +14,8 @@
             <div class="content" style="max-width: 600px; margin: 0 auto;">
                 <div class="card">
                     <div class="card-head">
-                        <h2>Edit Student</h2>
-                        <a href="/admin/students" class="btn ghost">Back</a>
+                        <h2><%= t('students.editStudent') %></h2>
+                        <a href="/admin/students" class="btn ghost"><%= t('students.back') %></a>
                     </div>
                     
                     <% if(error_msg && error_msg.length > 0){ %>
@@ -26,44 +26,44 @@
 
                     <form action="/admin/students/<%= student.id %>" method="POST">
                         <div class="form-group" style="margin-bottom:15px;">
-                            <label>Student ID</label>
+                            <label><%= t('students.studentId') %></label>
                             <input type="text" name="student_id" value="<%= student.student_id %>" required class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
                         </div>
                         <div class="form-group" style="margin-bottom:15px;">
-                            <label>Name</label>
+                            <label><%= t('students.name') %></label>
                             <input type="text" name="name" value="<%= student.name %>" required class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
                         </div>
                         <div class="form-group" style="margin-bottom:15px;">
-                            <label>Surname</label>
+                            <label><%= t('students.surname') %></label>
                             <input type="text" name="surname" value="<%= student.surname %>" required class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
                         </div>
                         <div class="form-group" style="margin-bottom:15px;">
-                            <label>Email</label>
+                            <label><%= t('students.email') %></label>
                             <input type="email" name="email" value="<%= student.email %>" class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
                         </div>
                         <div class="form-group" style="margin-bottom:15px;">
-                            <label>Username (linked user)</label>
-                            <input type="text" name="username" value="<%= student.username || '' %>" class="input" placeholder="No linked user" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                            <label><%= t('students.linkedUsername') %></label>
+                            <input type="text" name="username" value="<%= student.username || '' %>" class="input" placeholder="<%= t('students.noLinkedUser') %>" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
                         </div>
                         <div class="form-group" style="margin-bottom:15px;">
-                            <label>Group</label>
+                            <label><%= t('students.group') %></label>
                             <input type="text" name="group_name" value="<%= student.group_name %>" class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
                         </div>
 
-                        <button type="button" id="togglePasswordFields" class="btn ghost" style="margin-bottom:12px;">Advanced: Change Password</button>
+                        <button type="button" id="togglePasswordFields" class="btn ghost" style="margin-bottom:12px;"><%= t('students.advancedPassword') %></button>
                         <div id="passwordFields" style="display:none; margin-bottom:15px; padding:12px; border:1px dashed rgba(255,255,255,.28); border-radius:10px;">
-                            <p style="margin-bottom:10px; font-size:13px; color:rgba(255,255,255,.84);">Hidden action — only fill when you intentionally want to change this user's password.</p>
+                            <p style="margin-bottom:10px; font-size:13px; color:rgba(255,255,255,.84);"><%= t('students.hiddenAction') %></p>
                             <div class="form-group" style="margin-bottom:10px;">
-                                <label>New Password</label>
+                                <label><%= t('students.newPassword') %></label>
                                 <input type="password" name="new_password" class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
                             </div>
                             <div class="form-group" style="margin-bottom:0;">
-                                <label>Confirm New Password</label>
+                                <label><%= t('students.confirmNewPassword') %></label>
                                 <input type="password" name="confirm_password" class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
                             </div>
                         </div>
 
-                        <button type="submit" class="btn">Update Student</button>
+                        <button type="submit" class="btn"><%= t('students.updateStudent') %></button>
                     </form>
                 </div>
             </div>
@@ -78,7 +78,7 @@
         toggleBtn.addEventListener('click', () => {
           const open = panel.style.display === 'block';
           panel.style.display = open ? 'none' : 'block';
-          toggleBtn.textContent = open ? 'Advanced: Change Password' : 'Hide Password Fields';
+                    toggleBtn.textContent = open ? '<%= t('students.advancedPassword') %>' : '<%= t('students.hidePasswordFields') %>';
         });
       }
     </script>

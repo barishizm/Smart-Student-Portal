@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= currentLanguage %>">
 <head>
     <%- include('../partials/head') %>
-    <title>VILNIUS TECH | Students</title>
+    <title>VILNIUS TECH | <%= t('students.title') %></title>
 </head>
 <body>
     <div class="dash">
@@ -14,10 +14,10 @@
             <div class="content">
                 <div class="card">
                     <div class="card-head">
-                        <h2>Student Management</h2>
+                        <h2><%= t('students.title') %></h2>
                         <div class="actions">
-                            <a href="/admin/students/new" class="btn">Add Student</a>
-                            <a href="/admin/students/xml" class="btn ghost" target="_blank">Export XML</a>
+                            <a href="/admin/students/new" class="btn"><%= t('students.addStudent') %></a>
+                            <a href="/admin/students/xml" class="btn ghost" target="_blank"><%= t('students.exportXml') %></a>
                         </div>
                     </div>
                     
@@ -36,13 +36,13 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Student ID</th>
-                                    <th>Name</th>
-                                    <th>Surname</th>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th>Group</th>
-                                    <th>Actions</th>
+                                    <th><%= t('students.studentId') %></th>
+                                    <th><%= t('students.name') %></th>
+                                    <th><%= t('students.surname') %></th>
+                                    <th><%= t('students.username') %></th>
+                                    <th><%= t('students.email') %></th>
+                                    <th><%= t('students.group') %></th>
+                                    <th><%= t('students.actions') %></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -56,17 +56,17 @@
                                             <td><%= student.email %></td>
                                             <td><%= student.group_name %></td>
                                             <td>
-                                                <a href="/admin/students/<%= student.id %>/edit" class="btn small">Edit</a>
+                                                <a href="/admin/students/<%= student.id %>/edit" class="btn small"><%= t('students.edit') %></a>
                                                 <form action="/admin/students/<%= student.id %>/delete" method="POST" style="display:inline;" onsubmit="return confirmDeleteStudent(this);">
                                                     <input type="hidden" name="delete_confirm" value="">
-                                                    <button type="submit" class="btn small danger">Delete</button>
+                                                    <button type="submit" class="btn small danger"><%= t('students.delete') %></button>
                                                 </form>
                                             </td>
                                         </tr>
                                     <% }); %>
                                 <% } else { %>
                                     <tr>
-                                                                                <td colspan="7" style="text-align:center;">No students found</td>
+                                                                                <td colspan="7" style="text-align:center;"><%= t('students.noStudents') %></td>
                                     </tr>
                                 <% } %>
                             </tbody>
@@ -80,12 +80,12 @@
     </div>
         <script>
             function confirmDeleteStudent(form) {
-                const firstConfirm = window.confirm('This will remove student and linked user from database. Continue?');
+                const firstConfirm = window.confirm('<%= t('students.deleteConfirm1') %>');
                 if (!firstConfirm) return false;
 
-                const typed = window.prompt("Type DELETE to confirm permanent deletion:");
+                const typed = window.prompt("<%= t('students.deleteConfirm2') %>");
                 if (typed !== 'DELETE') {
-                    window.alert('Deletion cancelled.');
+                    window.alert('<%= t('students.deleteCancelled') %>');
                     return false;
                 }
 

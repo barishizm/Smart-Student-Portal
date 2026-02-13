@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= currentLanguage %>">
 <head>
     <%- include('../partials/head') %>
-    <title>VILNIUS TECH | Add Student</title>
+    <title>VILNIUS TECH | <%= t('students.addNewStudent') %></title>
 </head>
 <body>
     <div class="dash">
@@ -14,8 +14,8 @@
             <div class="content" style="max-width: 600px; margin: 0 auto;">
                 <div class="card">
                     <div class="card-head">
-                        <h2>Add New Student</h2>
-                        <a href="/admin/students" class="btn ghost">Back</a>
+                        <h2><%= t('students.addNewStudent') %></h2>
+                        <a href="/admin/students" class="btn ghost"><%= t('students.back') %></a>
                     </div>
                     
                     <% if(error_msg && error_msg.length > 0){ %>
@@ -26,26 +26,26 @@
 
                     <form action="/admin/students" method="POST">
                         <div class="form-group" style="margin-bottom:15px;">
-                            <label>Student ID</label>
+                            <label><%= t('students.studentId') %></label>
                             <input type="text" name="student_id" required class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
                         </div>
                         <div class="form-group" style="margin-bottom:15px;">
-                            <label>Name</label>
+                            <label><%= t('students.name') %></label>
                             <input type="text" name="name" required class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
                         </div>
                         <div class="form-group" style="margin-bottom:15px;">
-                            <label>Surname</label>
+                            <label><%= t('students.surname') %></label>
                             <input type="text" name="surname" required class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
                         </div>
                         <div class="form-group" style="margin-bottom:15px;">
-                            <label>Email</label>
+                            <label><%= t('students.email') %></label>
                             <input type="email" name="email" class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
                         </div>
                         <div class="form-group" style="margin-bottom:15px;">
-                            <label>Group</label>
+                            <label><%= t('students.group') %></label>
                             <input type="text" name="group_name" class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
                         </div>
-                        <button type="submit" class="btn">Add Student</button>
+                        <button type="submit" class="btn"><%= t('students.addStudent') %></button>
                     </form>
                 </div>
             </div>

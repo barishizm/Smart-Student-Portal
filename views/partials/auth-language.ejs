@@ -1,0 +1,20 @@
+<div class="auth-language-wrap" id="authLanguageMenu">
+  <button
+    class="auth-language-trigger"
+    id="authLanguageTrigger"
+    type="button"
+    aria-label="<%= t('lang.label') %>"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
+    <span><%= String(currentLanguage || 'en').toUpperCase() %></span>
+  </button>
+
+  <div class="auth-language-panel" id="authLanguagePanel" role="menu" aria-label="<%= t('lang.label') %>">
+    <button type="button" class="auth-language-option <%= currentLanguage === 'lt' ? 'active' : '' %>" data-lang="lt"><%= t('lang.lt') %></button>
+    <button type="button" class="auth-language-option <%= currentLanguage === 'lv' ? 'active' : '' %>" data-lang="lv"><%= t('lang.lv') %></button>
+    <button type="button" class="auth-language-option <%= currentLanguage === 'ru' ? 'active' : '' %>" data-lang="ru"><%= t('lang.ru') %></button>
+    <button type="button" class="auth-language-option <%= currentLanguage === 'en' ? 'active' : '' %>" data-lang="en"><%= t('lang.en') %></button>
+    <button type="button" class="auth-language-option <%= currentLanguage === 'tr' ? 'active' : '' %>" data-lang="tr"><%= t('lang.tr') %></button>
+  </div>
+</div>

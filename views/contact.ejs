@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= currentLanguage %>">
 <head>
   <%- include('partials/head') %>
-  <title>VILNIUS TECH | Contact</title>
+  <title>VILNIUS TECH | <%= t('footer.contact') %></title>
 </head>
 <body>
   <div class="dash">
@@ -14,27 +14,27 @@
       <section class="content">
         <article class="card">
           <div class="card-head">
-            <h2>Contact</h2>
-            <span class="badge">Form</span>
+            <h2><%= t('contact.title') %></h2>
+            <span class="badge"><%= t('contact.form') %></span>
           </div>
 
-          <form id="contactForm" novalidate>
+          <form id="contactForm" novalidate data-required-msg="<%= t('contact.required') %>" data-success-msg="<%= t('contact.sent') %>">
             <div class="form-group" style="margin-bottom: 15px;">
-              <label for="name">Full Name</label>
+              <label for="name"><%= t('contact.fullName') %></label>
               <input type="text" id="name" required class="input" style="width:100%; padding:10px; border:1px solid rgba(255,255,255,.18); border-radius:8px; background:rgba(255,255,255,.10); color:rgba(255,255,255,.92);">
             </div>
 
             <div class="form-group" style="margin-bottom: 15px;">
-              <label for="email">Email Address</label>
+              <label for="email"><%= t('contact.emailAddress') %></label>
               <input type="email" id="email" required class="input" style="width:100%; padding:10px; border:1px solid rgba(255,255,255,.18); border-radius:8px; background:rgba(255,255,255,.10); color:rgba(255,255,255,.92);">
             </div>
 
             <div class="form-group" style="margin-bottom: 15px;">
-              <label for="message">Message</label>
+              <label for="message"><%= t('contact.message') %></label>
               <textarea id="message" rows="4" required class="input" style="width:100%; padding:10px; border:1px solid rgba(255,255,255,.18); border-radius:8px; background:rgba(255,255,255,.10); color:rgba(255,255,255,.92);"></textarea>
             </div>
 
-            <button type="submit" class="btn">Send Message</button>
+            <button type="submit" class="btn"><%= t('contact.sendMessage') %></button>
           </form>
         </article>
       </section>

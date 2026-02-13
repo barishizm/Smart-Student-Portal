@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= currentLanguage %>">
 <head>
   <%- include('partials/head') %>
-  <title>VILNIUS TECH | About</title>
+  <title>VILNIUS TECH | <%= t('footer.about') %></title>
 </head>
 <body>
   <div class="dash">
@@ -14,29 +14,28 @@
       <section class="content">
         <article class="card">
           <div class="card-head">
-            <h2>About the System</h2>
-            <span class="badge">Info</span>
+            <h2><%= t('about.title') %></h2>
+            <span class="badge"><%= t('dashboard.info') %></span>
           </div>
 
           <p class="muted" style="margin-bottom: 18px;">
-            This web portal is developed as part of an Internet Technologies project.
-            It integrates frontend structure, client-side validation, and modular architecture.
+            <%= t('about.description') %>
           </p>
 
           <div class="stats" style="grid-template-columns: repeat(3, minmax(200px, 1fr));">
             <div class="stat">
-              <strong>Frontend</strong>
-              <small>HTML5 semantic layout, CSS styling and responsive design.</small>
+              <strong><%= t('about.frontend') %></strong>
+              <small><%= t('about.frontendDesc') %></small>
             </div>
 
             <div class="stat">
-              <strong>Client-Side Logic</strong>
-              <small>JavaScript-based validation and UI behavior control.</small>
+              <strong><%= t('about.clientLogic') %></strong>
+              <small><%= t('about.clientLogicDesc') %></small>
             </div>
 
             <div class="stat">
-              <strong>Scalability</strong>
-              <small>Architecture designed for backend and database integration.</small>
+              <strong><%= t('about.scalability') %></strong>
+              <small><%= t('about.scalabilityDesc') %></small>
             </div>
           </div>
         </article>

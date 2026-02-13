@@ -1,23 +1,42 @@
 <header class="topbar">
   <div class="crumbs">
-    <h1>Mano VILNIUS TECH</h1>
+    <h1><%= t('header.portal') %></h1>
     <p id="headerScheduleInfo"><%= headerInfo.date %> • Week <%= headerInfo.week %> • <%= headerInfo.lecture %></p>
   </div>
 
   <div class="top-actions">
-    <button class="icon-btn" type="button" aria-label="Search">
-      <span aria-hidden="true">⌕</span>
-    </button>
-    <button class="icon-btn" type="button" aria-label="Messages">
-      <span aria-hidden="true">✉</span>
-    </button>
-    <button class="icon-btn" type="button" aria-label="Notifications">
-      <span class="dot" aria-hidden="true"></span>
-      <span aria-hidden="true">🔔</span>
-    </button>
+    <div class="notifications-wrap" id="notificationsMenu">
+      <button class="icon-btn notifications-trigger" id="notificationsTrigger" type="button" aria-label="<%= t('header.notifications') %>" aria-haspopup="true" aria-expanded="false">
+        <span class="dot" id="notificationDot" aria-hidden="true" hidden></span>
+        <span aria-hidden="true">🔔</span>
+      </button>
+
+      <div class="notifications-panel" id="notificationsPanel" role="menu" aria-label="<%= t('header.notifications') %>">
+        <div class="notifications-head">
+          <strong><%= t('header.notifications') %></strong>
+        </div>
+        <div class="notifications-list" id="notificationsList">
+          <p class="notifications-empty"><%= t('header.noNotifications') %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="language-wrap" id="languageMenu">
+      <button class="icon-btn language-trigger" id="languageTrigger" type="button" aria-label="<%= t('lang.label') %>" aria-haspopup="true" aria-expanded="false">
+        <span class="language-code"><%= String(currentLanguage || 'en').toUpperCase() %></span>
+      </button>
+
+      <div class="language-panel" id="languagePanel" role="menu" aria-label="<%= t('lang.label') %>">
+        <button type="button" class="language-option <%= currentLanguage === 'lt' ? 'active' : '' %>" data-lang="lt"><%= t('lang.lt') %></button>
+        <button type="button" class="language-option <%= currentLanguage === 'lv' ? 'active' : '' %>" data-lang="lv"><%= t('lang.lv') %></button>
+        <button type="button" class="language-option <%= currentLanguage === 'ru' ? 'active' : '' %>" data-lang="ru"><%= t('lang.ru') %></button>
+        <button type="button" class="language-option <%= currentLanguage === 'en' ? 'active' : '' %>" data-lang="en"><%= t('lang.en') %></button>
+        <button type="button" class="language-option <%= currentLanguage === 'tr' ? 'active' : '' %>" data-lang="tr"><%= t('lang.tr') %></button>
+      </div>
+    </div>
 
     <div class="profile-wrap" id="profileMenu">
-      <button class="profile profile-trigger" id="profileTrigger" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Open profile menu">
+      <button class="profile profile-trigger" id="profileTrigger" type="button" aria-haspopup="true" aria-expanded="false" aria-label="<%= t('header.profileMenu') %>">
         <div class="avatar" aria-hidden="true">
           <% if (user && user.avatar_url) { %>
             <img src="<%= user.avatar_url %>" alt="Profile photo" class="avatar-img">
@@ -27,7 +46,7 @@
         </div>
         <div class="profile-meta">
           <strong id="profileName"><%= user ? user.username : 'Guest' %></strong>
-          <small><%= user ? user.role : 'Visitor' %></small>
+          <small><%= user ? t(`roles.${user.role}`) : 'Visitor' %></small>
         </div>
       </button>
 
@@ -44,3 +63,12 @@
     </div>
   </div>
 </header>
+
+<script type="application/json" id="dashboardI18n">
+  {
+    "noNotifications": "<%= t('header.noNotifications') %>",
+    "loadFailed": "<%= t('header.loadFailed') %>",
+    "markRead": "<%= t('header.markRead') %>",
+    "deleteLabel": "<%= t('header.delete') %>"
+  }
+</script>

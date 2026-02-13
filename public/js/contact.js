@@ -1,15 +1,18 @@
 document.getElementById("contactForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
+    const requiredMessage = this.dataset.requiredMsg || "All fields are required.";
+    const successMessage = this.dataset.successMsg || "Message sent successfully (UI only).";
+
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const message = document.getElementById("message").value.trim();
 
     if (!name || !email || !message) {
-        alert("All fields are required.");
+        alert(requiredMessage);
         return;
     }
 
-    alert("Message sent successfully (UI only).");
+    alert(successMessage);
     this.reset();
 });

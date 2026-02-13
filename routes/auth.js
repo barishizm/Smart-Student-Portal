@@ -60,6 +60,9 @@ router.post('/change-username', authController.changeUsername);
 // Change Password Handle
 router.post('/change-password', authController.changePassword);
 
+// Language preference
+router.post('/language', authController.updatePreferredLanguage);
+
 // Profile Photo
 router.post('/profile-photo', requireProfileSession, (req, res) => {
 	upload.single('profile_photo')(req, res, (err) => {

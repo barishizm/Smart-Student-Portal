@@ -27,7 +27,7 @@ router.get('/profile', (req, res) => {
         return res.redirect('/');
     }
 
-    db.get('SELECT id, username, email, role, avatar_url, first_name, last_name FROM users WHERE id = ?', [req.session.user.id], (err, row) => {
+    db.get('SELECT id, username, email, role, avatar_url, first_name, last_name, preferred_language FROM users WHERE id = ?', [req.session.user.id], (err, row) => {
         if (err || !row) {
             req.flash('error_msg', 'Could not load profile details');
             return res.redirect('/dashboard');
@@ -39,6 +39,8 @@ router.get('/profile', (req, res) => {
         req.session.user.first_name = row.first_name || null;
         req.session.user.last_name = row.last_name || null;
         req.session.user.role = row.role || req.session.user.role;
+        req.session.user.preferred_language = row.preferred_language || req.session.user.preferred_language || 'en';
+        req.session.preferred_language = req.session.user.preferred_language;
 
         return res.render('profile', { user: req.session.user });
     });

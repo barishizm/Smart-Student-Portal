@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= currentLanguage %>">
 <head>
   <%- include('partials/head') %>
-  <title>VILNIUS TECH | DASHBOARD</title>
+  <title>VILNIUS TECH | <%= t('dashboard.title') %></title>
 </head>
 <body>
   <div class="dash">
@@ -19,24 +19,52 @@
         <!-- Announcement -->
          <article class="card hero">
           <div class="card-head">
-            <h2>Welcome Back, <%= user.username %></h2>
-            <span class="badge">Info</span>
+            <h2><%= t('dashboard.welcomeBack', { username: user.username }) %></h2>
+            <span class="badge"><%= t('dashboard.info') %></span>
           </div>
-          <p class="hero-title">System Status</p>
+          <p class="hero-title"><%= t('dashboard.systemStatus') %></p>
           <p class="muted">
-            You are logged in as <strong><%= user.role %></strong>. 
+            <%= t('dashboard.loggedInAs') %> <strong><%= user.role %></strong>. 
             <% if(user.role === 'admin') { %>
-                Navigate to the <strong>Students</strong> section to manage student records.
+                <%= t('dashboard.adminHint') %>
             <% } else { %>
-                Check your schedule and grades below.
+                <%= t('dashboard.studentHint') %>
             <% } %>
           </p>
           <div class="hero-actions">
             <% if(user.role === 'admin') { %>
-            <a class="btn" href="/admin/students" role="button">Manage Students</a>
+            <a class="btn" href="/admin/students" role="button"><%= t('dashboard.manageStudents') %></a>
             <% } %>
           </div>
         </article>
+
+        <% if(user.role === 'admin') { %>
+          <article class="card">
+            <div class="card-head">
+              <h2><%= t('dashboard.sendNotification') %></h2>
+              <span class="badge"><%= t('dashboard.admin') %></span>
+            </div>
+            <form action="/notifications/admin/broadcast" method="POST" class="profile-change-form">
+              <input
+                type="text"
+                name="title"
+                class="profile-change-input"
+                placeholder="<%= t('dashboard.notificationTitle') %>"
+                required
+                maxlength="120"
+              >
+              <textarea
+                name="message"
+                class="profile-change-input"
+                placeholder="<%= t('dashboard.notificationMessage') %>"
+                rows="4"
+                required
+                maxlength="1200"
+              ></textarea>
+              <button type="submit" class="btn profile-change-submit"><%= t('dashboard.sendAll') %></button>
+            </form>
+          </article>
+        <% } %>
 
         <% if(success_msg && success_msg.length > 0){ %>
             <div class="alert alert-success" style="grid-column: span 3;">

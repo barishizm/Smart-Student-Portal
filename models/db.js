@@ -52,6 +52,7 @@ const initializeDatabase = async () => {
   const hasAvatarColumn = userColumns.some((column) => column.name === "avatar_url");
   const hasFirstNameColumn = userColumns.some((column) => column.name === "first_name");
   const hasLastNameColumn = userColumns.some((column) => column.name === "last_name");
+  const hasPreferredLanguageColumn = userColumns.some((column) => column.name === "preferred_language");
 
   if (!hasEmailColumn) {
     await runAsync("ALTER TABLE users ADD COLUMN email TEXT");
@@ -77,6 +78,21 @@ const initializeDatabase = async () => {
     await runAsync("ALTER TABLE users ADD COLUMN last_name TEXT");
     console.log("Added last_name column to users table.");
   }
+
+  if (!hasPreferredLanguageColumn) {
+    await runAsync("ALTER TABLE users ADD COLUMN preferred_language TEXT DEFAULT 'en'");
+    console.log("Added preferred_language column to users table.");
+  }
+
+  await runAsync(
+    "UPDATE users SET preferred_language = 'en' WHERE preferred_language IS NULL OR trim(preferred_language) = ''",
+  );
+  await runAsync(
+    "UPDATE users SET preferred_language = lower(trim(preferred_language))",
+  );
+  await runAsync(
+    "UPDATE users SET preferred_language = 'en' WHERE preferred_language NOT IN ('en', 'lt', 'tr', 'lv', 'ru')",
+  );
 
   await runAsync(
     "CREATE UNIQUE INDEX IF NOT EXISTS idx_users_email_unique ON users(email) WHERE email IS NOT NULL",
@@ -122,6 +138,37 @@ const initializeDatabase = async () => {
   );
   await runAsync(
     "CREATE INDEX IF NOT EXISTS idx_password_reset_expiry ON password_reset_tokens(expires_at)",
+  );
+
+  await runAsync(`
+    CREATE TABLE IF NOT EXISTS notifications (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      message TEXT NOT NULL,
+      created_by INTEGER,
+      created_at INTEGER NOT NULL,
+      FOREIGN KEY(created_by) REFERENCES users(id) ON DELETE SET NULL
+    )
+  `);
+
+  await runAsync(`
+    CREATE TABLE IF NOT EXISTS notification_receipts (
+      notification_id INTEGER NOT NULL,
+      user_id INTEGER NOT NULL,
+      is_read INTEGER NOT NULL DEFAULT 0,
+      read_at INTEGER,
+      deleted_at INTEGER,
+      PRIMARY KEY (notification_id, user_id),
+      FOREIGN KEY(notification_id) REFERENCES notifications(id) ON DELETE CASCADE,
+      FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
+    )
+  `);
+
+  await runAsync(
+    "CREATE INDEX IF NOT EXISTS idx_notification_receipts_user_visible ON notification_receipts(user_id, deleted_at, is_read)",
+  );
+  await runAsync(
+    "CREATE INDEX IF NOT EXISTS idx_notifications_created_at ON notifications(created_at DESC)",
   );
 
   await runAsync(`

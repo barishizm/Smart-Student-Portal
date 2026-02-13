@@ -21,6 +21,75 @@ body {
     width: 100%;
     max-width: 420px;
     perspective: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-language-wrap {
+    position: relative;
+    margin-top: 12px;
+}
+
+.auth-language-trigger {
+    width: auto;
+    min-width: 54px;
+    height: 34px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.95);
+    padding: 0 12px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.auth-language-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translate(-50%, -6px);
+    width: 170px;
+    padding: 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(25, 45, 110, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.24);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 30;
+}
+
+.auth-language-wrap.open .auth-language-panel {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+}
+
+.auth-language-option {
+    width: 100%;
+    appearance: none;
+    border: 1px solid transparent;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.95);
+    border-radius: 9px;
+    padding: 9px 10px;
+    text-align: left;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.auth-language-option:hover,
+.auth-language-option.active {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.18);
 }
 
 /* Form Group & Input Styles */
@@ -49,13 +118,13 @@ body {
     backdrop-filter: blur(10px);
 }
 
-/* input doluysa */
+/* When the input has a value */
 .input-wrapper.has-value label {
   opacity: 0;
   transform: translateY(-8px) scale(0.85);
 }
 
-/* focus anında da istersen (opsiyonel) */
+/* Optional: apply same behavior on focus */
 .input-wrapper:focus-within label {
   opacity: 0;
   transform: translateY(-8px) scale(0.85);

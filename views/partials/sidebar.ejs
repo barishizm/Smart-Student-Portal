@@ -11,12 +11,12 @@
     <div class="nav-group has-submenu" id="studiesItem">
       <a class="nav-item nav-trigger" href="#" id="studiesTrigger">
         <span class="nav-ico" aria-hidden="true">🎓</span>
-        <span class="nav-label">Studies</span>
+        <span class="nav-label"><%= t('sidebar.studies') %></span>
       </a>
 
       <div class="submenu" id="studiesSubmenu">
-        <a class="nav-subitem" href="#">This Semester</a>
-        <a class="nav-subitem" href="#">Study Programme</a>
+        <a class="nav-subitem" href="#"><%= t('sidebar.thisSemester') %></a>
+        <a class="nav-subitem" href="#"><%= t('sidebar.studyProgramme') %></a>
       </div>
     </div>
     
@@ -25,22 +25,22 @@
     <div class="nav-group" id="adminItem">
         <a class="nav-item" href="/admin/students">
             <span class="nav-ico" aria-hidden="true">👥</span>
-        <span class="nav-label">Students</span>
+        <span class="nav-label"><%= t('sidebar.students') %></span>
         </a>
     </div>
     <% } %>
 
     <a class="nav-item" href="#">
       <span class="nav-ico" aria-hidden="true">⚙️</span>
-      <span class="nav-label">IT services</span>
+      <span class="nav-label"><%= t('sidebar.itServices') %></span>
     </a>
     
   </nav>
 
   <div class="sidebar-footer">
-    <button class="pill collapse-btn" id="collapseBtn" type="button" aria-label="Toggle sidebar">
+    <button class="pill collapse-btn" id="collapseBtn" type="button" aria-label="<%= t('sidebar.toggleSidebar') %>">
       <span aria-hidden="true">≡</span>
-      <span class="pill-label">Collapse</span>
+      <span class="pill-label"><%= t('sidebar.collapse') %></span>
     </button>
   </div>
 </aside>

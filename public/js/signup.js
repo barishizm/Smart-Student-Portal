@@ -45,14 +45,14 @@ class SignupForm {
 
       field.addEventListener('blur', () => { if (this.submittedOnce) this.validateField(fieldName); });
       field.addEventListener('input', () => {
-        // confirmPassword, password değişince birlikte kontrol edilsin
+        // Re-check confirmPassword when password or confirmPassword changes
         FormUtils.clearError(fieldName);
         if (fieldName === 'password' || fieldName === 'confirmPassword') {
           FormUtils.clearError('confirmPassword');
         }
       });
 
-      // checkbox için change daha mantıklı
+      // `change` is more appropriate for checkbox inputs
       if (field.type === 'checkbox') {
         field.addEventListener('change', () => { if (this.submittedOnce) this.validateField(fieldName); });
       }
@@ -131,7 +131,7 @@ class SignupForm {
     this.submitBtn.classList.add('loading');
 
     try {
-      // demo: network simülasyonu
+      // Demo: simulate network delay
       await new Promise((res) => setTimeout(res, 1200));
 
       this.showSuccessMessage();
