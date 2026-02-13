@@ -45,6 +45,7 @@
               <span class="badge"><%= t('dashboard.admin') %></span>
             </div>
             <form action="/notifications/admin/broadcast" method="POST" class="profile-change-form">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
               <input
                 type="text"
                 name="title"

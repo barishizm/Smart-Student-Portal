@@ -3,7 +3,31 @@ const router = express.Router();
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
+const rateLimit = require('express-rate-limit');
 const authController = require('../controllers/authController');
+
+const authLimiter = rateLimit({
+	windowMs: 15 * 60 * 1000,
+	max: 100,
+	standardHeaders: true,
+	legacyHeaders: false,
+});
+
+const loginLimiter = rateLimit({
+	windowMs: 15 * 60 * 1000,
+	max: 10,
+	standardHeaders: true,
+	legacyHeaders: false,
+	message: 'Too many login attempts. Please try again later.'
+});
+
+const passwordResetLimiter = rateLimit({
+	windowMs: 15 * 60 * 1000,
+	max: 6,
+	standardHeaders: true,
+	legacyHeaders: false,
+	message: 'Too many password reset requests. Please try again later.'
+});
 
 const profileUploadDir = path.resolve(__dirname, '../public/uploads/profile');
 fs.mkdirSync(profileUploadDir, { recursive: true });
@@ -41,18 +65,18 @@ const requireProfileSession = (req, res, next) => {
 router.get('/register', authController.registerPage);
 
 // Register Handle
-router.post('/register', authController.register);
+router.post('/register', authLimiter, authController.register);
 
 // Login Handle
-router.post('/login', authController.login);
+router.post('/login', loginLimiter, authController.login);
 
 // Forgot Password
 router.get('/forgot-password', authController.forgotPasswordPage);
-router.post('/forgot-password', authController.requestPasswordReset);
+router.post('/forgot-password', passwordResetLimiter, authController.requestPasswordReset);
 
 // Reset Password
 router.get('/reset-password/:token', authController.resetPasswordPage);
-router.post('/reset-password', authController.resetPassword);
+router.post('/reset-password', passwordResetLimiter, authController.resetPassword);
 
 // Change Username Handle
 router.post('/change-username', authController.changeUsername);

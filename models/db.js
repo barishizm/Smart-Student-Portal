@@ -1,41 +1,115 @@
-const sqlite3 = require("sqlite3").verbose();
-const path = require("path");
-const { ADMIN_IDENTIFIER } = require("../config/auth");
+const Database = require('better-sqlite3');
+const path = require('path');
+const { ADMIN_IDENTIFIER } = require('../config/auth');
 
-const dbPath = path.resolve(__dirname, "../database.sqlite");
+const dbPath = path.resolve(__dirname, '../database.sqlite');
 
-const db = new sqlite3.Database(dbPath, (err) => {
-  if (err) {
-    console.error(`Error opening database ${dbPath}: ${err.message}`);
-  } else {
-    console.log("Connected to the SQLite database.");
+let rawDb;
+try {
+  rawDb = new Database(dbPath);
+  rawDb.pragma('foreign_keys = ON');
+  console.log('Connected to the SQLite database.');
+} catch (err) {
+  console.error(`Error opening database ${dbPath}: ${err.message}`);
+  throw err;
+}
+
+const normalizeParams = (params) => {
+  if (Array.isArray(params)) {
+    return params;
   }
-});
+
+  if (params === undefined || params === null) {
+    return [];
+  }
+
+  return [params];
+};
+
+const parseMethodArgs = (params, cb) => {
+  if (typeof params === 'function') {
+    return { params: [], cb: params };
+  }
+
+  return { params: normalizeParams(params), cb };
+};
+
+const asyncCallback = (fn) => {
+  process.nextTick(fn);
+};
+
+const db = {
+  get(sql, params, cb) {
+    const parsed = parseMethodArgs(params, cb);
+
+    try {
+      const row = rawDb.prepare(sql).get(...parsed.params);
+      if (parsed.cb) {
+        asyncCallback(() => parsed.cb(null, row));
+        return this;
+      }
+      return row;
+    } catch (err) {
+      if (parsed.cb) {
+        asyncCallback(() => parsed.cb(err));
+        return this;
+      }
+      throw err;
+    }
+  },
+
+  all(sql, params, cb) {
+    const parsed = parseMethodArgs(params, cb);
+
+    try {
+      const rows = rawDb.prepare(sql).all(...parsed.params);
+      if (parsed.cb) {
+        asyncCallback(() => parsed.cb(null, rows));
+        return this;
+      }
+      return rows;
+    } catch (err) {
+      if (parsed.cb) {
+        asyncCallback(() => parsed.cb(err));
+        return this;
+      }
+      throw err;
+    }
+  },
+
+  run(sql, params, cb) {
+    const parsed = parseMethodArgs(params, cb);
+
+    try {
+      const info = rawDb.prepare(sql).run(...parsed.params);
+      const context = {
+        lastID: Number(info.lastInsertRowid || 0),
+        changes: Number(info.changes || 0)
+      };
+
+      if (parsed.cb) {
+        asyncCallback(() => parsed.cb.call(context, null));
+        return this;
+      }
+
+      return context;
+    } catch (err) {
+      if (parsed.cb) {
+        asyncCallback(() => parsed.cb.call({ lastID: 0, changes: 0 }, err));
+        return this;
+      }
+      throw err;
+    }
+  }
+};
 
 const runAsync = (sql, params = []) =>
-  new Promise((resolve, reject) => {
-    db.run(sql, params, function onRun(err) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(this);
-      }
-    });
-  });
+  Promise.resolve().then(() => db.run(sql, params));
 
 const allAsync = (sql, params = []) =>
-  new Promise((resolve, reject) => {
-    db.all(sql, params, (err, rows) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(rows);
-      }
-    });
-  });
+  Promise.resolve().then(() => db.all(sql, params));
 
 const initializeDatabase = async () => {
-  // Keep CREATE TABLE compatible with older schemas; enforce email uniqueness via index.
   await runAsync(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -46,79 +120,73 @@ const initializeDatabase = async () => {
     )
   `);
 
-  const userColumns = await allAsync("PRAGMA table_info(users)");
-  const hasEmailColumn = userColumns.some((column) => column.name === "email");
-  const hasRoleColumn = userColumns.some((column) => column.name === "role");
-  const hasAvatarColumn = userColumns.some((column) => column.name === "avatar_url");
-  const hasFirstNameColumn = userColumns.some((column) => column.name === "first_name");
-  const hasLastNameColumn = userColumns.some((column) => column.name === "last_name");
-  const hasPreferredLanguageColumn = userColumns.some((column) => column.name === "preferred_language");
+  const userColumns = await allAsync('PRAGMA table_info(users)');
+  const hasEmailColumn = userColumns.some((column) => column.name === 'email');
+  const hasRoleColumn = userColumns.some((column) => column.name === 'role');
+  const hasAvatarColumn = userColumns.some((column) => column.name === 'avatar_url');
+  const hasFirstNameColumn = userColumns.some((column) => column.name === 'first_name');
+  const hasLastNameColumn = userColumns.some((column) => column.name === 'last_name');
+  const hasPreferredLanguageColumn = userColumns.some((column) => column.name === 'preferred_language');
 
   if (!hasEmailColumn) {
-    await runAsync("ALTER TABLE users ADD COLUMN email TEXT");
-    console.log("Added email column to users table.");
+    await runAsync('ALTER TABLE users ADD COLUMN email TEXT');
+    console.log('Added email column to users table.');
   }
 
   if (!hasRoleColumn) {
     await runAsync("ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'student'");
-    console.log("Added role column to users table.");
+    console.log('Added role column to users table.');
   }
 
   if (!hasAvatarColumn) {
-    await runAsync("ALTER TABLE users ADD COLUMN avatar_url TEXT");
-    console.log("Added avatar_url column to users table.");
+    await runAsync('ALTER TABLE users ADD COLUMN avatar_url TEXT');
+    console.log('Added avatar_url column to users table.');
   }
 
   if (!hasFirstNameColumn) {
-    await runAsync("ALTER TABLE users ADD COLUMN first_name TEXT");
-    console.log("Added first_name column to users table.");
+    await runAsync('ALTER TABLE users ADD COLUMN first_name TEXT');
+    console.log('Added first_name column to users table.');
   }
 
   if (!hasLastNameColumn) {
-    await runAsync("ALTER TABLE users ADD COLUMN last_name TEXT");
-    console.log("Added last_name column to users table.");
+    await runAsync('ALTER TABLE users ADD COLUMN last_name TEXT');
+    console.log('Added last_name column to users table.');
   }
 
   if (!hasPreferredLanguageColumn) {
     await runAsync("ALTER TABLE users ADD COLUMN preferred_language TEXT DEFAULT 'en'");
-    console.log("Added preferred_language column to users table.");
+    console.log('Added preferred_language column to users table.');
   }
 
   await runAsync(
-    "UPDATE users SET preferred_language = 'en' WHERE preferred_language IS NULL OR trim(preferred_language) = ''",
+    "UPDATE users SET preferred_language = 'en' WHERE preferred_language IS NULL OR trim(preferred_language) = ''"
   );
+  await runAsync('UPDATE users SET preferred_language = lower(trim(preferred_language))');
   await runAsync(
-    "UPDATE users SET preferred_language = lower(trim(preferred_language))",
-  );
-  await runAsync(
-    "UPDATE users SET preferred_language = 'en' WHERE preferred_language NOT IN ('en', 'lt', 'tr', 'lv', 'ru')",
+    "UPDATE users SET preferred_language = 'en' WHERE preferred_language NOT IN ('en', 'lt', 'tr', 'lv', 'ru')"
   );
 
   await runAsync(
-    "CREATE UNIQUE INDEX IF NOT EXISTS idx_users_email_unique ON users(email) WHERE email IS NOT NULL",
+    'CREATE UNIQUE INDEX IF NOT EXISTS idx_users_email_unique ON users(email) WHERE email IS NOT NULL'
   );
 
-  await runAsync(
-    "UPDATE users SET email = lower(trim(email)) WHERE email IS NOT NULL",
-  );
-  await runAsync(
-    "UPDATE users SET username = trim(username) WHERE username IS NOT NULL",
-  );
+  await runAsync('UPDATE users SET email = lower(trim(email)) WHERE email IS NOT NULL');
+  await runAsync('UPDATE users SET username = trim(username) WHERE username IS NOT NULL');
   await runAsync(
     "UPDATE users SET role = 'student' WHERE lower(COALESCE(email, '')) != ? AND lower(COALESCE(username, '')) != ?",
-    [ADMIN_IDENTIFIER, ADMIN_IDENTIFIER],
+    [ADMIN_IDENTIFIER, ADMIN_IDENTIFIER]
   );
   await runAsync(
     "UPDATE users SET role = 'admin' WHERE lower(COALESCE(email, '')) = ? OR lower(COALESCE(username, '')) = ?",
-    [ADMIN_IDENTIFIER, ADMIN_IDENTIFIER],
+    [ADMIN_IDENTIFIER, ADMIN_IDENTIFIER]
   );
   await runAsync(
     "UPDATE users SET email = NULL WHERE lower(COALESCE(email, '')) = ? AND lower(COALESCE(username, '')) != ?",
-    [ADMIN_IDENTIFIER, ADMIN_IDENTIFIER],
+    [ADMIN_IDENTIFIER, ADMIN_IDENTIFIER]
   );
   await runAsync(
     "UPDATE users SET email = ? WHERE (email IS NULL OR trim(email) = '') AND lower(COALESCE(username, '')) = ?",
-    [ADMIN_IDENTIFIER, ADMIN_IDENTIFIER],
+    [ADMIN_IDENTIFIER, ADMIN_IDENTIFIER]
   );
 
   await runAsync(`
@@ -133,12 +201,8 @@ const initializeDatabase = async () => {
     )
   `);
 
-  await runAsync(
-    "CREATE INDEX IF NOT EXISTS idx_password_reset_user ON password_reset_tokens(user_id)",
-  );
-  await runAsync(
-    "CREATE INDEX IF NOT EXISTS idx_password_reset_expiry ON password_reset_tokens(expires_at)",
-  );
+  await runAsync('CREATE INDEX IF NOT EXISTS idx_password_reset_user ON password_reset_tokens(user_id)');
+  await runAsync('CREATE INDEX IF NOT EXISTS idx_password_reset_expiry ON password_reset_tokens(expires_at)');
 
   await runAsync(`
     CREATE TABLE IF NOT EXISTS notifications (
@@ -165,11 +229,9 @@ const initializeDatabase = async () => {
   `);
 
   await runAsync(
-    "CREATE INDEX IF NOT EXISTS idx_notification_receipts_user_visible ON notification_receipts(user_id, deleted_at, is_read)",
+    'CREATE INDEX IF NOT EXISTS idx_notification_receipts_user_visible ON notification_receipts(user_id, deleted_at, is_read)'
   );
-  await runAsync(
-    "CREATE INDEX IF NOT EXISTS idx_notifications_created_at ON notifications(created_at DESC)",
-  );
+  await runAsync('CREATE INDEX IF NOT EXISTS idx_notifications_created_at ON notifications(created_at DESC)');
 
   await runAsync(`
     CREATE TABLE IF NOT EXISTS students (
@@ -185,15 +247,15 @@ const initializeDatabase = async () => {
     )
   `);
 
-  const studentColumns = await allAsync("PRAGMA table_info(students)");
-  const hasStudentUserIdColumn = studentColumns.some((column) => column.name === "user_id");
+  const studentColumns = await allAsync('PRAGMA table_info(students)');
+  const hasStudentUserIdColumn = studentColumns.some((column) => column.name === 'user_id');
   if (!hasStudentUserIdColumn) {
-    await runAsync("ALTER TABLE students ADD COLUMN user_id INTEGER");
-    console.log("Added user_id column to students table.");
+    await runAsync('ALTER TABLE students ADD COLUMN user_id INTEGER');
+    console.log('Added user_id column to students table.');
   }
 
   await runAsync(
-    "CREATE UNIQUE INDEX IF NOT EXISTS idx_students_user_id_unique ON students(user_id) WHERE user_id IS NOT NULL",
+    'CREATE UNIQUE INDEX IF NOT EXISTS idx_students_user_id_unique ON students(user_id) WHERE user_id IS NOT NULL'
   );
 
   await runAsync(
@@ -212,7 +274,7 @@ const initializeDatabase = async () => {
        AND trim(u.email) != ''
        AND lower(u.email) != ?
        AND s.id IS NULL`,
-    [ADMIN_IDENTIFIER],
+    [ADMIN_IDENTIFIER]
   );
 
   await runAsync(
@@ -224,12 +286,12 @@ const initializeDatabase = async () => {
      )
      WHERE user_id IS NULL
        AND email IS NOT NULL
-       AND trim(email) != ''`,
+       AND trim(email) != ''`
   );
 };
 
 db.ready = initializeDatabase().catch((err) => {
-  console.error("Database initialization failed:", err.message);
+  console.error('Database initialization failed:', err.message);
   throw err;
 });
 

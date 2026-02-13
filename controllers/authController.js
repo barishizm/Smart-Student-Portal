@@ -59,6 +59,17 @@ const dbRun = (sql, params = []) =>
         });
     });
 
+const regenerateSession = (req) =>
+    new Promise((resolve, reject) => {
+        req.session.regenerate((err) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve();
+            }
+        });
+    });
+
 const renderRegisterWithErrors = (res, errors, formData) => {
     return res.status(400).render('register', {
         errors,
@@ -186,6 +197,8 @@ exports.login = async (req, res) => {
             req.flash('error_msg', 'Password incorrect');
             return res.redirect('/');
         }
+
+        await regenerateSession(req);
 
         req.session.user = {
             id: user.id,
@@ -557,6 +570,7 @@ exports.logout = (req, res) => {
         if (err) {
             console.log(err);
         }
+        res.clearCookie('ssp.sid');
         res.redirect('/');
     });
 };

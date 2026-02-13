@@ -25,6 +25,7 @@
                     <% } %>
 
                     <form action="/admin/students/<%= student.id %>" method="POST">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <div class="form-group" style="margin-bottom:15px;">
                             <label><%= t('students.studentId') %></label>
                             <input type="text" name="student_id" value="<%= student.student_id %>" required class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">

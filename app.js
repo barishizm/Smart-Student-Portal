@@ -4,12 +4,16 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const crypto = require('crypto');
+const helmet = require('helmet');
 const db = require('./models/db');
 const { getEffectiveRole } = require('./config/auth');
 const { SUPPORTED_LANGUAGES, normalizeLanguage, translate } = require('./utils/i18n');
+const { csrfProtection } = require('./utils/security');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const SESSION_SECRET = process.env.SESSION_SECRET || crypto.randomBytes(48).toString('hex');
 
 const formatDateLocal = (date) => {
     const year = date.getFullYear();
@@ -51,16 +55,28 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // Middleware
+app.disable('x-powered-by');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false
+}));
 
 // Session setup
 app.use(session({
-    secret: 'secret_key_change_this_later', // In production, use environment variable
+    name: 'ssp.sid',
+    secret: SESSION_SECRET,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        sameSite: 'lax',
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 1000 * 60 * 60 * 8
+    }
 }));
 
 // Flash messages
@@ -98,6 +114,8 @@ app.use((req, res, next) => {
     res.locals.t = (key, params = {}) => translate(currentLanguage, key, params);
     next();
 });
+
+app.use(csrfProtection);
 
 // Routes
 const indexRoutes = require('./routes/index');

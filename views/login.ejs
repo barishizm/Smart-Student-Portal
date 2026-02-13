@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<%= csrfToken %>">
     <title>VILNIUS TECH | <%= t('auth.signIn') %></title>
     <link rel="stylesheet" href="/css/login.css">
 </head>
@@ -30,6 +31,7 @@
             <% } %>
             
             <form class="login-form" id="loginForm" action="/auth/login" method="POST" novalidate>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <div class="form-group">
                     <div class="input-wrapper">
                         <input type="text" id="email" name="email" placeholder=" " required autocomplete="username">

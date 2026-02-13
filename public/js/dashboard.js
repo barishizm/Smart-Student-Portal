@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   const headerScheduleInfo = document.getElementById('headerScheduleInfo');
   const root = document.querySelector('.dash');
+  const sidebar = document.querySelector('.sidebar');
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
   const collapseBtn = document.getElementById('collapseBtn');
   const profileMenu = document.getElementById('profileMenu');
   const profileTrigger = document.getElementById('profileTrigger');
@@ -22,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const todayBtn = document.getElementById('todayBtn');
   const i18nJsonEl = document.getElementById('dashboardI18n');
   const dashboardI18n = i18nJsonEl ? JSON.parse(i18nJsonEl.textContent) : {};
+  const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
 
   const formatDateLocal = (date) => {
     const year = date.getFullYear();
@@ -130,6 +133,18 @@ document.addEventListener('DOMContentLoaded', () => {
     root?.classList.toggle('collapsed');
   });
 
+  const closeMobileMenu = () => {
+    if (!sidebar || !mobileMenuBtn) return;
+    sidebar.classList.remove('mobile-open');
+    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+  };
+
+  mobileMenuBtn?.addEventListener('click', () => {
+    if (!sidebar) return;
+    const isOpen = sidebar.classList.toggle('mobile-open');
+    mobileMenuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
   // Profile dropdown
   profileTrigger?.addEventListener('click', () => {
     const isOpen = profileMenu?.classList.toggle('open');
@@ -167,6 +182,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.addEventListener('click', (e) => {
+    if (sidebar && mobileMenuBtn && window.matchMedia('(max-width: 860px)').matches) {
+      const clickedInsideSidebar = sidebar.contains(e.target);
+      if (!clickedInsideSidebar) {
+        closeMobileMenu();
+      }
+    }
+
     if (profileMenu && profileTrigger && !profileMenu.contains(e.target)) {
       profileMenu.classList.remove('open');
       profileTrigger.setAttribute('aria-expanded', 'false');
@@ -195,7 +217,8 @@ document.addEventListener('DOMContentLoaded', () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Accept: 'application/json'
+          Accept: 'application/json',
+          'x-csrf-token': csrfToken
         },
         body: JSON.stringify({ language })
       });
@@ -223,7 +246,10 @@ document.addEventListener('DOMContentLoaded', () => {
         action === 'read' ? `/notifications/${notificationId}/read` : `/notifications/${notificationId}`,
         {
           method: action === 'read' ? 'PATCH' : 'DELETE',
-          headers: { Accept: 'application/json' }
+          headers: {
+            Accept: 'application/json',
+            'x-csrf-token': csrfToken
+          }
         }
       );
 
@@ -239,6 +265,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   loadNotifications();
   setInterval(loadNotifications, 60 * 1000);
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 860) {
+      closeMobileMenu();
+    }
+  });
 
   toggleUsernameCard?.addEventListener('click', () => {
     if (!usernameChangeCard) return;

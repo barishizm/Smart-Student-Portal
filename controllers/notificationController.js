@@ -156,6 +156,11 @@ exports.broadcastNotification = async (req, res) => {
     return res.redirect('/dashboard');
   }
 
+  if (title.length > 120 || message.length > 1200) {
+    req.flash('error_msg', 'Notification title or message exceeds allowed length');
+    return res.redirect('/dashboard');
+  }
+
   try {
     const now = Date.now();
     const created = await dbRun(

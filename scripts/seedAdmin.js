@@ -1,11 +1,13 @@
 const db = require('../models/db');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const { ADMIN_IDENTIFIER } = require('../config/auth');
 
 const seedAdmin = async () => {
     const username = ADMIN_IDENTIFIER;
     const email = ADMIN_IDENTIFIER;
-    const password = 'admin';
+    const configuredPassword = (process.env.ADMIN_PASSWORD || '').trim();
+    const password = configuredPassword || crypto.randomBytes(12).toString('base64url');
     const saltRounds = 10;
 
     db.get("SELECT * FROM users WHERE lower(username) = lower(?) OR lower(email) = lower(?)", [username, email], async (err, row) => {
@@ -27,7 +29,11 @@ const seedAdmin = async () => {
                 if (err) {
                     console.error(err.message);
                 } else {
-                    console.log(`Admin user created.\nUsername: ${username}\nEmail: ${email}\nPassword: ${password}`);
+                    console.log(`Admin user created.\nUsername: ${username}\nEmail: ${email}`);
+                    if (!configuredPassword) {
+                        console.log(`Generated temporary admin password: ${password}`);
+                        console.log('Set ADMIN_PASSWORD environment variable for deterministic seeding.');
+                    }
                 }
             });
         }

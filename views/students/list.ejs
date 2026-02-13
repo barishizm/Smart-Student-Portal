@@ -58,6 +58,7 @@
                                             <td>
                                                 <a href="/admin/students/<%= student.id %>/edit" class="btn small"><%= t('students.edit') %></a>
                                                 <form action="/admin/students/<%= student.id %>/delete" method="POST" style="display:inline;" onsubmit="return confirmDeleteStudent(this);">
+                                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                                     <input type="hidden" name="delete_confirm" value="">
                                                     <button type="submit" class="btn small danger"><%= t('students.delete') %></button>
                                                 </form>

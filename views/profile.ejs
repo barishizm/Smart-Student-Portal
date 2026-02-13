@@ -54,6 +54,7 @@
 
               <% if (user && user.avatar_url) { %>
                 <form action="/auth/profile-photo/delete" method="POST">
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                   <button type="submit" class="btn ghost"><%= t('profile.deletePhoto') %></button>
                 </form>
               <% } %>
@@ -92,6 +93,7 @@
           <div id="usernameChangeCard" class="profile-change-card" hidden>
             <h3 class="profile-change-title"><%= t('profile.changeUsername') %></h3>
             <form action="/auth/change-username" method="POST" class="profile-change-form">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
               <input type="text" name="current_identity" placeholder="<%= t('profile.currentIdentity') %>" required autocomplete="username" class="profile-change-input">
               <input type="password" name="password" placeholder="<%= t('profile.currentPassword') %>" required autocomplete="current-password" class="profile-change-input">
               <input type="text" name="new_username" placeholder="<%= t('profile.newUsername') %>" required autocomplete="username" class="profile-change-input">
@@ -102,6 +104,7 @@
           <div id="passwordChangeCard" class="profile-change-card" hidden>
             <h3 class="profile-change-title"><%= t('profile.changePassword') %></h3>
             <form action="/auth/change-password" method="POST" class="profile-change-form">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
               <input type="password" name="current_password" placeholder="<%= t('profile.currentPassword') %>" required autocomplete="current-password" class="profile-change-input">
               <input type="password" name="new_password" placeholder="<%= t('profile.newPassword') %>" required autocomplete="new-password" class="profile-change-input">
               <input type="password" name="confirm_password" placeholder="<%= t('profile.confirmNewPassword') %>" required autocomplete="new-password" class="profile-change-input">

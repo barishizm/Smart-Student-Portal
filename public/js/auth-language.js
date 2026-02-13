@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const menu = document.getElementById('authLanguageMenu');
   const trigger = document.getElementById('authLanguageTrigger');
   const panel = document.getElementById('authLanguagePanel');
+  const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
 
   if (!menu || !trigger || !panel) {
     return;
@@ -37,7 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Accept: 'application/json'
+          Accept: 'application/json',
+          'x-csrf-token': csrfToken
         },
         body: JSON.stringify({ language })
       });

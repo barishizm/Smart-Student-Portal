@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const cropArea = document.getElementById('profileCropArea');
   const cropImage = document.getElementById('profileCropImage');
   const uploadBtn = document.getElementById('uploadCroppedPhotoBtn');
+  const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
 
   if (!fileInput || !cropArea || !cropImage || !uploadBtn) {
     return;
@@ -29,6 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const response = await fetch('/auth/profile-photo', {
       method: 'POST',
+      headers: {
+        'x-csrf-token': csrfToken
+      },
       body: formData
     });
 

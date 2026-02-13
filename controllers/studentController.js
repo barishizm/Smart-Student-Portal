@@ -25,6 +25,13 @@ const dbRun = (sql, params = []) =>
         });
     });
 
+const escapeXml = (value = '') => String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&apos;');
+
 // List Students
 exports.listStudents = (req, res) => {
     const query = `
@@ -244,12 +251,12 @@ exports.exportXML = (req, res) => {
         xml += '<students>\n';
         rows.forEach(student => {
             xml += '  <student>\n';
-            xml += `    <id>${student.id}</id>\n`;
-            xml += `    <name>${student.name}</name>\n`;
-            xml += `    <surname>${student.surname}</surname>\n`;
-            xml += `    <student_id>${student.student_id}</student_id>\n`;
-            xml += `    <email>${student.email}</email>\n`;
-            xml += `    <group>${student.group_name}</group>\n`;
+            xml += `    <id>${escapeXml(student.id)}</id>\n`;
+            xml += `    <name>${escapeXml(student.name)}</name>\n`;
+            xml += `    <surname>${escapeXml(student.surname)}</surname>\n`;
+            xml += `    <student_id>${escapeXml(student.student_id)}</student_id>\n`;
+            xml += `    <email>${escapeXml(student.email)}</email>\n`;
+            xml += `    <group>${escapeXml(student.group_name)}</group>\n`;
             xml += '  </student>\n';
         });
         xml += '</students>';

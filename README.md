@@ -179,12 +179,12 @@ By default, the admin seed script creates/normalizes:
 
 - Username: `admin@vilniustech.lt`
 - Email: `admin@vilniustech.lt`
-- Password: `admin`
+- Password: value from `ADMIN_PASSWORD` (or a generated temporary password if unset)
 
 Important:
 
 - Registration blocks this reserved admin identity from public signup.
-- Change the default admin password after first login for any non-local deployment.
+- Set `ADMIN_PASSWORD` before seeding in non-local environments.
 
 ## Authentication and Authorization
 
@@ -282,13 +282,20 @@ From `package.json`:
 
 ## Security Notes
 
-Current implementation is suitable for development/demo, but should be hardened for production:
+Current implementation includes baseline protections, but production hardening is still required:
 
-- Move session secret to environment variable (currently hardcoded in `app.js`).
-- Enforce HTTPS in production.
-- Add CSRF protection.
-- Add input validation/sanitization at route/controller boundaries.
-- Replace default admin password immediately.
+- Session cookie hardening (`httpOnly`, `sameSite=lax`, secure in production).
+- CSRF protection for state-changing routes (forms + AJAX header token).
+- Login/password-reset rate limiting.
+- Helmet security headers.
+- XML escaping for student export.
+
+Recommended production settings:
+
+- Set strong `SESSION_SECRET` in environment.
+- Set `ADMIN_PASSWORD` before running `node scripts/seedAdmin.js`.
+- Enforce HTTPS and run behind a trusted reverse proxy.
+- Continue dependency patching (`npm audit`) and keep `sqlite3` stack updated.
 
 ## License
 
