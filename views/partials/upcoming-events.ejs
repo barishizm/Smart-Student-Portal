@@ -1,0 +1,34 @@
+<aside class="card upcoming-events-card" aria-label="Upcoming events">
+  <div class="card-head">
+    <h2><%= t('events.upcomingTitle') %></h2>
+  </div>
+
+  <% const eventsSource = typeof upcomingEvents !== 'undefined' ? upcomingEvents : []; %>
+  <% const events = Array.isArray(eventsSource) ? eventsSource : []; %>
+  <% if (events.length > 0) { %>
+    <ul class="list events-list">
+      <% events.forEach((eventItem) => { %>
+        <% const eventDate = new Date(Number(eventItem.starts_at)); %>
+        <% const dateLabel = Number.isNaN(eventDate.getTime())
+          ? '-'
+          : eventDate.toLocaleDateString(currentLanguage, { year: 'numeric', month: '2-digit', day: '2-digit' }); %>
+        <% const timeLabel = Number.isNaN(eventDate.getTime())
+          ? ''
+          : eventDate.toLocaleTimeString(currentLanguage, { hour: '2-digit', minute: '2-digit' }); %>
+        <li class="list-item event-list-item">
+          <div class="date"><%= dateLabel %><br><small><%= timeLabel %></small></div>
+          <div class="txt">
+            <strong><%= eventItem.title %></strong>
+            <% if (eventItem.details) { %>
+              <small class="muted"><%= eventItem.details %></small>
+            <% } %>
+          </div>
+        </li>
+      <% }); %>
+    </ul>
+  <% } else { %>
+    <p class="muted event-empty"><%= t('events.noUpcoming') %></p>
+  <% } %>
+
+  <button type="button" class="btn ghost all-events-btn" id="openAllEventsBtn"><%= t('events.allEventsButton') %></button>
+</aside>

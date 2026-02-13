@@ -5,7 +5,7 @@
   <title>VILNIUS TECH | <%= t('dashboard.title') %></title>
 </head>
 <body>
-  <div class="dash">
+  <div class="dash collapsed">
     <!-- Sidebar -->
     <%- include('partials/sidebar') %>
 
@@ -16,70 +16,185 @@
 
       <!-- Content grid -->
       <section class="grid">
-        <!-- Announcement -->
-         <article class="card hero">
+        <% const dashboardEventsSource = typeof upcomingEvents !== 'undefined' ? upcomingEvents : []; %>
+        <% const dashboardEvents = Array.isArray(dashboardEventsSource) ? dashboardEventsSource : []; %>
+        <% const dashboardPastEventsSource = typeof pastEvents !== 'undefined' ? pastEvents : []; %>
+        <% const dashboardPastEvents = Array.isArray(dashboardPastEventsSource) ? dashboardPastEventsSource : []; %>
+        <div class="dashboard-main-column">
+          <% if(user.role === 'admin') { %>
+            <article class="card" id="manage-events">
+              <div class="card-head">
+                <h2><%= t('events.manageTitle') %></h2>
+                <span class="badge"><%= t('dashboard.admin') %></span>
+              </div>
+
+              <form action="/events/admin" method="POST" class="profile-change-form event-manage-form">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input
+                  type="text"
+                  name="title"
+                  class="profile-change-input"
+                  placeholder="<%= t('events.titlePlaceholder') %>"
+                  required
+                  maxlength="140"
+                >
+                <textarea
+                  name="details"
+                  class="profile-change-input"
+                  placeholder="<%= t('events.detailsPlaceholder') %>"
+                  rows="3"
+                  maxlength="1200"
+                ></textarea>
+                <input
+                  type="datetime-local"
+                  name="starts_at"
+                  class="profile-change-input"
+                  required
+                >
+                <button type="submit" class="btn profile-change-submit"><%= t('events.addButton') %></button>
+              </form>
+
+              <div class="event-manage-list-wrap">
+                <h3 class="profile-change-title"><%= t('events.existingEvents') %></h3>
+                <% if (dashboardEvents.length > 0) { %>
+                  <ul class="list events-list admin-events-list">
+                    <% dashboardEvents.forEach((eventItem) => { %>
+                      <% const eventDate = new Date(Number(eventItem.starts_at)); %>
+                      <% const dateLabel = Number.isNaN(eventDate.getTime())
+                        ? '-'
+                        : eventDate.toLocaleDateString(currentLanguage, { year: 'numeric', month: '2-digit', day: '2-digit' }); %>
+                      <% const timeLabel = Number.isNaN(eventDate.getTime())
+                        ? ''
+                        : eventDate.toLocaleTimeString(currentLanguage, { hour: '2-digit', minute: '2-digit' }); %>
+                      <li class="list-item event-list-item">
+                        <div class="date"><%= dateLabel %><br><small><%= timeLabel %></small></div>
+                        <div class="txt">
+                          <strong><%= eventItem.title %></strong>
+                          <% if (eventItem.details) { %>
+                            <small class="muted"><%= eventItem.details %></small>
+                          <% } %>
+                        </div>
+                        <form action="/events/admin/<%= eventItem.id %>/delete" method="POST" class="event-delete-form">
+                          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                          <button type="submit" class="btn small danger"><%= t('events.removeButton') %></button>
+                        </form>
+                      </li>
+                    <% }); %>
+                  </ul>
+                <% } else { %>
+                  <p class="muted event-empty"><%= t('events.noUpcoming') %></p>
+                <% } %>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-head">
+                <h2><%= t('dashboard.sendNotification') %></h2>
+                <span class="badge"><%= t('dashboard.admin') %></span>
+              </div>
+              <form action="/notifications/admin/broadcast" method="POST" class="profile-change-form">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input
+                  type="text"
+                  name="title"
+                  class="profile-change-input"
+                  placeholder="<%= t('dashboard.notificationTitle') %>"
+                  required
+                  maxlength="120"
+                >
+                <textarea
+                  name="message"
+                  class="profile-change-input"
+                  placeholder="<%= t('dashboard.notificationMessage') %>"
+                  rows="4"
+                  required
+                  maxlength="1200"
+                ></textarea>
+                <button type="submit" class="btn profile-change-submit"><%= t('dashboard.sendAll') %></button>
+              </form>
+            </article>
+          <% } %>
+
+          <% if(success_msg && success_msg.length > 0){ %>
+              <div class="alert alert-success">
+                  <%= success_msg %>
+              </div>
+          <% } %>
+          <% if(error_msg && error_msg.length > 0){ %>
+              <div class="alert alert-danger">
+                  <%= error_msg %>
+              </div>
+          <% } %>
+        </div>
+
+        <%- include('partials/upcoming-events', { upcomingEvents: dashboardEvents, pastEvents: dashboardPastEvents, currentLanguage, t }) %>
+
+        <article class="card all-events-center-card" id="allEventsCard" hidden>
           <div class="card-head">
-            <h2><%= t('dashboard.welcomeBack', { username: user.username }) %></h2>
-            <span class="badge"><%= t('dashboard.info') %></span>
+            <h2><%= t('events.allEventsTitle') %></h2>
+            <button type="button" class="btn ghost small" id="closeAllEventsBtn"><%= t('events.closeButton') %></button>
           </div>
-          <p class="hero-title"><%= t('dashboard.systemStatus') %></p>
-          <p class="muted">
-            <%= t('dashboard.loggedInAs') %> <strong><%= user.role %></strong>. 
-            <% if(user.role === 'admin') { %>
-                <%= t('dashboard.adminHint') %>
-            <% } else { %>
-                <%= t('dashboard.studentHint') %>
-            <% } %>
-          </p>
-          <div class="hero-actions">
-            <% if(user.role === 'admin') { %>
-            <a class="btn" href="/admin/students" role="button"><%= t('dashboard.manageStudents') %></a>
-            <% } %>
+
+          <div class="all-events-sections">
+            <section>
+              <h3 class="profile-change-title"><%= t('events.upcomingTitle') %></h3>
+              <% if (dashboardEvents.length > 0) { %>
+                <ul class="list events-list">
+                  <% dashboardEvents.forEach((eventItem) => { %>
+                    <% const eventDate = new Date(Number(eventItem.starts_at)); %>
+                    <% const dateLabel = Number.isNaN(eventDate.getTime())
+                      ? '-'
+                      : eventDate.toLocaleDateString(currentLanguage, { year: 'numeric', month: '2-digit', day: '2-digit' }); %>
+                    <% const timeLabel = Number.isNaN(eventDate.getTime())
+                      ? ''
+                      : eventDate.toLocaleTimeString(currentLanguage, { hour: '2-digit', minute: '2-digit' }); %>
+                    <li class="list-item event-list-item">
+                      <div class="date"><%= dateLabel %><br><small><%= timeLabel %></small></div>
+                      <div class="txt">
+                        <strong><%= eventItem.title %></strong>
+                        <% if (eventItem.details) { %>
+                          <small class="muted"><%= eventItem.details %></small>
+                        <% } %>
+                      </div>
+                    </li>
+                  <% }); %>
+                </ul>
+              <% } else { %>
+                <p class="muted event-empty"><%= t('events.noUpcoming') %></p>
+              <% } %>
+            </section>
+
+            <section>
+              <h3 class="profile-change-title"><%= t('events.pastTitle') %></h3>
+              <% if (dashboardPastEvents.length > 0) { %>
+                <ul class="list events-list">
+                  <% dashboardPastEvents.forEach((eventItem) => { %>
+                    <% const eventDate = new Date(Number(eventItem.starts_at)); %>
+                    <% const dateLabel = Number.isNaN(eventDate.getTime())
+                      ? '-'
+                      : eventDate.toLocaleDateString(currentLanguage, { year: 'numeric', month: '2-digit', day: '2-digit' }); %>
+                    <% const timeLabel = Number.isNaN(eventDate.getTime())
+                      ? ''
+                      : eventDate.toLocaleTimeString(currentLanguage, { hour: '2-digit', minute: '2-digit' }); %>
+                    <li class="list-item event-list-item">
+                      <div class="date"><%= dateLabel %><br><small><%= timeLabel %></small></div>
+                      <div class="txt">
+                        <strong><%= eventItem.title %></strong>
+                        <% if (eventItem.details) { %>
+                          <small class="muted"><%= eventItem.details %></small>
+                        <% } %>
+                      </div>
+                    </li>
+                  <% }); %>
+                </ul>
+              <% } else { %>
+                <p class="muted event-empty"><%= t('events.noPast') %></p>
+              <% } %>
+            </section>
           </div>
         </article>
 
-        <% if(user.role === 'admin') { %>
-          <article class="card">
-            <div class="card-head">
-              <h2><%= t('dashboard.sendNotification') %></h2>
-              <span class="badge"><%= t('dashboard.admin') %></span>
-            </div>
-            <form action="/notifications/admin/broadcast" method="POST" class="profile-change-form">
-              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-              <input
-                type="text"
-                name="title"
-                class="profile-change-input"
-                placeholder="<%= t('dashboard.notificationTitle') %>"
-                required
-                maxlength="120"
-              >
-              <textarea
-                name="message"
-                class="profile-change-input"
-                placeholder="<%= t('dashboard.notificationMessage') %>"
-                rows="4"
-                required
-                maxlength="1200"
-              ></textarea>
-              <button type="submit" class="btn profile-change-submit"><%= t('dashboard.sendAll') %></button>
-            </form>
-          </article>
-        <% } %>
-
-        <% if(success_msg && success_msg.length > 0){ %>
-            <div class="alert alert-success" style="grid-column: span 3;">
-                <%= success_msg %>
-            </div>
-        <% } %>
-        <% if(error_msg && error_msg.length > 0){ %>
-            <div class="alert alert-danger" style="grid-column: span 3;">
-                <%= error_msg %>
-            </div>
-        <% } %>
-
-        <!-- Stats row can remain or be dynamic later -->
-        <!-- Just keeping the layout structure -->
+        <div id="allEventsBackdrop" hidden aria-hidden="true"></div>
 
       </section>
 

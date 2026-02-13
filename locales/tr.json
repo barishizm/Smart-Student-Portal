@@ -84,6 +84,21 @@
     "admin": "Yönetici",
     "info": "Bilgi"
   },
+  "events": {
+    "upcomingTitle": "Yaklaşan Etkinlikler",
+    "pastTitle": "Geçmiş Etkinlikler",
+    "manageTitle": "Etkinlikleri Yönet",
+    "titlePlaceholder": "Etkinlik başlığı",
+    "detailsPlaceholder": "Etkinlik detayları (opsiyonel)",
+    "addButton": "Etkinlik Ekle",
+    "removeButton": "Kaldır",
+    "allEventsButton": "Tüm Etkinlikler",
+    "allEventsTitle": "Tüm Etkinlikler",
+    "closeButton": "Kapat",
+    "existingEvents": "Mevcut yaklaşan etkinlikler",
+    "noUpcoming": "Henüz yaklaşan etkinlik yok.",
+    "noPast": "Henüz geçmiş etkinlik yok."
+  },
   "profile": {
     "title": "Profil",
     "account": "Hesap",

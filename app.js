@@ -9,6 +9,7 @@ const helmet = require('helmet');
 const db = require('./models/db');
 const { getEffectiveRole } = require('./config/auth');
 const { SUPPORTED_LANGUAGES, normalizeLanguage, translate } = require('./utils/i18n');
+const { listUpcomingEvents, listPastEvents, cleanupExpiredEvents } = require('./utils/events');
 const { csrfProtection } = require('./utils/security');
 
 const app = express();
@@ -83,7 +84,7 @@ app.use(session({
 app.use(flash());
 
 // Global variables for flash messages and user session
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
     const now = new Date();
 
     if (req.session.user) {
@@ -112,6 +113,24 @@ app.use((req, res, next) => {
     res.locals.currentLanguage = currentLanguage;
     res.locals.supportedLanguages = SUPPORTED_LANGUAGES;
     res.locals.t = (key, params = {}) => translate(currentLanguage, key, params);
+    res.locals.upcomingEvents = [];
+    res.locals.pastEvents = [];
+
+    if (req.session?.user?.id && req.path === '/dashboard') {
+        try {
+            await cleanupExpiredEvents({ olderThanDays: 30 });
+            const [upcomingEvents, pastEvents] = await Promise.all([
+                listUpcomingEvents({ limit: 12 }),
+                listPastEvents({ limit: 20 }),
+            ]);
+
+            res.locals.upcomingEvents = upcomingEvents;
+            res.locals.pastEvents = pastEvents;
+        } catch (err) {
+            console.error('Failed to load upcoming events:', err);
+        }
+    }
+
     next();
 });
 
@@ -122,11 +141,13 @@ const indexRoutes = require('./routes/index');
 const authRoutes = require('./routes/auth');
 const studentRoutes = require('./routes/students');
 const notificationRoutes = require('./routes/notifications');
+const eventsRoutes = require('./routes/events');
 
 app.use('/', indexRoutes);
 app.use('/auth', authRoutes);
 app.use('/admin/students', studentRoutes); // Protected route will be handled in studentRoutes
 app.use('/notifications', notificationRoutes);
+app.use('/events', eventsRoutes);
 
 // Start server only after DB migrations are ready.
 db.ready

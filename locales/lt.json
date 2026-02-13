@@ -84,6 +84,21 @@
     "admin": "Administratorius",
     "info": "Informacija"
   },
+  "events": {
+    "upcomingTitle": "Artėjantys renginiai",
+    "pastTitle": "Praėję renginiai",
+    "manageTitle": "Tvarkyti renginius",
+    "titlePlaceholder": "Renginio pavadinimas",
+    "detailsPlaceholder": "Renginio detalės (nebūtina)",
+    "addButton": "Pridėti renginį",
+    "removeButton": "Pašalinti",
+    "allEventsButton": "Visi renginiai",
+    "allEventsTitle": "Visi renginiai",
+    "closeButton": "Uždaryti",
+    "existingEvents": "Dabartiniai artėjantys renginiai",
+    "noUpcoming": "Artėjančių renginių dar nėra.",
+    "noPast": "Praėjusių renginių dar nėra."
+  },
   "profile": {
     "title": "Profilis",
     "account": "Paskyra",

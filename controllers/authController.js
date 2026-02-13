@@ -213,7 +213,6 @@ exports.login = async (req, res) => {
 
         req.session.preferred_language = req.session.user.preferred_language;
 
-        req.flash('success_msg', 'You are logged in');
         return res.redirect('/dashboard');
     } catch (err) {
         console.error('Login error:', err);

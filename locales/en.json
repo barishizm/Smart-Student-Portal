@@ -27,8 +27,16 @@
     "studies": "Studies",
     "thisSemester": "This Semester",
     "studyProgramme": "Study Programme",
+    "studyProcedure": "Study procedure",
     "students": "Students",
     "itServices": "IT services",
+    "library": "Library",
+    "myCareer": "My career",
+    "internationalOpportunities": "International opportunities",
+    "lifeInVilniusTech": "Life in VILNIUS TECH",
+    "myDocuments": "My documents",
+    "surveys": "Surveys",
+    "safetyAtVilniusTech": "Safety at VILNIUS TECH",
     "collapse": "Collapse",
     "toggleSidebar": "Toggle sidebar"
   },
@@ -83,6 +91,21 @@
     "sendAll": "Send to All Users",
     "admin": "Admin",
     "info": "Info"
+  },
+  "events": {
+    "upcomingTitle": "Upcoming Events",
+    "pastTitle": "Past Events",
+    "manageTitle": "Manage Events",
+    "titlePlaceholder": "Event title",
+    "detailsPlaceholder": "Event details (optional)",
+    "addButton": "Add Event",
+    "removeButton": "Remove",
+    "allEventsButton": "All Events",
+    "allEventsTitle": "All Events",
+    "closeButton": "Close",
+    "existingEvents": "Current upcoming events",
+    "noUpcoming": "No upcoming events yet.",
+    "noPast": "No past events yet."
   },
   "profile": {
     "title": "Profile",

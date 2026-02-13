@@ -84,6 +84,21 @@
     "admin": "Administrators",
     "info": "Informācija"
   },
+  "events": {
+    "upcomingTitle": "Gaidāmie notikumi",
+    "pastTitle": "Iepriekšējie notikumi",
+    "manageTitle": "Pārvaldīt notikumus",
+    "titlePlaceholder": "Notikuma nosaukums",
+    "detailsPlaceholder": "Notikuma detaļas (nav obligāti)",
+    "addButton": "Pievienot notikumu",
+    "removeButton": "Noņemt",
+    "allEventsButton": "Visi notikumi",
+    "allEventsTitle": "Visi notikumi",
+    "closeButton": "Aizvērt",
+    "existingEvents": "Pašreizējie gaidāmie notikumi",
+    "noUpcoming": "Pagaidām nav gaidāmu notikumu.",
+    "noPast": "Pagaidām nav iepriekšējo notikumu."
+  },
   "profile": {
     "title": "Profils",
     "account": "Konts",

@@ -84,6 +84,21 @@
     "admin": "Администратор",
     "info": "Инфо"
   },
+  "events": {
+    "upcomingTitle": "Ближайшие события",
+    "pastTitle": "Прошедшие события",
+    "manageTitle": "Управление событиями",
+    "titlePlaceholder": "Название события",
+    "detailsPlaceholder": "Детали события (необязательно)",
+    "addButton": "Добавить событие",
+    "removeButton": "Удалить",
+    "allEventsButton": "Все события",
+    "allEventsTitle": "Все события",
+    "closeButton": "Закрыть",
+    "existingEvents": "Текущие ближайшие события",
+    "noUpcoming": "Пока нет ближайших событий.",
+    "noPast": "Пока нет прошедших событий."
+  },
   "profile": {
     "title": "Профиль",
     "account": "Аккаунт",

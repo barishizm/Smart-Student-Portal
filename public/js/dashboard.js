@@ -18,6 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const togglePasswordCard = document.getElementById('togglePasswordCard');
   const passwordChangeCard = document.getElementById('passwordChangeCard');
   const dismiss = document.getElementById('dismissAnnouncement');
+  const openAllEventsBtn = document.getElementById('openAllEventsBtn');
+  const closeAllEventsBtn = document.getElementById('closeAllEventsBtn');
+  const allEventsCard = document.getElementById('allEventsCard');
+  const allEventsBackdrop = document.getElementById('allEventsBackdrop');
 
   const prevDay = document.getElementById('prevDay');
   const nextDay = document.getElementById('nextDay');
@@ -128,9 +132,39 @@ document.addEventListener('DOMContentLoaded', () => {
   updateHeaderScheduleInfo();
   setInterval(updateHeaderScheduleInfo, 30 * 1000);
 
+  const nav = sidebar?.querySelector('.nav');
+  const fitSidebarMenuScale = () => {
+    if (!sidebar || !root || !nav) return;
+
+    if (root.classList.contains('collapsed') || window.matchMedia('(max-width: 860px)').matches) {
+      sidebar.style.setProperty('--menu-scale', '1');
+      return;
+    }
+
+    sidebar.style.setProperty('--menu-scale', '1');
+
+    const navItems = nav.querySelectorAll('.nav-item');
+    if (!navItems.length) return;
+
+    let maxItemWidth = 0;
+    navItems.forEach((item) => {
+      maxItemWidth = Math.max(maxItemWidth, item.scrollWidth);
+    });
+
+    const availableWidth = nav.clientWidth;
+    if (!availableWidth || !maxItemWidth) return;
+
+    const scale = Math.max(0.72, Math.min(1.08, availableWidth / maxItemWidth));
+    sidebar.style.setProperty('--menu-scale', scale.toFixed(3));
+  };
+
+  fitSidebarMenuScale();
+  window.addEventListener('resize', fitSidebarMenuScale);
+
   // Sidebar collapse
   collapseBtn?.addEventListener('click', () => {
     root?.classList.toggle('collapsed');
+    window.setTimeout(fitSidebarMenuScale, 180);
   });
 
   const closeMobileMenu = () => {
@@ -143,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!sidebar) return;
     const isOpen = sidebar.classList.toggle('mobile-open');
     mobileMenuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    window.setTimeout(fitSidebarMenuScale, 120);
   });
 
   // Profile dropdown
@@ -302,6 +337,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  openAllEventsBtn?.addEventListener('click', () => {
+    if (!allEventsCard) return;
+    allEventsCard.removeAttribute('hidden');
+    allEventsBackdrop?.removeAttribute('hidden');
+    root?.classList.add('all-events-open');
+  });
+
+  closeAllEventsBtn?.addEventListener('click', () => {
+    if (!allEventsCard) return;
+    allEventsCard.setAttribute('hidden', 'hidden');
+    allEventsBackdrop?.setAttribute('hidden', 'hidden');
+    root?.classList.remove('all-events-open');
+  });
+
   // Dismiss announcement (UI only)
   dismiss?.addEventListener('click', () => {
     const hero = dismiss.closest('.card');
@@ -337,35 +386,41 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  const studiesItem = document.getElementById('studiesItem');
-  const trigger = document.getElementById('studiesTrigger');
+  const nav = document.getElementById('primaryNav');
+  if (!nav) return;
 
-  if (!studiesItem || !trigger) return;
+  const menuGroups = Array.from(nav.querySelectorAll('.nav-group.has-submenu'));
+  if (!menuGroups.length) return;
 
-  trigger.addEventListener('click', (e) => {
+  nav.addEventListener('click', (e) => {
+    const trigger = e.target.closest('.nav-trigger');
+    if (!trigger || !nav.contains(trigger)) return;
+
     e.preventDefault();
-    studiesItem.classList.toggle('open');
+    const currentGroup = trigger.closest('.nav-group.has-submenu');
+    if (!currentGroup) return;
+
+    const willOpen = !currentGroup.classList.contains('open');
+    menuGroups.forEach((group) => {
+      if (group !== currentGroup) {
+        group.classList.remove('open');
+      }
+    });
+
+    currentGroup.classList.toggle('open', willOpen);
   });
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  const item = document.getElementById('procedureItem');
-  const trigger = document.getElementById('procedureTrigger');
-  if (!item || !trigger) return;
+  const subTriggers = document.querySelectorAll('.nav-subtrigger');
+  if (!subTriggers.length) return;
 
-  trigger.addEventListener('click', (e) => {
-    e.preventDefault();
-    item.classList.toggle('open');
-  });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  const item = document.getElementById('careerItem');
-  const trigger = document.getElementById('careerTrigger');
-  if (!item || !trigger) return;
-
-  trigger.addEventListener('click', (e) => {
-    e.preventDefault();
-    item.classList.toggle('open');
+  subTriggers.forEach((trigger) => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      const group = trigger.closest('.nav-subgroup');
+      if (!group) return;
+      group.classList.toggle('open');
+    });
   });
 });

@@ -209,11 +209,20 @@ const initializeDatabase = async () => {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       title TEXT NOT NULL,
       message TEXT NOT NULL,
+      event_id INTEGER,
       created_by INTEGER,
       created_at INTEGER NOT NULL,
+      FOREIGN KEY(event_id) REFERENCES events(id) ON DELETE CASCADE,
       FOREIGN KEY(created_by) REFERENCES users(id) ON DELETE SET NULL
     )
   `);
+
+  const notificationColumns = await allAsync('PRAGMA table_info(notifications)');
+  const hasEventIdColumn = notificationColumns.some((column) => column.name === 'event_id');
+  if (!hasEventIdColumn) {
+    await runAsync('ALTER TABLE notifications ADD COLUMN event_id INTEGER');
+    console.log('Added event_id column to notifications table.');
+  }
 
   await runAsync(`
     CREATE TABLE IF NOT EXISTS notification_receipts (
@@ -232,6 +241,74 @@ const initializeDatabase = async () => {
     'CREATE INDEX IF NOT EXISTS idx_notification_receipts_user_visible ON notification_receipts(user_id, deleted_at, is_read)'
   );
   await runAsync('CREATE INDEX IF NOT EXISTS idx_notifications_created_at ON notifications(created_at DESC)');
+  await runAsync('CREATE UNIQUE INDEX IF NOT EXISTS idx_notifications_event_id_unique ON notifications(event_id) WHERE event_id IS NOT NULL');
+
+  await runAsync(`
+    CREATE TABLE IF NOT EXISTS events (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      details TEXT,
+      starts_at INTEGER NOT NULL,
+      created_by INTEGER,
+      created_at INTEGER NOT NULL,
+      FOREIGN KEY(created_by) REFERENCES users(id) ON DELETE SET NULL
+    )
+  `);
+
+  await runAsync('CREATE INDEX IF NOT EXISTS idx_events_starts_at ON events(starts_at ASC)');
+  await runAsync('CREATE INDEX IF NOT EXISTS idx_events_created_at ON events(created_at DESC)');
+
+  await runAsync('DROP TRIGGER IF EXISTS trg_events_auto_notify');
+  await runAsync(`
+    CREATE TRIGGER IF NOT EXISTS trg_events_auto_notify
+    AFTER INSERT ON events
+    BEGIN
+      INSERT OR IGNORE INTO notifications (title, message, event_id, created_by, created_at)
+      VALUES (
+        'Upcoming event: ' || NEW.title,
+        CASE
+          WHEN NEW.details IS NULL OR trim(NEW.details) = ''
+            THEN 'Event time: ' || strftime('%Y-%m-%d %H:%M', NEW.starts_at / 1000, 'unixepoch')
+          ELSE NEW.details || char(10) || char(10) || 'Event time: ' || strftime('%Y-%m-%d %H:%M', NEW.starts_at / 1000, 'unixepoch')
+        END,
+        NEW.id,
+        NEW.created_by,
+        NEW.created_at
+      );
+
+      INSERT OR IGNORE INTO notification_receipts (notification_id, user_id, is_read)
+      SELECT n.id, u.id, 0
+      FROM users u
+      INNER JOIN notifications n ON n.event_id = NEW.id;
+    END;
+  `);
+
+  await runAsync(`
+    INSERT OR IGNORE INTO notifications (title, message, event_id, created_by, created_at)
+    SELECT
+      'Upcoming event: ' || e.title,
+      CASE
+        WHEN e.details IS NULL OR trim(e.details) = ''
+          THEN 'Event time: ' || strftime('%Y-%m-%d %H:%M', e.starts_at / 1000, 'unixepoch')
+        ELSE e.details || char(10) || char(10) || 'Event time: ' || strftime('%Y-%m-%d %H:%M', e.starts_at / 1000, 'unixepoch')
+      END,
+      e.id,
+      e.created_by,
+      e.created_at
+    FROM events e
+    LEFT JOIN notifications n ON n.event_id = e.id
+    WHERE n.id IS NULL
+  `);
+
+  await runAsync(`
+    INSERT OR IGNORE INTO notification_receipts (notification_id, user_id, is_read)
+    SELECT n.id, u.id, 0
+    FROM notifications n
+    CROSS JOIN users u
+    LEFT JOIN notification_receipts nr ON nr.notification_id = n.id AND nr.user_id = u.id
+    WHERE n.event_id IS NOT NULL
+      AND nr.notification_id IS NULL
+  `);
 
   await runAsync(`
     CREATE TABLE IF NOT EXISTS students (
