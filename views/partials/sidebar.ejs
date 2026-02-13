@@ -11,7 +11,7 @@
     <div class="nav-group has-submenu" id="studiesItem">
       <a class="nav-item nav-trigger" href="#" id="studiesTrigger">
         <span class="nav-ico" aria-hidden="true">🎓</span>
-        Studies
+        <span class="nav-label">Studies</span>
       </a>
 
       <div class="submenu" id="studiesSubmenu">
@@ -25,25 +25,22 @@
     <div class="nav-group" id="adminItem">
         <a class="nav-item" href="/admin/students">
             <span class="nav-ico" aria-hidden="true">👥</span>
-            Students
+        <span class="nav-label">Students</span>
         </a>
     </div>
     <% } %>
 
     <a class="nav-item" href="#">
       <span class="nav-ico" aria-hidden="true">⚙️</span>
-      IT services
+      <span class="nav-label">IT services</span>
     </a>
     
-    <div class="sidebar-footer">
-      <button class="pill" id="collapseBtn" type="button" aria-label="Toggle sidebar">
-        <span aria-hidden="true">≡</span>
-        Collapse
-      </button>
-      <a href="/auth/logout" class="pill danger" id="logoutBtn" style="text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center;">
-        <span aria-hidden="true">↩</span>
-        Logout
-      </a>
-    </div>
   </nav>
+
+  <div class="sidebar-footer">
+    <button class="pill collapse-btn" id="collapseBtn" type="button" aria-label="Toggle sidebar">
+      <span aria-hidden="true">≡</span>
+      <span class="pill-label">Collapse</span>
+    </button>
+  </div>
 </aside>

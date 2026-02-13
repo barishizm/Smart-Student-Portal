@@ -39,6 +39,7 @@
                                     <th>Student ID</th>
                                     <th>Name</th>
                                     <th>Surname</th>
+                                    <th>Username</th>
                                     <th>Email</th>
                                     <th>Group</th>
                                     <th>Actions</th>
@@ -51,19 +52,21 @@
                                             <td><%= student.student_id %></td>
                                             <td><%= student.name %></td>
                                             <td><%= student.surname %></td>
+                                            <td><%= student.username || '-' %></td>
                                             <td><%= student.email %></td>
                                             <td><%= student.group_name %></td>
                                             <td>
                                                 <a href="/admin/students/<%= student.id %>/edit" class="btn small">Edit</a>
-                                                <form action="/admin/students/<%= student.id %>/delete" method="POST" style="display:inline;">
-                                                    <button type="submit" class="btn small danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                                <form action="/admin/students/<%= student.id %>/delete" method="POST" style="display:inline;" onsubmit="return confirmDeleteStudent(this);">
+                                                    <input type="hidden" name="delete_confirm" value="">
+                                                    <button type="submit" class="btn small danger">Delete</button>
                                                 </form>
                                             </td>
                                         </tr>
                                     <% }); %>
                                 <% } else { %>
                                     <tr>
-                                        <td colspan="6" style="text-align:center;">No students found</td>
+                                                                                <td colspan="7" style="text-align:center;">No students found</td>
                                     </tr>
                                 <% } %>
                             </tbody>
@@ -71,8 +74,25 @@
                     </div>
                 </div>
             </div>
+
+            <%- include('../partials/footer') %>
         </main>
     </div>
-    <%- include('../partials/footer') %>
+        <script>
+            function confirmDeleteStudent(form) {
+                const firstConfirm = window.confirm('This will remove student and linked user from database. Continue?');
+                if (!firstConfirm) return false;
+
+                const typed = window.prompt("Type DELETE to confirm permanent deletion:");
+                if (typed !== 'DELETE') {
+                    window.alert('Deletion cancelled.');
+                    return false;
+                }
+
+                const hidden = form.querySelector('input[name="delete_confirm"]');
+                if (hidden) hidden.value = 'DELETE';
+                return true;
+            }
+        </script>
 </body>
 </html>

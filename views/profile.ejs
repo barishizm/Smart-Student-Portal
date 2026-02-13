@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+  <link rel="stylesheet" href="https://unpkg.com/cropperjs@1.6.2/dist/cropper.min.css">
+  <title>VILNIUS TECH | Profile</title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('partials/sidebar') %>
+
+    <main class="main">
+      <%- include('partials/header') %>
+
+      <section class="content">
+        <article class="card">
+          <div class="card-head">
+            <h2>Profile</h2>
+            <span class="badge">Account</span>
+          </div>
+
+          <% if(success_msg && success_msg.length > 0){ %>
+            <div style="background:#d4edda; color:#155724; padding:10px; margin-bottom:15px; border-radius:10px;">
+              <%= success_msg %>
+            </div>
+          <% } %>
+
+          <% if(error_msg && error_msg.length > 0){ %>
+            <div style="background:#f8d7da; color:#721c24; padding:10px; margin-bottom:15px; border-radius:10px;">
+              <%= error_msg %>
+            </div>
+          <% } %>
+
+          <div class="profile-photo-panel">
+            <div class="profile-photo-preview">
+              <div class="avatar avatar-lg" aria-hidden="true">
+                <% if (user && user.avatar_url) { %>
+                  <img src="<%= user.avatar_url %>" alt="Profile photo" class="avatar-img">
+                <% } else { %>
+                  <%= user ? user.username.charAt(0).toUpperCase() : 'U' %>
+                <% } %>
+              </div>
+              <div class="profile-photo-meta">
+                <strong>Profile Photo</strong>
+                <small><%= user && user.avatar_url ? 'Photo uploaded' : 'No photo uploaded' %></small>
+              </div>
+            </div>
+
+            <div class="profile-photo-actions">
+              <div class="profile-photo-form">
+                <input type="file" id="profilePhotoInput" accept="image/png,image/jpeg,image/webp" class="profile-file-input" hidden>
+                <button type="button" id="uploadCroppedPhotoBtn" class="btn"><%= user && user.avatar_url ? 'Change Photo' : 'Upload Photo' %></button>
+              </div>
+
+              <% if (user && user.avatar_url) { %>
+                <form action="/auth/profile-photo/delete" method="POST">
+                  <button type="submit" class="btn ghost">Delete Photo</button>
+                </form>
+              <% } %>
+            </div>
+
+            <div id="profileCropArea" class="profile-crop-area" hidden>
+              <img id="profileCropImage" alt="Crop preview">
+            </div>
+          </div>
+
+          <div class="stats" style="grid-template-columns: repeat(2, minmax(220px, 1fr));">
+            <div class="stat">
+              <strong>Real Name</strong>
+              <small><%= (user?.first_name || '-') %> <%= (user?.last_name || '') %></small>
+            </div>
+            <div class="stat">
+              <strong>Username</strong>
+              <small><%= user ? user.username : '-' %></small>
+            </div>
+            <div class="stat">
+              <strong>Role</strong>
+              <small><%= user ? user.role : '-' %></small>
+            </div>
+            <div class="stat">
+              <strong>Email</strong>
+              <small><%= user && user.email ? user.email : 'Not available' %></small>
+            </div>
+            <div class="stat profile-action-stat">
+              <div class="profile-action-buttons">
+                <button type="button" id="toggleUsernameCard" class="profile-change-btn profile-change-btn-large" aria-expanded="false" aria-controls="usernameChangeCard">Change Username</button>
+                <button type="button" id="togglePasswordCard" class="profile-change-btn profile-change-btn-large" aria-expanded="false" aria-controls="passwordChangeCard">Change Password</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="usernameChangeCard" class="profile-change-card" hidden>
+            <h3 class="profile-change-title">Change Username</h3>
+            <form action="/auth/change-username" method="POST" class="profile-change-form">
+              <input type="text" name="current_identity" placeholder="Current email or username" required autocomplete="username" class="profile-change-input">
+              <input type="password" name="password" placeholder="Current password" required autocomplete="current-password" class="profile-change-input">
+              <input type="text" name="new_username" placeholder="New username" required autocomplete="username" class="profile-change-input">
+              <button type="submit" class="btn profile-change-submit">Update Username</button>
+            </form>
+          </div>
+
+          <div id="passwordChangeCard" class="profile-change-card" hidden>
+            <h3 class="profile-change-title">Change Password</h3>
+            <form action="/auth/change-password" method="POST" class="profile-change-form">
+              <input type="password" name="current_password" placeholder="Current password" required autocomplete="current-password" class="profile-change-input">
+              <input type="password" name="new_password" placeholder="New password" required autocomplete="new-password" class="profile-change-input">
+              <input type="password" name="confirm_password" placeholder="Confirm new password" required autocomplete="new-password" class="profile-change-input">
+              <button type="submit" class="btn profile-change-submit">Update Password</button>
+            </form>
+          </div>
+        </article>
+      </section>
+
+      <%- include('partials/footer') %>
+    </main>
+  </div>
+  <script src="https://unpkg.com/cropperjs@1.6.2/dist/cropper.min.js"></script>
+  <script src="/js/profile-photo.js"></script>
+</body>
+</html>

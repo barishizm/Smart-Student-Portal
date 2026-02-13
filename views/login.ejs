@@ -32,8 +32,8 @@
             <form class="login-form" id="loginForm" action="/auth/login" method="POST" novalidate>
                 <div class="form-group">
                     <div class="input-wrapper">
-                        <input type="email" id="email" name="email" placeholder=" " required autocomplete="email">
-                        <label for="email">Email Address</label>
+                        <input type="text" id="email" name="email" placeholder=" " required autocomplete="username">
+                        <label for="email">Email or Username</label>
                     </div>
                     <span class="error-message" id="emailError"></span>
                 </div>
@@ -57,7 +57,7 @@
                             Remember me
                         </span>
                     </label>
-                    <a href="#" class="forgot-password">Forgot password?</a>
+                    <a href="/auth/forgot-password" class="forgot-password">Forgot password?</a>
                 </div>
 
                 <button type="submit" class="login-btn btn">

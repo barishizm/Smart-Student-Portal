@@ -1,7 +1,7 @@
 <header class="topbar">
   <div class="crumbs">
     <h1>Mano VILNIUS TECH</h1>
-    <p><%= new Date().toISOString().split('T')[0] %> • Week 2 • Lecture 6</p>
+    <p id="headerScheduleInfo"><%= headerInfo.date %> • Week <%= headerInfo.week %> • <%= headerInfo.lecture %></p>
   </div>
 
   <div class="top-actions">
@@ -16,11 +16,30 @@
       <span aria-hidden="true">🔔</span>
     </button>
 
-    <div class="profile">
-      <div class="avatar" aria-hidden="true"><%= user ? user.username.charAt(0).toUpperCase() : 'U' %></div>
-      <div class="profile-meta">
-        <strong id="profileName"><%= user ? user.username : 'Guest' %></strong>
-        <small><%= user ? user.role : 'Visitor' %></small>
+    <div class="profile-wrap" id="profileMenu">
+      <button class="profile profile-trigger" id="profileTrigger" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Open profile menu">
+        <div class="avatar" aria-hidden="true">
+          <% if (user && user.avatar_url) { %>
+            <img src="<%= user.avatar_url %>" alt="Profile photo" class="avatar-img">
+          <% } else { %>
+            <%= user ? user.username.charAt(0).toUpperCase() : 'U' %>
+          <% } %>
+        </div>
+        <div class="profile-meta">
+          <strong id="profileName"><%= user ? user.username : 'Guest' %></strong>
+          <small><%= user ? user.role : 'Visitor' %></small>
+        </div>
+      </button>
+
+      <div class="profile-submenu" id="profileSubmenu">
+        <a href="/profile" class="profile-subitem" id="profileLink">
+          <span aria-hidden="true">👤</span>
+          Profile
+        </a>
+        <a href="/auth/logout" class="profile-subitem" id="profileLogout">
+          <span aria-hidden="true">↩</span>
+          Logout
+        </a>
       </div>
     </div>
   </div>

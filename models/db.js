@@ -49,6 +49,9 @@ const initializeDatabase = async () => {
   const userColumns = await allAsync("PRAGMA table_info(users)");
   const hasEmailColumn = userColumns.some((column) => column.name === "email");
   const hasRoleColumn = userColumns.some((column) => column.name === "role");
+  const hasAvatarColumn = userColumns.some((column) => column.name === "avatar_url");
+  const hasFirstNameColumn = userColumns.some((column) => column.name === "first_name");
+  const hasLastNameColumn = userColumns.some((column) => column.name === "last_name");
 
   if (!hasEmailColumn) {
     await runAsync("ALTER TABLE users ADD COLUMN email TEXT");
@@ -58,6 +61,21 @@ const initializeDatabase = async () => {
   if (!hasRoleColumn) {
     await runAsync("ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'student'");
     console.log("Added role column to users table.");
+  }
+
+  if (!hasAvatarColumn) {
+    await runAsync("ALTER TABLE users ADD COLUMN avatar_url TEXT");
+    console.log("Added avatar_url column to users table.");
+  }
+
+  if (!hasFirstNameColumn) {
+    await runAsync("ALTER TABLE users ADD COLUMN first_name TEXT");
+    console.log("Added first_name column to users table.");
+  }
+
+  if (!hasLastNameColumn) {
+    await runAsync("ALTER TABLE users ADD COLUMN last_name TEXT");
+    console.log("Added last_name column to users table.");
   }
 
   await runAsync(
@@ -88,16 +106,79 @@ const initializeDatabase = async () => {
   );
 
   await runAsync(`
+    CREATE TABLE IF NOT EXISTS password_reset_tokens (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL,
+      token_hash TEXT NOT NULL UNIQUE,
+      expires_at INTEGER NOT NULL,
+      created_at INTEGER NOT NULL,
+      used_at INTEGER,
+      FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
+    )
+  `);
+
+  await runAsync(
+    "CREATE INDEX IF NOT EXISTS idx_password_reset_user ON password_reset_tokens(user_id)",
+  );
+  await runAsync(
+    "CREATE INDEX IF NOT EXISTS idx_password_reset_expiry ON password_reset_tokens(expires_at)",
+  );
+
+  await runAsync(`
     CREATE TABLE IF NOT EXISTS students (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       surname TEXT NOT NULL,
       student_id TEXT UNIQUE NOT NULL,
       email TEXT,
+      user_id INTEGER,
       group_name TEXT,
-      data TEXT
+      data TEXT,
+      FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE SET NULL
     )
   `);
+
+  const studentColumns = await allAsync("PRAGMA table_info(students)");
+  const hasStudentUserIdColumn = studentColumns.some((column) => column.name === "user_id");
+  if (!hasStudentUserIdColumn) {
+    await runAsync("ALTER TABLE students ADD COLUMN user_id INTEGER");
+    console.log("Added user_id column to students table.");
+  }
+
+  await runAsync(
+    "CREATE UNIQUE INDEX IF NOT EXISTS idx_students_user_id_unique ON students(user_id) WHERE user_id IS NOT NULL",
+  );
+
+  await runAsync(
+    `INSERT OR IGNORE INTO students (name, surname, student_id, email, user_id, group_name, data)
+     SELECT
+       COALESCE(NULLIF(trim(u.first_name), ''), NULLIF(trim(u.username), ''), 'Student') AS name,
+       COALESCE(NULLIF(trim(u.last_name), ''), 'User') AS surname,
+       ('REG-AUTO-' || u.id) AS student_id,
+       u.email,
+       u.id,
+       NULL,
+       NULL
+     FROM users u
+     LEFT JOIN students s ON lower(COALESCE(s.email, '')) = lower(COALESCE(u.email, ''))
+     WHERE u.email IS NOT NULL
+       AND trim(u.email) != ''
+       AND lower(u.email) != ?
+       AND s.id IS NULL`,
+    [ADMIN_IDENTIFIER],
+  );
+
+  await runAsync(
+    `UPDATE students
+     SET user_id = (
+       SELECT u.id FROM users u
+       WHERE lower(COALESCE(u.email, '')) = lower(COALESCE(students.email, ''))
+       LIMIT 1
+     )
+     WHERE user_id IS NULL
+       AND email IS NOT NULL
+       AND trim(email) != ''`,
+  );
 };
 
 db.ready = initializeDatabase().catch((err) => {

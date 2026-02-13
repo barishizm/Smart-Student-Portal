@@ -1,48 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <%- include('partials/head') %>
   <title>VILNIUS TECH | About</title>
-  <link rel="stylesheet" href="css/subsite.css">
 </head>
 <body>
+  <div class="dash">
+    <%- include('partials/sidebar') %>
 
-<header class="topbar">
-  <a class="brand" href="index.html">PORTAL</a>
-  <nav>
-    <a href="index.html">Home</a>
-    <a class="active" href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+    <main class="main">
+      <%- include('partials/header') %>
 
-<main class="page">
-  <section class="card">
-    <h1>About the System</h1>
+      <section class="content">
+        <article class="card">
+          <div class="card-head">
+            <h2>About the System</h2>
+            <span class="badge">Info</span>
+          </div>
 
-    <p>
-      This web portal is developed as part of an Internet Technologies project.
-      It integrates frontend structure, client-side validation, and modular architecture.
-    </p>
+          <p class="muted" style="margin-bottom: 18px;">
+            This web portal is developed as part of an Internet Technologies project.
+            It integrates frontend structure, client-side validation, and modular architecture.
+          </p>
 
-    <div class="features">
-      <div class="feature-box">
-        <h3>Frontend</h3>
-        <p>HTML5 semantic layout, CSS styling and responsive design.</p>
-      </div>
+          <div class="stats" style="grid-template-columns: repeat(3, minmax(200px, 1fr));">
+            <div class="stat">
+              <strong>Frontend</strong>
+              <small>HTML5 semantic layout, CSS styling and responsive design.</small>
+            </div>
 
-      <div class="feature-box">
-        <h3>Client-Side Logic</h3>
-        <p>JavaScript-based validation and UI behavior control.</p>
-      </div>
+            <div class="stat">
+              <strong>Client-Side Logic</strong>
+              <small>JavaScript-based validation and UI behavior control.</small>
+            </div>
 
-      <div class="feature-box">
-        <h3>Scalability</h3>
-        <p>Architecture designed for backend and database integration.</p>
-      </div>
-    </div>
-  </section>
-</main>
+            <div class="stat">
+              <strong>Scalability</strong>
+              <small>Architecture designed for backend and database integration.</small>
+            </div>
+          </div>
+        </article>
+      </section>
 
+      <%- include('partials/footer') %>
+    </main>
+  </div>
 </body>
 </html>

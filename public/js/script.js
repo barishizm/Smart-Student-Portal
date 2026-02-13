@@ -16,7 +16,7 @@ class LoginForm1 {
     this.submittedOnce = false;
 
     this.validators = {
-      email: FormUtils.validateEmail,
+      email: LoginForm1.validateLoginIdentity,
       password: LoginForm1.validateLoginPassword,
     };
 
@@ -120,18 +120,7 @@ class LoginForm1 {
 
   handleForgotPassword(e) {
     e.preventDefault();
-    // Add subtle animation
-    const link = e.target;
-    link.style.transform = "scale(0.95)";
-    setTimeout(() => {
-      link.style.transform = "scale(1)";
-    }, 150);
-
-    FormUtils.showNotification(
-      "Password reset link would be sent to your email",
-      "info",
-      this.form,
-    );
+    window.location.href = "/auth/forgot-password";
   }
 
   handleSignupLink(e) {
@@ -218,6 +207,22 @@ class LoginForm1 {
     }
 
     return result.isValid;
+  }
+
+  static validateLoginIdentity(value) {
+    if (!value) {
+      return { isValid: false, message: "Email or username is required" };
+    }
+
+    if (value.includes("@")) {
+      return FormUtils.validateEmail(value);
+    }
+
+    if (value.length < 3) {
+      return { isValid: false, message: "Username must be at least 3 characters" };
+    }
+
+    return { isValid: true };
   }
 
   shakeForm() {

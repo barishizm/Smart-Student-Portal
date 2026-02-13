@@ -42,15 +42,45 @@
                             <input type="email" name="email" value="<%= student.email %>" class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
                         </div>
                         <div class="form-group" style="margin-bottom:15px;">
+                            <label>Username (linked user)</label>
+                            <input type="text" name="username" value="<%= student.username || '' %>" class="input" placeholder="No linked user" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div class="form-group" style="margin-bottom:15px;">
                             <label>Group</label>
                             <input type="text" name="group_name" value="<%= student.group_name %>" class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
                         </div>
+
+                        <button type="button" id="togglePasswordFields" class="btn ghost" style="margin-bottom:12px;">Advanced: Change Password</button>
+                        <div id="passwordFields" style="display:none; margin-bottom:15px; padding:12px; border:1px dashed rgba(255,255,255,.28); border-radius:10px;">
+                            <p style="margin-bottom:10px; font-size:13px; color:rgba(255,255,255,.84);">Hidden action — only fill when you intentionally want to change this user's password.</p>
+                            <div class="form-group" style="margin-bottom:10px;">
+                                <label>New Password</label>
+                                <input type="password" name="new_password" class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label>Confirm New Password</label>
+                                <input type="password" name="confirm_password" class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                        </div>
+
                         <button type="submit" class="btn">Update Student</button>
                     </form>
                 </div>
             </div>
+
+            <%- include('../partials/footer') %>
         </main>
     </div>
-    <%- include('../partials/footer') %>
+    <script>
+      const toggleBtn = document.getElementById('togglePasswordFields');
+      const panel = document.getElementById('passwordFields');
+      if (toggleBtn && panel) {
+        toggleBtn.addEventListener('click', () => {
+          const open = panel.style.display === 'block';
+          panel.style.display = open ? 'none' : 'block';
+          toggleBtn.textContent = open ? 'Advanced: Change Password' : 'Hide Password Fields';
+        });
+      }
+    </script>
 </body>
 </html>

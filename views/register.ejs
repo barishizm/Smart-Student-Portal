@@ -32,15 +32,29 @@
             <form class="login-form" id="registerForm" action="/auth/register" method="POST" novalidate>
                 <div class="form-group">
                     <div class="input-wrapper">
-                        <input type="text" id="username" name="username" placeholder=" " required autocomplete="username">
+                        <input type="text" id="first_name" name="first_name" placeholder=" " required autocomplete="given-name" value="<%= formData?.firstName || '' %>">
+                        <label for="first_name">First Name</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <input type="text" id="last_name" name="last_name" placeholder=" " required autocomplete="family-name" value="<%= formData?.lastName || '' %>">
+                        <label for="last_name">Last Name</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <input type="text" id="username" name="username" placeholder=" " required autocomplete="username" value="<%= formData?.username || '' %>">
                         <label for="username">Username</label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="input-wrapper">
-                        <input type="email" id="email" name="email" placeholder=" " required autocomplete="email">
-                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder=" " required autocomplete="email" pattern="^[^\s@]+@(stud\.)?vilniustech\.lt$" title="Use your school email" value="<%= formData?.email || '' %>">
+                        <label for="email">School Email</label>
                     </div>
                 </div>
 
