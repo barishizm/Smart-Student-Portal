@@ -142,12 +142,14 @@ const authRoutes = require('./routes/auth');
 const studentRoutes = require('./routes/students');
 const notificationRoutes = require('./routes/notifications');
 const eventsRoutes = require('./routes/events');
+const scheduleRoutes = require('./routes/schedules');
 
 app.use('/', indexRoutes);
 app.use('/auth', authRoutes);
 app.use('/admin/students', studentRoutes); // Protected route will be handled in studentRoutes
 app.use('/notifications', notificationRoutes);
 app.use('/events', eventsRoutes);
+app.use('/schedules', scheduleRoutes);
 
 // Start server only after DB migrations are ready.
 db.ready

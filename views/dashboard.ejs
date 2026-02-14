@@ -20,8 +20,159 @@
         <% const dashboardEvents = Array.isArray(dashboardEventsSource) ? dashboardEventsSource : []; %>
         <% const dashboardPastEventsSource = typeof pastEvents !== 'undefined' ? pastEvents : []; %>
         <% const dashboardPastEvents = Array.isArray(dashboardPastEventsSource) ? dashboardPastEventsSource : []; %>
+        <% const todayTomorrowSource = typeof todayTomorrowSchedule !== 'undefined' ? todayTomorrowSchedule : []; %>
+        <% const todayTomorrowLessons = Array.isArray(todayTomorrowSource) ? todayTomorrowSource : []; %>
+        <% const weeklyScheduleSource = typeof weeklyScheduleByDay !== 'undefined' ? weeklyScheduleByDay : []; %>
+        <% const weeklySchedule = Array.isArray(weeklyScheduleSource) ? weeklyScheduleSource : []; %>
+        <% const weeklyScheduleWeekdays = weeklySchedule.filter((dayBlock) => Number(dayBlock.dayOfWeek) >= 1 && Number(dayBlock.dayOfWeek) <= 5); %>
+        <% const allSchedulesSource = typeof allSchedulesByDay !== 'undefined' ? allSchedulesByDay : weeklySchedule; %>
+        <% const allSchedulesByWeekday = Array.isArray(allSchedulesSource)
+          ? allSchedulesSource.filter((dayBlock) => Number(dayBlock.dayOfWeek) >= 1 && Number(dayBlock.dayOfWeek) <= 5)
+          : []; %>
+        <% const allScheduleEntriesSource = typeof allScheduleEntries !== 'undefined' ? allScheduleEntries : []; %>
+        <% const adminScheduleEntries = Array.isArray(allScheduleEntriesSource) ? allScheduleEntriesSource : []; %>
+        <% const scheduleGroupsSource = typeof scheduleGroups !== 'undefined' ? scheduleGroups : []; %>
+        <% const scheduleGroupsList = Array.isArray(scheduleGroupsSource) ? scheduleGroupsSource : []; %>
+        <% const scheduleDayLabels = {
+          1: t('schedules.days.monday'),
+          2: t('schedules.days.tuesday'),
+          3: t('schedules.days.wednesday'),
+          4: t('schedules.days.thursday'),
+          5: t('schedules.days.friday'),
+          6: t('schedules.days.saturday'),
+          7: t('schedules.days.sunday')
+        }; %>
         <div class="dashboard-main-column">
+          <% if (user.role !== 'admin') { %>
+            <article class="card" id="my-schedule">
+              <div class="card-head">
+                <h2><%= t('schedules.mySchedule') %></h2>
+              </div>
+
+              <% if (todayTomorrowLessons.length > 0) { %>
+                <ul class="list schedule-list">
+                  <% todayTomorrowLessons.forEach((lesson) => { %>
+                    <% const isToday = Number(todayDay) === Number(lesson.day_of_week); %>
+                    <% const isTomorrow = Number(tomorrowDay) === Number(lesson.day_of_week); %>
+                    <li class="list-item schedule-list-item">
+                      <div class="date">
+                        <strong><%= scheduleDayLabels[lesson.day_of_week] || '-' %></strong><br>
+                        <small><%= lesson.start_time %> - <%= lesson.end_time %></small>
+                      </div>
+                      <div class="txt">
+                        <strong><%= lesson.subject %></strong>
+                        <small class="muted">
+                          <% if (isToday) { %>
+                            <%= t('schedules.today') %>
+                          <% } else if (isTomorrow) { %>
+                            <%= t('schedules.tomorrow') %>
+                          <% } else { %>
+                            <%= scheduleDayLabels[lesson.day_of_week] || '' %>
+                          <% } %>
+                          <% if (lesson.classroom) { %> • <%= lesson.classroom %><% } %>
+                          <% if (lesson.lecture_type) { %> • <%= lesson.lecture_type %><% } %>
+                        </small>
+                        <% if (lesson.lecturer) { %>
+                          <small class="muted"><%= lesson.lecturer %></small>
+                        <% } %>
+                      </div>
+                    </li>
+                  <% }); %>
+                </ul>
+              <% } else { %>
+                <p class="muted event-empty"><%= t('schedules.noneTodayTomorrow') %></p>
+              <% } %>
+
+              <div class="schedule-actions">
+                <button type="button" class="btn ghost all-schedules-btn" id="openAllSchedulesBtn"><%= t('schedules.allSchedules') %></button>
+              </div>
+            </article>
+          <% } %>
+
           <% if(user.role === 'admin') { %>
+            <article class="card" id="manage-schedules">
+              <div class="card-head">
+                <h2><%= t('schedules.manageTitle') %></h2>
+                <span class="badge"><%= t('dashboard.admin') %></span>
+              </div>
+
+              <form action="/schedules/admin" method="POST" class="profile-change-form event-manage-form">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input type="hidden" name="return_to" value="/dashboard#manage-schedules">
+
+                <select name="group_name" class="profile-change-input" required>
+                  <option value=""><%= t('schedules.groupPlaceholder') %></option>
+                  <% scheduleGroupsList.forEach((item) => { %>
+                    <% if (item.group_name) { %>
+                      <option value="<%= item.group_name %>"><%= item.group_name %></option>
+                    <% } %>
+                  <% }); %>
+                </select>
+
+                <select name="day_of_week" class="profile-change-input" required>
+                  <option value=""><%= t('schedules.dayPlaceholder') %></option>
+                  <option value="1"><%= t('schedules.days.monday') %></option>
+                  <option value="2"><%= t('schedules.days.tuesday') %></option>
+                  <option value="3"><%= t('schedules.days.wednesday') %></option>
+                  <option value="4"><%= t('schedules.days.thursday') %></option>
+                  <option value="5"><%= t('schedules.days.friday') %></option>
+                </select>
+
+                <select name="lecture_slot" class="profile-change-input" required>
+                  <option value=""><%= t('schedules.slotPlaceholder') %></option>
+                  <option value="1"><%= t('schedules.slots.slot1') %></option>
+                  <option value="2"><%= t('schedules.slots.slot2') %></option>
+                  <option value="3"><%= t('schedules.slots.slot3') %></option>
+                  <option value="4"><%= t('schedules.slots.slot4') %></option>
+                  <option value="5"><%= t('schedules.slots.slot5') %></option>
+                  <option value="6"><%= t('schedules.slots.slot6') %></option>
+                  <option value="7"><%= t('schedules.slots.slot7') %></option>
+                </select>
+
+                <input
+                  type="text"
+                  name="subject"
+                  class="profile-change-input"
+                  placeholder="<%= t('schedules.subjectPlaceholder') %>"
+                  required
+                  maxlength="160"
+                >
+                <input
+                  type="text"
+                  name="classroom"
+                  class="profile-change-input"
+                  placeholder="<%= t('schedules.classroomPlaceholder') %>"
+                  maxlength="80"
+                >
+                <input
+                  type="text"
+                  name="lecturer"
+                  class="profile-change-input"
+                  placeholder="<%= t('schedules.lecturerPlaceholder') %>"
+                  maxlength="120"
+                >
+                <input
+                  type="text"
+                  name="lecture_type"
+                  class="profile-change-input"
+                  placeholder="<%= t('schedules.typePlaceholder') %>"
+                  maxlength="80"
+                >
+
+                <select name="week_pattern" class="profile-change-input" required>
+                  <option value="all"><%= t('schedules.weekPattern.all') %></option>
+                  <option value="week1"><%= t('schedules.weekPattern.week1') %></option>
+                  <option value="week2"><%= t('schedules.weekPattern.week2') %></option>
+                </select>
+
+                <button type="submit" class="btn profile-change-submit"><%= t('schedules.addButton') %></button>
+              </form>
+
+              <div class="event-manage-list-wrap">
+                <a href="/schedules/admin" class="btn ghost"><%= t('schedules.fullSystemButton') %></a>
+              </div>
+            </article>
+
             <article class="card" id="manage-events">
               <div class="card-head">
                 <h2><%= t('events.manageTitle') %></h2>
@@ -128,6 +279,50 @@
         </div>
 
         <%- include('partials/upcoming-events', { upcomingEvents: dashboardEvents, pastEvents: dashboardPastEvents, currentLanguage, t }) %>
+
+        <article class="card all-schedules-center-card" id="allSchedulesCard" hidden>
+          <div class="card-head">
+            <h2><%= t('schedules.allSchedules') %></h2>
+            <button type="button" class="btn ghost small" id="closeAllSchedulesBtn"><%= t('events.closeButton') %></button>
+          </div>
+
+          <div class="all-schedules-sections">
+            <% if (allSchedulesByWeekday.length > 0) { %>
+              <% allSchedulesByWeekday.forEach((dayBlock) => { %>
+                <section class="schedule-day-block">
+                  <h3 class="profile-change-title"><%= scheduleDayLabels[dayBlock.dayOfWeek] || '-' %></h3>
+
+                  <% if (Array.isArray(dayBlock.lessons) && dayBlock.lessons.length > 0) { %>
+                    <ul class="list events-list">
+                      <% dayBlock.lessons.forEach((lesson) => { %>
+                        <li class="list-item event-list-item">
+                          <div class="date"><%= lesson.start_time %><br><small><%= lesson.end_time %></small></div>
+                          <div class="txt">
+                            <strong><%= lesson.subject %></strong>
+                            <small class="muted">
+                              <%= t(`schedules.weekPattern.${lesson.week_pattern || 'all'}`) %>
+                              <% if (lesson.classroom) { %> • <%= lesson.classroom %><% } %>
+                              <% if (lesson.lecture_type) { %> • <%= lesson.lecture_type %><% } %>
+                            </small>
+                            <% if (lesson.lecturer) { %>
+                              <small class="muted"><%= lesson.lecturer %></small>
+                            <% } %>
+                          </div>
+                        </li>
+                      <% }); %>
+                    </ul>
+                  <% } else { %>
+                    <p class="muted event-empty"><%= t('schedules.noLessonsDay') %></p>
+                  <% } %>
+                </section>
+              <% }); %>
+            <% } else { %>
+              <p class="muted event-empty"><%= t('schedules.noneWeekly') %></p>
+            <% } %>
+          </div>
+        </article>
+
+        <div id="allSchedulesBackdrop" hidden aria-hidden="true"></div>
 
         <article class="card all-events-center-card" id="allEventsCard" hidden>
           <div class="card-head">

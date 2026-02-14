@@ -104,6 +104,7 @@ router.post('/profile-photo', requireProfileSession, (req, res) => {
 	});
 });
 router.post('/profile-photo/delete', requireProfileSession, authController.deleteProfilePhoto);
+router.post('/delete-account', requireProfileSession, authController.deleteAccount);
 
 // Logout Handle
 router.get('/logout', authController.logout);

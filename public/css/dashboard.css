@@ -761,6 +761,61 @@ body{
   max-width: 520px;
 }
 
+.profile-delete-form{
+  margin: 0 auto;
+  justify-items: center;
+}
+
+.delete-account-confirm-backdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 12, 34, 0.48);
+  z-index: 130;
+}
+
+.delete-account-confirm-backdrop[hidden]{
+  display: none;
+}
+
+.delete-account-confirm-card{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(520px, calc(100vw - 40px));
+  border-radius: 18px;
+  border: 1px solid var(--card-border);
+  background: rgba(27, 51, 130, 0.94);
+  padding: 18px;
+  z-index: 140;
+}
+
+.delete-account-confirm-card[hidden]{
+  display: none;
+}
+
+.delete-account-confirm-text{
+  margin: 6px 0 14px;
+  color: rgba(255,255,255,.92);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.delete-account-confirm-card .profile-change-input{
+  width: 100%;
+}
+
+.delete-account-confirm-actions{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.delete-account-final-actions{
+  margin-top: 16px;
+}
+
 .profile-change-input{
   padding: 11px 12px;
   border-radius: 12px;
@@ -893,6 +948,63 @@ body{
   letter-spacing:.3px;
   text-transform: uppercase;
   color: rgba(255,255,255,.85);
+}
+
+.card-head-actions{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-toggle-btn{
+  min-width: 36px;
+  padding: 8px;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.nav-like-icon-btn{
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-like-icon-btn i{
+  font-size: 14px;
+}
+
+.schedule-filter-form{
+  margin-bottom: 12px;
+}
+
+.schedule-filter-form.is-collapsed{
+  display: none;
+}
+
+.table-pagination{
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+}
+
+.table-pagination .page-btn{
+  min-width: 34px;
+}
+
+.table-pagination .is-active{
+  background: rgba(6,182,212,.20);
+  border-color: rgba(6,182,212,.45);
+}
+
+.table-pagination .is-disabled{
+  opacity: .5;
+  pointer-events: none;
 }
 
 .badge{
@@ -1035,6 +1147,48 @@ body{
   margin-top: 12px;
 }
 
+.all-schedules-btn{
+  width: auto;
+  margin-top: 12px;
+}
+
+.schedule-actions{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.schedule-list-item .date strong{
+  font-size: 13px;
+}
+
+.schedule-time-grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.schedule-day-block{
+  border: 1px solid var(--card-border);
+  background: var(--card-glass-soft);
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.schedule-day-block .profile-change-title{
+  margin-bottom: 10px;
+}
+
+.all-schedules-center-card{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(1000px, calc(100vw - 60px));
+  max-height: calc(100vh - 120px);
+  overflow: auto;
+  z-index: 120;
+}
+
 .all-events-center-card{
   position: fixed;
   top: 50%;
@@ -1046,7 +1200,8 @@ body{
   z-index: 120;
 }
 
-#allEventsBackdrop{
+#allEventsBackdrop,
+#allSchedulesBackdrop{
   position: fixed;
   inset: 0;
   background: rgba(5, 12, 34, 0.42);
@@ -1054,15 +1209,23 @@ body{
   pointer-events: none;
 }
 
+#allSchedulesBackdrop[hidden],
 #allEventsBackdrop[hidden]{
   display: none;
 }
 
+.dash.all-schedules-open .all-schedules-center-card,
 .dash.all-events-open .all-events-center-card{
   background: rgba(27, 51, 130, 0.94);
   border-color: rgba(164, 205, 255, 0.46);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
+}
+
+.all-schedules-sections{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
 }
 
 .all-events-sections{

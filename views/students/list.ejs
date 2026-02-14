@@ -73,6 +73,54 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <div class="event-manage-list-wrap" style="margin-top:14px;">
+                        <% const emailLocksSource = typeof deletedEmailLocks !== 'undefined' ? deletedEmailLocks : []; %>
+                        <% const emailLocks = Array.isArray(emailLocksSource) ? emailLocksSource : []; %>
+                        <h3 class="profile-change-title"><%= t('students.unlockDeletedEmailTitle') %></h3>
+                        <p class="muted" style="margin-bottom:10px;"><%= t('students.unlockDeletedEmailHint') %></p>
+
+                        <form action="/admin/students/unlock-deleted-email" method="POST" class="profile-change-form" style="max-width:520px;">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <input type="email" name="email" class="profile-change-input" placeholder="<%= t('students.email') %>" required>
+                            <button type="submit" class="btn small"><%= t('students.unlockDeletedEmailButton') %></button>
+                        </form>
+
+                        <% if (emailLocks.length > 0) { %>
+                            <div class="table-wrap" style="margin-top:12px;">
+                                <table class="table" style="min-width: 620px;">
+                                    <thead>
+                                        <tr>
+                                            <th><%= t('students.email') %></th>
+                                            <th><%= t('students.unlockDeletedEmailLockedAt') %></th>
+                                            <th><%= t('students.actions') %></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% emailLocks.forEach((lockItem) => { %>
+                                            <% const lockedDate = new Date(Number(lockItem.deleted_at)); %>
+                                            <% const lockedDateLabel = Number.isNaN(lockedDate.getTime())
+                                                ? '-'
+                                                : lockedDate.toLocaleString(currentLanguage || 'en'); %>
+                                            <tr>
+                                                <td><%= lockItem.email %></td>
+                                                <td><%= lockedDateLabel %></td>
+                                                <td>
+                                                    <form action="/admin/students/unlock-deleted-email" method="POST" style="display:inline;" onsubmit="return confirm('<%= t('students.unlockDeletedEmailConfirm') %>');">
+                                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                                        <input type="hidden" name="email" value="<%= lockItem.email %>">
+                                                        <button type="submit" class="btn small"><%= t('students.unlockDeletedEmailButton') %></button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <% } else { %>
+                            <p class="muted event-empty"><%= t('students.unlockDeletedEmailEmpty') %></p>
+                        <% } %>
+                    </div>
                 </div>
             </div>
 

@@ -18,6 +18,8 @@ const buildAutoStudentId = (userId) => `REG-AUTO-${userId}`;
 const isStoredAvatarPath = (avatarPath) =>
     typeof avatarPath === 'string' && /^\/uploads\/profile\/[a-zA-Z0-9._-]+$/.test(avatarPath);
 
+const ACCOUNT_DELETE_CONFIRMATION = 'I WANT TO DELETE MY ACCOUNT';
+
 const deleteAvatarFileFromDisk = (avatarPath) => {
     if (!isStoredAvatarPath(avatarPath)) {
         return;
@@ -121,6 +123,16 @@ exports.register = async (req, res) => {
     }
 
     try {
+        const emailLock = await dbGet(
+            'SELECT id FROM account_deletion_locks WHERE lower(email) = lower(?) LIMIT 1',
+            [email]
+        );
+
+        if (emailLock) {
+            errors.push({ msg: 'This email cannot be used to register again. Please contact IT support.' });
+            return renderRegisterWithErrors(res, errors, formData);
+        }
+
         const existingUser = await dbGet(
             'SELECT * FROM users WHERE lower(email) = lower(?) OR lower(username) = lower(?)',
             [email, username]
@@ -423,6 +435,74 @@ exports.deleteProfilePhoto = async (req, res) => {
     } catch (err) {
         console.error('Delete profile photo error:', err);
         req.flash('error_msg', 'Could not delete profile photo');
+        return res.redirect('/profile');
+    }
+};
+
+exports.deleteAccount = async (req, res) => {
+    if (!req.session?.user?.id) {
+        req.flash('error_msg', 'Please log in first');
+        return res.redirect('/');
+    }
+
+    const userId = req.session.user.id;
+    const confirmationText = typeof req.body.delete_confirmation_text === 'string'
+        ? req.body.delete_confirmation_text
+        : '';
+
+    if (confirmationText !== ACCOUNT_DELETE_CONFIRMATION) {
+        req.flash('error_msg', `Please write exactly: ${ACCOUNT_DELETE_CONFIRMATION}`);
+        return res.redirect('/profile');
+    }
+
+    try {
+        const user = await dbGet('SELECT id, email, avatar_url FROM users WHERE id = ?', [userId]);
+        if (!user) {
+            req.flash('error_msg', 'User not found');
+            return res.redirect('/profile');
+        }
+
+        const normalizedEmail = String(user.email || '').trim().toLowerCase();
+        const now = Date.now();
+
+        await dbRun('BEGIN TRANSACTION');
+
+        if (normalizedEmail) {
+            await dbRun(
+                `INSERT INTO account_deletion_locks (email, deleted_user_id, deleted_at, lock_note)
+                 VALUES (?, ?, ?, ?)
+                 ON CONFLICT(email) DO UPDATE SET
+                   deleted_user_id = excluded.deleted_user_id,
+                   deleted_at = excluded.deleted_at,
+                   lock_note = excluded.lock_note`,
+                [
+                    normalizedEmail,
+                    user.id,
+                    now,
+                    'Re-registration requires IT support approval after account deletion.'
+                ]
+            );
+        }
+
+        await dbRun('DELETE FROM users WHERE id = ?', [user.id]);
+        await dbRun('COMMIT');
+
+        if (user.avatar_url) {
+            deleteAvatarFileFromDisk(user.avatar_url);
+        }
+
+        req.session.destroy((destroyErr) => {
+            if (destroyErr) {
+                console.error('Delete account session destroy error:', destroyErr);
+            }
+
+            res.clearCookie('ssp.sid');
+            return res.redirect('/');
+        });
+    } catch (err) {
+        await dbRun('ROLLBACK').catch(() => {});
+        console.error('Delete account error:', err);
+        req.flash('error_msg', 'Could not delete account. Please try again.');
         return res.redirect('/profile');
     }
 };

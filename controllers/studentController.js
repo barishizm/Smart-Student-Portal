@@ -33,7 +33,7 @@ const escapeXml = (value = '') => String(value)
     .replaceAll("'", '&apos;');
 
 // List Students
-exports.listStudents = (req, res) => {
+exports.listStudents = async (req, res) => {
     const query = `
       SELECT s.*, u.username, u.role
       FROM students s
@@ -41,13 +41,49 @@ exports.listStudents = (req, res) => {
       ORDER BY s.id DESC
     `;
 
-    db.all(query, [], (err, rows) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send("Database error");
+    try {
+        const [students, deletedEmailLocks] = await Promise.all([
+            dbAll(query),
+            dbAll(
+                `SELECT id, email, deleted_user_id, deleted_at, lock_note
+                 FROM account_deletion_locks
+                 ORDER BY deleted_at DESC`
+            )
+        ]);
+
+        return res.render('students/list', {
+            students,
+            deletedEmailLocks,
+        });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send('Database error');
+    }
+};
+
+exports.unlockDeletedAccountEmail = async (req, res) => {
+    const email = String(req.body.email || '').trim().toLowerCase();
+
+    if (!email) {
+        req.flash('error_msg', 'Please enter an email to unlock');
+        return res.redirect('/admin/students');
+    }
+
+    try {
+        const deleted = await dbRun('DELETE FROM account_deletion_locks WHERE lower(email) = lower(?)', [email]);
+
+        if (!deleted.changes) {
+            req.flash('error_msg', 'No locked deleted-account email found for that address');
+            return res.redirect('/admin/students');
         }
-        res.render('students/list', { students: rows });
-    });
+
+        req.flash('success_msg', 'Deleted-account email lock removed. This email can register again.');
+        return res.redirect('/admin/students');
+    } catch (err) {
+        console.error(err);
+        req.flash('error_msg', 'Could not unlock deleted-account email');
+        return res.redirect('/admin/students');
+    }
 };
 
 // Add Student Form

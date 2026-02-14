@@ -99,6 +99,62 @@
     "noUpcoming": "Henüz yaklaşan etkinlik yok.",
     "noPast": "Henüz geçmiş etkinlik yok."
   },
+  "schedules": {
+    "mySchedule": "Ders Programım",
+    "allSchedules": "Tüm program",
+    "weeklyTitle": "Haftalık Ders Programı",
+    "manageTitle": "Ders Programını Yönet",
+    "fullSystemTitle": "Ders Programı Yönetim Sistemi",
+    "fullSystemButton": "Tam program sistemini aç",
+    "backDashboard": "Panele dön",
+    "fullListTitle": "Filtrelenmiş ders kayıtları",
+    "filterAllGroups": "Tüm gruplar",
+    "filterAllDays": "Tüm günler",
+    "filterAllWeeks": "Tüm hafta tipleri",
+    "applyFilters": "Filtrele",
+    "clearFilters": "Temizle",
+    "dayColumn": "Gün",
+    "slotColumn": "Ders saati",
+    "detailsColumn": "Detay",
+    "existingTitle": "Mevcut ders kayıtları",
+    "groupPlaceholder": "Grup seçin",
+    "dayPlaceholder": "Gün seçin",
+    "slotPlaceholder": "Ders saatini seçin",
+    "subjectPlaceholder": "Ders adı",
+    "classroomPlaceholder": "Sınıf (opsiyonel)",
+    "lecturerPlaceholder": "Öğretim görevlisi (opsiyonel)",
+    "typePlaceholder": "Ders türü (opsiyonel)",
+    "addButton": "Ders Ekle",
+    "removeButton": "Kaldır",
+    "noneTodayTomorrow": "Bugün ve yarın için ders bulunmuyor.",
+    "noneWeekly": "Bu hafta için ders bulunmuyor.",
+    "noLessonsDay": "Bu gün için ders yok.",
+    "today": "Bugün",
+    "tomorrow": "Yarın",
+    "slots": {
+      "slot1": "1. ders (08:30 - 10:05)",
+      "slot2": "2. ders (10:20 - 11:55)",
+      "slot3": "3. ders (12:10 - 13:45)",
+      "slot4": "4. ders (14:30 - 16:05)",
+      "slot5": "5. ders (16:20 - 17:55)",
+      "slot6": "6. ders (18:10 - 19:45)",
+      "slot7": "7. ders (19:55 - 21:30)"
+    },
+    "weekPattern": {
+      "all": "Her hafta",
+      "week1": "1. Hafta",
+      "week2": "2. Hafta"
+    },
+    "days": {
+      "monday": "Pazartesi",
+      "tuesday": "Salı",
+      "wednesday": "Çarşamba",
+      "thursday": "Perşembe",
+      "friday": "Cuma",
+      "saturday": "Cumartesi",
+      "sunday": "Pazar"
+    }
+  },
   "profile": {
     "title": "Profil",
     "account": "Hesap",
@@ -122,7 +178,10 @@
     "updateUsername": "Kullanıcı Adını Güncelle",
     "newPassword": "Yeni şifre",
     "confirmNewPassword": "Yeni şifreyi onayla",
-    "updatePassword": "Şifreyi Güncelle"
+    "updatePassword": "Şifreyi Güncelle",
+    "deleteAccount": "Hesabı Sil",
+    "deleteAccountWarning": "Silme işleminden sonra hesabınız anında kaldırılır. Erişiminiz en geç 30 gün içinde kaybolur ve aynı e-posta ile tekrar kayıt için IT desteği ile iletişime geçmeniz gerekir.",
+    "deleteAccountConfirmQuestion": "Emin misiniz? Bu işlem hesabınızı hemen ve kalıcı olarak siler."
   },
   "about": {
     "title": "Sistem Hakkında",
@@ -171,6 +230,12 @@
     "confirmNewPassword": "Yeni Şifreyi Onayla",
     "deleteConfirm1": "Bu işlem öğrenciyi ve bağlı kullanıcıyı veritabanından kaldırır. Devam edilsin mi?",
     "deleteConfirm2": "Kalıcı silme onayı için DELETE yazın:",
-    "deleteCancelled": "Silme iptal edildi."
+    "deleteCancelled": "Silme iptal edildi.",
+    "unlockDeletedEmailTitle": "Silinen Hesap E-posta Kilitleri",
+    "unlockDeletedEmailHint": "Bu alanı yalnızca IT onayıyla, daha önce silinen hesap e-postasıyla yeniden kayıt izni vermek için kullanın.",
+    "unlockDeletedEmailButton": "E-postayı Aç",
+    "unlockDeletedEmailLockedAt": "Kilit Tarihi",
+    "unlockDeletedEmailConfirm": "Bu e-posta için kayıt kilidini kaldırmak istediğinizden emin misiniz?",
+    "unlockDeletedEmailEmpty": "Silinen hesap için kilitli e-posta bulunamadı."
   }
 }

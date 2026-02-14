@@ -107,6 +107,62 @@
     "noUpcoming": "No upcoming events yet.",
     "noPast": "No past events yet."
   },
+  "schedules": {
+    "mySchedule": "My Schedule",
+    "allSchedules": "All schedules",
+    "weeklyTitle": "Weekly Schedule",
+    "manageTitle": "Manage Schedule",
+    "fullSystemTitle": "Schedule Management System",
+    "fullSystemButton": "Open full schedule system",
+    "backDashboard": "Back to dashboard",
+    "fullListTitle": "Filtered schedule entries",
+    "filterAllGroups": "All groups",
+    "filterAllDays": "All days",
+    "filterAllWeeks": "All week patterns",
+    "applyFilters": "Apply filters",
+    "clearFilters": "Clear",
+    "dayColumn": "Day",
+    "slotColumn": "Lecture slot",
+    "detailsColumn": "Details",
+    "existingTitle": "Current schedule entries",
+    "groupPlaceholder": "Select group",
+    "dayPlaceholder": "Select day",
+    "slotPlaceholder": "Select lecture slot",
+    "subjectPlaceholder": "Subject",
+    "classroomPlaceholder": "Classroom (optional)",
+    "lecturerPlaceholder": "Lecturer (optional)",
+    "typePlaceholder": "Lecture type (optional)",
+    "addButton": "Add Lesson",
+    "removeButton": "Remove",
+    "noneTodayTomorrow": "No lectures available for today and tomorrow.",
+    "noneWeekly": "No lessons available for this week.",
+    "noLessonsDay": "No lessons for this day.",
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "slots": {
+      "slot1": "1st lecture (08:30 - 10:05)",
+      "slot2": "2nd lecture (10:20 - 11:55)",
+      "slot3": "3rd lecture (12:10 - 13:45)",
+      "slot4": "4th lecture (14:30 - 16:05)",
+      "slot5": "5th lecture (16:20 - 17:55)",
+      "slot6": "6th lecture (18:10 - 19:45)",
+      "slot7": "7th lecture (19:55 - 21:30)"
+    },
+    "weekPattern": {
+      "all": "Every week",
+      "week1": "Week 1",
+      "week2": "Week 2"
+    },
+    "days": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    }
+  },
   "profile": {
     "title": "Profile",
     "account": "Account",
@@ -130,7 +186,10 @@
     "updateUsername": "Update Username",
     "newPassword": "New password",
     "confirmNewPassword": "Confirm new password",
-    "updatePassword": "Update Password"
+    "updatePassword": "Update Password",
+    "deleteAccount": "Delete Account",
+    "deleteAccountWarning": "After deletion, your account is removed immediately. Access will be lost within 30 days and re-registering with the same email requires contacting IT support.",
+    "deleteAccountConfirmQuestion": "Are you sure? This action permanently deletes your account right now."
   },
   "about": {
     "title": "About the System",
@@ -179,6 +238,12 @@
     "confirmNewPassword": "Confirm New Password",
     "deleteConfirm1": "This will remove student and linked user from database. Continue?",
     "deleteConfirm2": "Type DELETE to confirm permanent deletion:",
-    "deleteCancelled": "Deletion cancelled."
+    "deleteCancelled": "Deletion cancelled.",
+    "unlockDeletedEmailTitle": "Deleted Account Email Locks",
+    "unlockDeletedEmailHint": "Use this only for IT support approvals to allow registration again with a previously deleted account email.",
+    "unlockDeletedEmailButton": "Unlock Email",
+    "unlockDeletedEmailLockedAt": "Locked At",
+    "unlockDeletedEmailConfirm": "Are you sure you want to unlock this email for registration?",
+    "unlockDeletedEmailEmpty": "No deleted-account email locks found."
   }
 }

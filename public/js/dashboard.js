@@ -22,6 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeAllEventsBtn = document.getElementById('closeAllEventsBtn');
   const allEventsCard = document.getElementById('allEventsCard');
   const allEventsBackdrop = document.getElementById('allEventsBackdrop');
+  const openAllSchedulesBtn = document.getElementById('openAllSchedulesBtn');
+  const closeAllSchedulesBtn = document.getElementById('closeAllSchedulesBtn');
+  const allSchedulesCard = document.getElementById('allSchedulesCard');
+  const allSchedulesBackdrop = document.getElementById('allSchedulesBackdrop');
 
   const prevDay = document.getElementById('prevDay');
   const nextDay = document.getElementById('nextDay');
@@ -349,6 +353,34 @@ document.addEventListener('DOMContentLoaded', () => {
     allEventsCard.setAttribute('hidden', 'hidden');
     allEventsBackdrop?.setAttribute('hidden', 'hidden');
     root?.classList.remove('all-events-open');
+  });
+
+  openAllSchedulesBtn?.addEventListener('click', () => {
+    if (!allSchedulesCard) return;
+    allSchedulesCard.removeAttribute('hidden');
+    allSchedulesBackdrop?.removeAttribute('hidden');
+    root?.classList.add('all-schedules-open');
+  });
+
+  closeAllSchedulesBtn?.addEventListener('click', () => {
+    if (!allSchedulesCard) return;
+    allSchedulesCard.setAttribute('hidden', 'hidden');
+    allSchedulesBackdrop?.setAttribute('hidden', 'hidden');
+    root?.classList.remove('all-schedules-open');
+  });
+
+  document.querySelectorAll('[data-filter-toggle]').forEach((toggleButton) => {
+    const panelId = toggleButton.getAttribute('data-filter-toggle');
+    if (!panelId) return;
+
+    const panel = document.getElementById(panelId);
+    if (!panel || !panel.hasAttribute('data-filter-panel')) return;
+
+    toggleButton.addEventListener('click', () => {
+      const willOpen = panel.classList.contains('is-collapsed');
+      panel.classList.toggle('is-collapsed', !willOpen);
+      toggleButton.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    });
   });
 
   // Dismiss announcement (UI only)

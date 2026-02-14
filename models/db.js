@@ -258,6 +258,51 @@ const initializeDatabase = async () => {
   await runAsync('CREATE INDEX IF NOT EXISTS idx_events_starts_at ON events(starts_at ASC)');
   await runAsync('CREATE INDEX IF NOT EXISTS idx_events_created_at ON events(created_at DESC)');
 
+  await runAsync(`
+    CREATE TABLE IF NOT EXISTS schedules (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      group_name TEXT NOT NULL,
+      day_of_week INTEGER NOT NULL,
+      start_time TEXT NOT NULL,
+      end_time TEXT NOT NULL,
+      subject TEXT NOT NULL,
+      classroom TEXT,
+      lecturer TEXT,
+      lecture_type TEXT,
+      week_pattern TEXT NOT NULL DEFAULT 'all',
+      created_by INTEGER,
+      created_at INTEGER NOT NULL,
+      FOREIGN KEY(created_by) REFERENCES users(id) ON DELETE SET NULL,
+      CHECK(day_of_week BETWEEN 1 AND 7),
+      CHECK(week_pattern IN ('all', 'week1', 'week2'))
+    )
+  `);
+
+  const scheduleColumns = await allAsync('PRAGMA table_info(schedules)');
+  const hasScheduleGroupColumn = scheduleColumns.some((column) => column.name === 'group_name');
+  if (!hasScheduleGroupColumn) {
+    await runAsync('ALTER TABLE schedules ADD COLUMN group_name TEXT');
+    console.log('Added group_name column to schedules table.');
+  }
+
+  await runAsync("UPDATE schedules SET group_name = 'general' WHERE group_name IS NULL OR trim(group_name) = ''");
+
+  await runAsync('CREATE INDEX IF NOT EXISTS idx_schedules_day_time ON schedules(day_of_week, start_time)');
+  await runAsync('CREATE INDEX IF NOT EXISTS idx_schedules_week_pattern ON schedules(week_pattern)');
+  await runAsync('CREATE INDEX IF NOT EXISTS idx_schedules_group_name ON schedules(group_name)');
+
+  await runAsync(`
+    CREATE TABLE IF NOT EXISTS account_deletion_locks (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      email TEXT NOT NULL UNIQUE,
+      deleted_user_id INTEGER,
+      deleted_at INTEGER NOT NULL,
+      lock_note TEXT
+    )
+  `);
+
+  await runAsync('CREATE UNIQUE INDEX IF NOT EXISTS idx_account_deletion_locks_email_unique ON account_deletion_locks(lower(email))');
+
   await runAsync('DROP TRIGGER IF EXISTS trg_events_auto_notify');
   await runAsync(`
     CREATE TRIGGER IF NOT EXISTS trg_events_auto_notify

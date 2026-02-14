@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <title>VILNIUS TECH | <%= t('schedules.manageTitle') %></title>
+</head>
+<body>
+  <div class="dash collapsed">
+    <%- include('../partials/sidebar') %>
+
+    <main class="main">
+      <%- include('../partials/header') %>
+
+      <div class="content">
+        <% 
+          const makePageLink = (pageNumber) => {
+            const query = [];
+            if (filters.group_name) query.push(`group_name=${encodeURIComponent(filters.group_name)}`);
+            if (filters.day_of_week) query.push(`day_of_week=${encodeURIComponent(filters.day_of_week)}`);
+            if (filters.week_pattern) query.push(`week_pattern=${encodeURIComponent(filters.week_pattern)}`);
+            if (pageNumber > 1) query.push(`page=${pageNumber}`);
+            return query.length ? `/schedules/admin?${query.join('&')}` : '/schedules/admin';
+          };
+        %>
+
+        <% if(success_msg && success_msg.length > 0){ %>
+          <div class="alert alert-success"><%= success_msg %></div>
+        <% } %>
+        <% if(error_msg && error_msg.length > 0){ %>
+          <div class="alert alert-danger"><%= error_msg %></div>
+        <% } %>
+
+        <article class="card" id="manage-schedules">
+          <div class="card-head">
+            <h2><%= t('schedules.manageTitle') %></h2>
+            <div class="card-head-actions">
+              <a href="/dashboard#manage-schedules" class="btn ghost small"><%= t('schedules.backDashboard') %></a>
+              <span class="badge"><%= t('dashboard.admin') %></span>
+            </div>
+          </div>
+
+          <form action="/schedules/admin" method="POST" class="profile-change-form event-manage-form">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="hidden" name="return_to" value="<%= returnTo %>">
+
+            <select name="group_name" class="profile-change-input" required>
+              <option value=""><%= t('schedules.groupPlaceholder') %></option>
+              <% scheduleGroups.forEach((item) => { %>
+                <% if (item.group_name) { %>
+                  <option value="<%= item.group_name %>"><%= item.group_name %></option>
+                <% } %>
+              <% }); %>
+            </select>
+
+            <select name="day_of_week" class="profile-change-input" required>
+              <option value=""><%= t('schedules.dayPlaceholder') %></option>
+              <option value="1"><%= t('schedules.days.monday') %></option>
+              <option value="2"><%= t('schedules.days.tuesday') %></option>
+              <option value="3"><%= t('schedules.days.wednesday') %></option>
+              <option value="4"><%= t('schedules.days.thursday') %></option>
+              <option value="5"><%= t('schedules.days.friday') %></option>
+            </select>
+
+            <select name="lecture_slot" class="profile-change-input" required>
+              <option value=""><%= t('schedules.slotPlaceholder') %></option>
+              <option value="1"><%= t('schedules.slots.slot1') %></option>
+              <option value="2"><%= t('schedules.slots.slot2') %></option>
+              <option value="3"><%= t('schedules.slots.slot3') %></option>
+              <option value="4"><%= t('schedules.slots.slot4') %></option>
+              <option value="5"><%= t('schedules.slots.slot5') %></option>
+              <option value="6"><%= t('schedules.slots.slot6') %></option>
+              <option value="7"><%= t('schedules.slots.slot7') %></option>
+            </select>
+
+            <input type="text" name="subject" class="profile-change-input" placeholder="<%= t('schedules.subjectPlaceholder') %>" required maxlength="160">
+            <input type="text" name="classroom" class="profile-change-input" placeholder="<%= t('schedules.classroomPlaceholder') %>" maxlength="80">
+            <input type="text" name="lecturer" class="profile-change-input" placeholder="<%= t('schedules.lecturerPlaceholder') %>" maxlength="120">
+            <input type="text" name="lecture_type" class="profile-change-input" placeholder="<%= t('schedules.typePlaceholder') %>" maxlength="80">
+
+            <select name="week_pattern" class="profile-change-input" required>
+              <option value="all"><%= t('schedules.weekPattern.all') %></option>
+              <option value="week1"><%= t('schedules.weekPattern.week1') %></option>
+              <option value="week2"><%= t('schedules.weekPattern.week2') %></option>
+            </select>
+
+            <button type="submit" class="btn profile-change-submit"><%= t('schedules.addButton') %></button>
+          </form>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <h2><%= t('schedules.fullListTitle') %></h2>
+            <div class="card-head-actions">
+              <button
+                type="button"
+                class="btn ghost small filter-toggle-btn nav-like-icon-btn"
+                data-filter-toggle="scheduleEntriesFilter"
+                aria-controls="scheduleEntriesFilter"
+                aria-expanded="false"
+                title="<%= t('schedules.applyFilters') %>">
+                <i class="fa-solid fa-filter" aria-hidden="true"></i>
+              </button>
+              <span class="badge"><%= totalEntries %></span>
+            </div>
+          </div>
+
+          <form
+            id="scheduleEntriesFilter"
+            action="/schedules/admin"
+            method="GET"
+            class="profile-change-form schedule-filter-form is-collapsed"
+            data-filter-panel>
+            <select name="group_name" class="profile-change-input">
+              <option value=""><%= t('schedules.filterAllGroups') %></option>
+              <% scheduleGroups.forEach((item) => { %>
+                <% if (item.group_name) { %>
+                  <option value="<%= item.group_name %>" <%= filters.group_name === item.group_name ? 'selected' : '' %>><%= item.group_name %></option>
+                <% } %>
+              <% }); %>
+            </select>
+
+            <select name="day_of_week" class="profile-change-input">
+              <option value=""><%= t('schedules.filterAllDays') %></option>
+              <option value="1" <%= Number(filters.day_of_week) === 1 ? 'selected' : '' %>><%= t('schedules.days.monday') %></option>
+              <option value="2" <%= Number(filters.day_of_week) === 2 ? 'selected' : '' %>><%= t('schedules.days.tuesday') %></option>
+              <option value="3" <%= Number(filters.day_of_week) === 3 ? 'selected' : '' %>><%= t('schedules.days.wednesday') %></option>
+              <option value="4" <%= Number(filters.day_of_week) === 4 ? 'selected' : '' %>><%= t('schedules.days.thursday') %></option>
+              <option value="5" <%= Number(filters.day_of_week) === 5 ? 'selected' : '' %>><%= t('schedules.days.friday') %></option>
+            </select>
+
+            <select name="week_pattern" class="profile-change-input">
+              <option value=""><%= t('schedules.filterAllWeeks') %></option>
+              <option value="all" <%= filters.week_pattern === 'all' ? 'selected' : '' %>><%= t('schedules.weekPattern.all') %></option>
+              <option value="week1" <%= filters.week_pattern === 'week1' ? 'selected' : '' %>><%= t('schedules.weekPattern.week1') %></option>
+              <option value="week2" <%= filters.week_pattern === 'week2' ? 'selected' : '' %>><%= t('schedules.weekPattern.week2') %></option>
+            </select>
+
+            <div class="schedule-filter-actions">
+              <button type="submit" class="btn small"><%= t('schedules.applyFilters') %></button>
+              <a href="/schedules/admin" class="btn ghost small"><%= t('schedules.clearFilters') %></a>
+            </div>
+          </form>
+
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th><%= t('students.group') %></th>
+                  <th><%= t('schedules.dayColumn') %></th>
+                  <th><%= t('schedules.slotColumn') %></th>
+                  <th><%= t('schedules.subjectPlaceholder') %></th>
+                  <th><%= t('schedules.detailsColumn') %></th>
+                  <th><%= t('students.actions') %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if (scheduleEntries.length > 0) { %>
+                  <% const scheduleDayLabels = {
+                    1: t('schedules.days.monday'),
+                    2: t('schedules.days.tuesday'),
+                    3: t('schedules.days.wednesday'),
+                    4: t('schedules.days.thursday'),
+                    5: t('schedules.days.friday')
+                  }; %>
+                  <% scheduleEntries.forEach((lesson) => { %>
+                    <tr>
+                      <td><%= lesson.group_name %></td>
+                      <td><%= scheduleDayLabels[lesson.day_of_week] || '-' %></td>
+                      <td><%= lesson.slot_label %></td>
+                      <td><strong><%= lesson.subject %></strong></td>
+                      <td>
+                        <%= t(`schedules.weekPattern.${lesson.week_pattern || 'all'}`) %>
+                        <% if (lesson.classroom) { %> • <%= lesson.classroom %><% } %>
+                        <% if (lesson.lecture_type) { %> • <%= lesson.lecture_type %><% } %>
+                        <% if (lesson.lecturer) { %> • <%= lesson.lecturer %><% } %>
+                      </td>
+                      <td>
+                        <form action="/schedules/admin/<%= lesson.id %>/delete" method="POST" style="display:inline;">
+                          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                          <input type="hidden" name="return_to" value="<%= returnTo %>">
+                          <button type="submit" class="btn small danger"><%= t('schedules.removeButton') %></button>
+                        </form>
+                      </td>
+                    </tr>
+                  <% }); %>
+                <% } else { %>
+                  <tr>
+                    <td colspan="6" style="text-align:center;"><%= t('schedules.noneWeekly') %></td>
+                  </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+
+          <% if (totalPages > 1) { %>
+            <div class="table-pagination">
+              <a class="btn ghost small <%= currentPage <= 1 ? 'is-disabled' : '' %>" href="<%= currentPage <= 1 ? '#' : makePageLink(currentPage - 1) %>" <%= currentPage <= 1 ? 'aria-disabled="true" tabindex="-1"' : '' %>>‹</a>
+              <% for (let page = 1; page <= totalPages; page += 1) { %>
+                <a class="btn ghost small page-btn <%= page === currentPage ? 'is-active' : '' %>" href="<%= makePageLink(page) %>"><%= page %></a>
+              <% } %>
+              <a class="btn ghost small <%= currentPage >= totalPages ? 'is-disabled' : '' %>" href="<%= currentPage >= totalPages ? '#' : makePageLink(currentPage + 1) %>" <%= currentPage >= totalPages ? 'aria-disabled="true" tabindex="-1"' : '' %>>›</a>
+            </div>
+          <% } %>
+        </article>
+      </div>
+
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

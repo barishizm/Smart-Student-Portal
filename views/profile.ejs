@@ -82,11 +82,21 @@
               <strong><%= t('profile.email') %></strong>
               <small><%= user && user.email ? user.email : t('profile.notAvailable') %></small>
             </div>
+
             <div class="stat profile-action-stat">
               <div class="profile-action-buttons">
                 <button type="button" id="toggleUsernameCard" class="profile-change-btn profile-change-btn-large" aria-expanded="false" aria-controls="usernameChangeCard"><%= t('profile.changeUsername') %></button>
                 <button type="button" id="togglePasswordCard" class="profile-change-btn profile-change-btn-large" aria-expanded="false" aria-controls="passwordChangeCard"><%= t('profile.changePassword') %></button>
               </div>
+            </div>
+
+            <div class="stat profile-delete-card">
+              <h3 class="profile-change-title"><%= t('profile.deleteAccount') %></h3>
+              <form id="deleteAccountForm" action="/auth/delete-account" method="POST" class="profile-change-form profile-delete-form">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input type="hidden" name="delete_confirmation_text" id="deleteAccountConfirmationField" value="">
+                <button type="submit" class="btn danger profile-change-submit"><%= t('profile.deleteAccount') %></button>
+              </form>
             </div>
           </div>
 
@@ -111,13 +121,108 @@
               <button type="submit" class="btn profile-change-submit"><%= t('profile.updatePassword') %></button>
             </form>
           </div>
+
         </article>
       </section>
 
       <%- include('partials/footer') %>
     </main>
   </div>
+
+  <div id="deleteAccountConfirmBackdrop" class="delete-account-confirm-backdrop" hidden></div>
+  <div id="deleteAccountConfirmCard" class="delete-account-confirm-card" hidden role="dialog" aria-modal="true" aria-labelledby="deleteAccountConfirmTitle">
+    <h3 id="deleteAccountConfirmTitle" class="profile-change-title">Delete Account Confirmation</h3>
+    <p class="delete-account-confirm-text">After deletion, your account is removed immediately and re-registering with the same email requires contacting IT support.</p>
+    <div class="delete-account-confirm-actions">
+      <button type="button" id="confirmDeleteAccountBtn" class="btn danger">YES, I WANT TO DELETE</button>
+      <button type="button" id="cancelDeleteAccountBtn" class="btn ghost">NO, THANKS</button>
+    </div>
+  </div>
+
+  <div id="deleteAccountFinalCard" class="delete-account-confirm-card" hidden role="dialog" aria-modal="true" aria-labelledby="deleteAccountFinalTitle">
+    <h3 id="deleteAccountFinalTitle" class="profile-change-title">Delete Account Confirmation</h3>
+    <p class="delete-account-confirm-text">If you really want to delete this account please write 'I WANT TO DELETE MY ACCOUNT'</p>
+    <input type="text" id="deleteAccountVerifyInput" class="profile-change-input" autocomplete="off">
+    <div class="delete-account-confirm-actions delete-account-final-actions">
+      <button type="button" id="finalizeDeleteAccountBtn" class="btn danger">OK</button>
+      <button type="button" id="cancelFinalDeleteAccountBtn" class="btn ghost">NO, I CHANGED MY MIND</button>
+    </div>
+  </div>
+
   <script src="https://unpkg.com/cropperjs@1.6.2/dist/cropper.min.js"></script>
   <script src="/js/profile-photo.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('deleteAccountForm');
+      const backdrop = document.getElementById('deleteAccountConfirmBackdrop');
+      const card = document.getElementById('deleteAccountConfirmCard');
+      const finalCard = document.getElementById('deleteAccountFinalCard');
+      const confirmBtn = document.getElementById('confirmDeleteAccountBtn');
+      const cancelBtn = document.getElementById('cancelDeleteAccountBtn');
+      const verifyInput = document.getElementById('deleteAccountVerifyInput');
+      const finalizeBtn = document.getElementById('finalizeDeleteAccountBtn');
+      const cancelFinalBtn = document.getElementById('cancelFinalDeleteAccountBtn');
+      const confirmationField = document.getElementById('deleteAccountConfirmationField');
+      if (!form || !backdrop || !card || !finalCard || !confirmBtn || !cancelBtn || !verifyInput || !finalizeBtn || !cancelFinalBtn || !confirmationField) return;
+
+      let confirmedDelete = false;
+      const requiredText = 'I WANT TO DELETE MY ACCOUNT';
+
+      const openConfirmCard = () => {
+        backdrop.hidden = false;
+        card.hidden = false;
+        finalCard.hidden = true;
+      };
+
+      const closeConfirmCard = () => {
+        backdrop.hidden = true;
+        card.hidden = true;
+        finalCard.hidden = true;
+      };
+
+      const openFinalCard = () => {
+        card.hidden = true;
+        finalCard.hidden = false;
+        verifyInput.value = '';
+        confirmationField.value = '';
+      };
+
+      form.addEventListener('submit', (event) => {
+        if (!confirmedDelete) {
+          event.preventDefault();
+          openConfirmCard();
+        }
+      });
+
+      confirmBtn.addEventListener('click', () => {
+        openFinalCard();
+      });
+
+      cancelBtn.addEventListener('click', () => {
+        closeConfirmCard();
+      });
+
+      finalizeBtn.addEventListener('click', () => {
+        if (String(verifyInput.value || '') !== requiredText) {
+          window.alert('Please write exactly: I WANT TO DELETE MY ACCOUNT');
+          verifyInput.focus();
+          return;
+        }
+
+        confirmationField.value = String(verifyInput.value || '');
+        confirmedDelete = true;
+        closeConfirmCard();
+        form.submit();
+      });
+
+      cancelFinalBtn.addEventListener('click', () => {
+        closeConfirmCard();
+      });
+
+      backdrop.addEventListener('click', () => {
+        closeConfirmCard();
+      });
+    });
+  </script>
 </body>
 </html>

@@ -37,6 +37,9 @@ router.post('/:id', studentController.updateStudent); // Using POST for update t
 // Delete
 router.post('/:id/delete', studentController.deleteStudent); // Using POST for delete
 
+// Unlock deleted-account email (IT-style support action)
+router.post('/unlock-deleted-email', studentController.unlockDeletedAccountEmail);
+
 // XML Export
 router.get('/xml', studentController.exportXML);
 
