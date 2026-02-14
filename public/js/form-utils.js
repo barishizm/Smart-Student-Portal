@@ -167,13 +167,11 @@ class FormUtils {
                 passwordInput.type = isPassword ? 'text' : 'password';
                 if (eyeIcon) {
                     eyeIcon.classList.toggle('show-password', isPassword);
+                    eyeIcon.style.transform = 'scale(0.9)';
+                    setTimeout(() => {
+                        eyeIcon.style.transform = '';
+                    }, 150);
                 }
-                
-                // Add smooth transition effect
-                toggleButton.style.transform = 'scale(0.9)';
-                setTimeout(() => {
-                    toggleButton.style.transform = 'scale(1)';
-                }, 150);
                 
                 // Keep focus on password input
                 passwordInput.focus();

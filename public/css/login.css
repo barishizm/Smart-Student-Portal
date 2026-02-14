@@ -16,7 +16,8 @@ body {
     padding: 20px;
     line-height: 1.6;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 body::before {
@@ -75,9 +76,10 @@ body::after {
 
 .auth-language-panel {
     position: absolute;
-    top: calc(100% + 8px);
+    top: auto;
+    bottom: calc(100% + 8px);
     left: 50%;
-    transform: translate(-50%, -6px);
+    transform: translate(-50%, 6px);
     width: 170px;
     padding: 8px;
     border-radius: 12px;
@@ -661,6 +663,17 @@ body::after {
     color: white;
 }
 
+@media (max-height: 860px) {
+    body {
+        align-items: flex-start;
+    }
+
+    .login-container {
+        margin-top: 14px;
+        margin-bottom: 14px;
+    }
+}
+
 /* Mobile Responsive */
 @media (max-width: 480px) {
     .login-card {
@@ -719,5 +732,42 @@ body::after {
   width: auto;
   border-radius: 10px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+@media (max-width: 860px) {
+    body {
+        padding: 14px;
+        align-items: flex-start;
+    }
+
+    .login-container {
+        max-width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .login-card {
+        width: 100%;
+        padding: 28px;
+        border-radius: 18px;
+    }
+
+    .login-header {
+        margin-bottom: 24px;
+    }
+
+    .login-header h2 {
+        font-size: 1.6rem;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .input-wrapper input,
+    .btn,
+    .social-btn {
+        min-height: 46px;
+    }
 }
 
