@@ -28,6 +28,7 @@
     "thisSemester": "Šis semestras",
     "studyProgramme": "Studijų programa",
     "students": "Studentai",
+    "contactMessages": "Kontaktų žinutės",
     "itServices": "IT paslaugos",
     "collapse": "Sutraukti",
     "toggleSidebar": "Perjungti šoninę juostą"
@@ -67,7 +68,10 @@
     "newPassword": "Naujas slaptažodis",
     "updatePassword": "Atnaujinti slaptažodį",
     "backTo": "Atgal į",
-    "signInLower": "prisijungimą"
+    "signInLower": "prisijungimą",
+    "needHelp": "Nepavyksta prisijungti prie paskyros?",
+    "contactByEmail": "El. paštas:",
+    "contactByPhone": "Telefonas:"
   },
   "dashboard": {
     "title": "Skydelis",
@@ -178,7 +182,8 @@
     "updateUsername": "Atnaujinti naudotojo vardą",
     "newPassword": "Naujas slaptažodis",
     "confirmNewPassword": "Patvirtinkite naują slaptažodį",
-    "updatePassword": "Atnaujinti slaptažodį"
+    "updatePassword": "Atnaujinti slaptažodį",
+    "deleteAccount": "Ištrinti paskyrą"
   },
   "about": {
     "title": "Apie sistemą",
@@ -193,12 +198,21 @@
   "contact": {
     "title": "Kontaktai",
     "form": "Forma",
+    "messagesTitle": "Kontaktų žinutės",
+    "noMessages": "Kontaktų žinučių dar nėra.",
+    "searchPlaceholder": "Ieškoti pagal vardą, el. paštą, naudotoją arba žinutę",
+    "applyFilters": "Taikyti filtrus",
+    "clearFilters": "Išvalyti",
+    "user": "Naudotojas",
+    "date": "Data",
     "fullName": "Vardas ir pavardė",
     "emailAddress": "El. pašto adresas",
     "message": "Žinutė",
     "sendMessage": "Siųsti žinutę",
     "required": "Visi laukai yra privalomi.",
-    "sent": "Žinutė sėkmingai išsiųsta (tik UI)."
+    "sent": "Žinutė sėkmingai išsiųsta.",
+    "invalidEmail": "Įveskite galiojantį el. pašto adresą.",
+    "failed": "Šiuo metu nepavyko išsiųsti žinutės."
   },
   "students": {
     "title": "Studentų valdymas",
@@ -227,6 +241,12 @@
     "confirmNewPassword": "Patvirtinkite naują slaptažodį",
     "deleteConfirm1": "Bus pašalintas studentas ir susietas naudotojas iš duomenų bazės. Tęsti?",
     "deleteConfirm2": "Įrašykite DELETE nuolatiniam ištrynimui patvirtinti:",
-    "deleteCancelled": "Trynimas atšauktas."
+    "deleteCancelled": "Trynimas atšauktas.",
+    "unlockDeletedEmailTitle": "Ištrintų paskyrų el. pašto užraktai",
+    "unlockDeletedEmailHint": "Naudokite tik IT patvirtinimu, kad vėl leistumėte registraciją su anksčiau ištrintos paskyros el. paštu.",
+    "unlockDeletedEmailButton": "Atrakinti el. paštą",
+    "unlockDeletedEmailLockedAt": "Užrakinta",
+    "unlockDeletedEmailConfirm": "Ar tikrai norite atrakinti šį el. paštą registracijai?",
+    "unlockDeletedEmailEmpty": "Nerasta ištrintų paskyrų el. pašto užraktų."
   }
 }

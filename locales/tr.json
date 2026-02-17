@@ -28,6 +28,7 @@
     "thisSemester": "Bu Dönem",
     "studyProgramme": "Eğitim Programı",
     "students": "Öğrenciler",
+    "contactMessages": "İletişim Mesajları",
     "itServices": "BT hizmetleri",
     "collapse": "Daralt",
     "toggleSidebar": "Kenar çubuğunu aç/kapat"
@@ -67,7 +68,10 @@
     "newPassword": "Yeni Şifre",
     "updatePassword": "Şifreyi Güncelle",
     "backTo": "Geri dön",
-    "signInLower": "Giriş yap"
+    "signInLower": "Giriş yap",
+    "needHelp": "Hesabınıza erişemiyor musunuz?",
+    "contactByEmail": "E-posta:",
+    "contactByPhone": "Telefon:"
   },
   "dashboard": {
     "title": "Panel",
@@ -196,12 +200,21 @@
   "contact": {
     "title": "İletişim",
     "form": "Form",
+    "messagesTitle": "İletişim Mesajları",
+    "noMessages": "Henüz iletişim mesajı yok.",
+    "searchPlaceholder": "Ad, e-posta, kullanıcı adı veya mesaj ara",
+    "applyFilters": "Filtreleri Uygula",
+    "clearFilters": "Temizle",
+    "user": "Kullanıcı",
+    "date": "Tarih",
     "fullName": "Ad Soyad",
     "emailAddress": "E-posta Adresi",
     "message": "Mesaj",
     "sendMessage": "Mesaj Gönder",
     "required": "Tüm alanlar zorunludur.",
-    "sent": "Mesaj başarıyla gönderildi (sadece arayüz)."
+    "sent": "Mesaj başarıyla gönderildi.",
+    "invalidEmail": "Lütfen geçerli bir e-posta adresi girin.",
+    "failed": "Mesaj şu anda gönderilemedi."
   },
   "students": {
     "title": "Öğrenci Yönetimi",

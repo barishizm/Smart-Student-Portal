@@ -87,6 +87,18 @@
             <div class="signup-link">
                 <p><%= t('auth.alreadyHaveAccount') %> <a href="/"><%= t('auth.signInLower') %></a></p>
             </div>
+
+            <div class="signup-link contact-help">
+                <p><%= t('auth.needHelp') %></p>
+                <p>
+                    <%= t('auth.contactByEmail') %>
+                    <a href="mailto:support@vilniustech.lt">support@vilniustech.lt</a>
+                </p>
+                <p>
+                    <%= t('auth.contactByPhone') %>
+                    <a href="tel:+37052745000">+370 5 274 5000</a>
+                </p>
+            </div>
         </div>
 
         <%- include('partials/auth-language') %>

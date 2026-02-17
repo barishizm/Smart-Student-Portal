@@ -5,7 +5,7 @@
   <title>VILNIUS TECH | <%= t('footer.contact') %></title>
 </head>
 <body>
-  <div class="dash collapsed">
+  <div class="dash">
     <%- include('partials/sidebar') %>
 
     <main class="main">
@@ -18,7 +18,13 @@
             <span class="badge"><%= t('contact.form') %></span>
           </div>
 
-          <form id="contactForm" novalidate data-required-msg="<%= t('contact.required') %>" data-success-msg="<%= t('contact.sent') %>">
+          <form
+            id="contactForm"
+            novalidate
+            data-required-msg="<%= t('contact.required') %>"
+            data-success-msg="<%= t('contact.sent') %>"
+            data-invalid-email-msg="<%= t('contact.invalidEmail') %>"
+            data-failed-msg="<%= t('contact.failed') %>">
             <div class="form-group" style="margin-bottom: 15px;">
               <label for="name"><%= t('contact.fullName') %></label>
               <input type="text" id="name" required class="input" style="width:100%; padding:10px; border:1px solid rgba(255,255,255,.18); border-radius:8px; background:rgba(255,255,255,.10); color:rgba(255,255,255,.92);">

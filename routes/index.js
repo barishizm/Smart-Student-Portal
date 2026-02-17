@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../models/db');
+const { getEffectiveRole } = require('../config/auth');
 
 const dbAll = (sql, params = []) =>
     new Promise((resolve, reject) => {
@@ -167,6 +168,112 @@ router.get('/contact', (req, res) => {
         return res.redirect('/');
     }
     res.render('contact', { user: req.session.user });
+});
+
+router.post('/contact', (req, res) => {
+    if (!req.session.user) {
+        return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+
+    const name = String(req.body?.name || '').trim();
+    const email = String(req.body?.email || '').trim().toLowerCase();
+    const message = String(req.body?.message || '').trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!name || !email || !message) {
+        return res.status(400).json({ success: false, error: 'All fields are required.' });
+    }
+
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ success: false, error: 'Please enter a valid email address.' });
+    }
+
+    if (name.length > 120 || email.length > 255 || message.length > 5000) {
+        return res.status(400).json({ success: false, error: 'Input is too long.' });
+    }
+
+    db.run(
+        `INSERT INTO contact_messages (user_id, name, email, message, created_at)
+         VALUES (?, ?, ?, ?, ?)`,
+        [req.session.user.id, name, email, message, Date.now()],
+        function onInsert(err) {
+            if (err) {
+                console.error('Failed to save contact message:', err);
+                return res.status(500).json({ success: false, error: 'Could not send message right now.' });
+            }
+
+            return res.status(201).json({ success: true, id: this.lastID });
+        }
+    );
+});
+
+router.get('/contact/messages', (req, res) => {
+    if (!req.session.user) {
+        req.flash('error_msg', 'Please log in to view this resource');
+        return res.redirect('/');
+    }
+
+    if (getEffectiveRole(req.session.user) !== 'admin') {
+        req.flash('error_msg', 'You are not authorized to access this resource');
+        return res.redirect('/dashboard');
+    }
+
+    const search = String(req.query?.search || '').trim();
+    const fromDate = String(req.query?.from || '').trim();
+    const toDate = String(req.query?.to || '').trim();
+    const where = [];
+    const params = [];
+
+    if (search) {
+        const keyword = `%${search}%`;
+        where.push('(cm.name LIKE ? OR cm.email LIKE ? OR cm.message LIKE ? OR COALESCE(u.username, \"\") LIKE ?)');
+        params.push(keyword, keyword, keyword, keyword);
+    }
+
+    if (fromDate) {
+        const startDate = new Date(`${fromDate}T00:00:00`);
+        if (!Number.isNaN(startDate.getTime())) {
+            where.push('cm.created_at >= ?');
+            params.push(startDate.getTime());
+        }
+    }
+
+    if (toDate) {
+        const endDate = new Date(`${toDate}T23:59:59.999`);
+        if (!Number.isNaN(endDate.getTime())) {
+            where.push('cm.created_at <= ?');
+            params.push(endDate.getTime());
+        }
+    }
+
+    const whereSql = where.length ? `WHERE ${where.join(' AND ')}` : '';
+
+    db.all(
+        `SELECT cm.id, cm.name, cm.email, cm.message, cm.created_at, u.username
+         FROM contact_messages cm
+         LEFT JOIN users u ON u.id = cm.user_id
+         ${whereSql}
+         ORDER BY cm.created_at DESC
+         LIMIT 200`,
+        params,
+        (err, rows) => {
+            if (err) {
+                console.error('Failed to load contact messages:', err);
+                req.flash('error_msg', 'Could not load contact messages');
+                return res.redirect('/dashboard');
+            }
+
+            return res.render('contact-messages', {
+                user: req.session.user,
+                messages: rows || [],
+                filters: {
+                    search,
+                    from: fromDate,
+                    to: toDate,
+                },
+            });
+        }
+    );
 });
 
 module.exports = router;

@@ -28,6 +28,7 @@
     "thisSemester": "Šis semestris",
     "studyProgramme": "Studiju programma",
     "students": "Studenti",
+    "contactMessages": "Kontaktu ziņojumi",
     "itServices": "IT pakalpojumi",
     "collapse": "Sakļaut",
     "toggleSidebar": "Pārslēgt sānu joslu"
@@ -67,7 +68,10 @@
     "newPassword": "Jaunā parole",
     "updatePassword": "Atjaunināt paroli",
     "backTo": "Atpakaļ uz",
-    "signInLower": "pierakstīšanos"
+    "signInLower": "pierakstīšanos",
+    "needHelp": "Nevarat piekļūt savam kontam?",
+    "contactByEmail": "E-pasts:",
+    "contactByPhone": "Tālrunis:"
   },
   "dashboard": {
     "title": "Panelis",
@@ -178,7 +182,8 @@
     "updateUsername": "Atjaunināt lietotājvārdu",
     "newPassword": "Jaunā parole",
     "confirmNewPassword": "Apstipriniet jauno paroli",
-    "updatePassword": "Atjaunināt paroli"
+    "updatePassword": "Atjaunināt paroli",
+    "deleteAccount": "Dzēst kontu"
   },
   "about": {
     "title": "Par sistēmu",
@@ -193,12 +198,21 @@
   "contact": {
     "title": "Kontakti",
     "form": "Forma",
+    "messagesTitle": "Kontaktu ziņojumi",
+    "noMessages": "Kontaktu ziņojumu vēl nav.",
+    "searchPlaceholder": "Meklēt pēc vārda, e-pasta, lietotāja vai ziņojuma",
+    "applyFilters": "Piemērot filtrus",
+    "clearFilters": "Notīrīt",
+    "user": "Lietotājs",
+    "date": "Datums",
     "fullName": "Pilns vārds",
     "emailAddress": "E-pasta adrese",
     "message": "Ziņojums",
     "sendMessage": "Sūtīt ziņojumu",
     "required": "Visi lauki ir obligāti.",
-    "sent": "Ziņojums nosūtīts veiksmīgi (tikai UI)."
+    "sent": "Ziņojums nosūtīts veiksmīgi.",
+    "invalidEmail": "Lūdzu, ievadiet derīgu e-pasta adresi.",
+    "failed": "Šobrīd ziņojumu nevarēja nosūtīt."
   },
   "students": {
     "title": "Studentu pārvaldība",
@@ -227,6 +241,12 @@
     "confirmNewPassword": "Apstipriniet jauno paroli",
     "deleteConfirm1": "Tiks dzēsts students un saistītais lietotājs no datubāzes. Turpināt?",
     "deleteConfirm2": "Ievadiet DELETE, lai apstiprinātu neatgriezenisku dzēšanu:",
-    "deleteCancelled": "Dzēšana atcelta."
+    "deleteCancelled": "Dzēšana atcelta.",
+    "unlockDeletedEmailTitle": "Dzēsto kontu e-pasta bloķējumi",
+    "unlockDeletedEmailHint": "Izmantojiet tikai ar IT apstiprinājumu, lai atļautu atkārtotu reģistrāciju ar iepriekš dzēsta konta e-pastu.",
+    "unlockDeletedEmailButton": "Atbloķēt e-pastu",
+    "unlockDeletedEmailLockedAt": "Bloķēts",
+    "unlockDeletedEmailConfirm": "Vai tiešām vēlaties atbloķēt šo e-pastu reģistrācijai?",
+    "unlockDeletedEmailEmpty": "Netika atrasti dzēsto kontu e-pasta bloķējumi."
   }
 }

@@ -28,6 +28,7 @@
     "thisSemester": "Этот семестр",
     "studyProgramme": "Учебная программа",
     "students": "Студенты",
+    "contactMessages": "Сообщения контактов",
     "itServices": "IT-сервисы",
     "collapse": "Свернуть",
     "toggleSidebar": "Переключить боковую панель"
@@ -67,7 +68,10 @@
     "newPassword": "Новый пароль",
     "updatePassword": "Обновить пароль",
     "backTo": "Вернуться к",
-    "signInLower": "входу"
+    "signInLower": "входу",
+    "needHelp": "Не можете войти в аккаунт?",
+    "contactByEmail": "Эл. почта:",
+    "contactByPhone": "Телефон:"
   },
   "dashboard": {
     "title": "Панель",
@@ -178,7 +182,8 @@
     "updateUsername": "Обновить имя пользователя",
     "newPassword": "Новый пароль",
     "confirmNewPassword": "Подтвердите новый пароль",
-    "updatePassword": "Обновить пароль"
+    "updatePassword": "Обновить пароль",
+    "deleteAccount": "Удалить аккаунт"
   },
   "about": {
     "title": "О системе",
@@ -193,12 +198,21 @@
   "contact": {
     "title": "Контакты",
     "form": "Форма",
+    "messagesTitle": "Сообщения контактов",
+    "noMessages": "Сообщений через форму контактов пока нет.",
+    "searchPlaceholder": "Поиск по имени, почте, пользователю или сообщению",
+    "applyFilters": "Применить фильтры",
+    "clearFilters": "Очистить",
+    "user": "Пользователь",
+    "date": "Дата",
     "fullName": "Полное имя",
     "emailAddress": "Эл. почта",
     "message": "Сообщение",
     "sendMessage": "Отправить сообщение",
     "required": "Все поля обязательны.",
-    "sent": "Сообщение успешно отправлено (только UI)."
+    "sent": "Сообщение успешно отправлено.",
+    "invalidEmail": "Пожалуйста, введите корректный адрес электронной почты.",
+    "failed": "Сейчас не удалось отправить сообщение."
   },
   "students": {
     "title": "Управление студентами",
@@ -227,6 +241,12 @@
     "confirmNewPassword": "Подтвердите новый пароль",
     "deleteConfirm1": "Будет удалён студент и связанный пользователь из базы данных. Продолжить?",
     "deleteConfirm2": "Введите DELETE для подтверждения окончательного удаления:",
-    "deleteCancelled": "Удаление отменено."
+    "deleteCancelled": "Удаление отменено.",
+    "unlockDeletedEmailTitle": "Блокировки e-mail удалённых аккаунтов",
+    "unlockDeletedEmailHint": "Используйте только с одобрением IT, чтобы снова разрешить регистрацию с e-mail ранее удалённого аккаунта.",
+    "unlockDeletedEmailButton": "Разблокировать e-mail",
+    "unlockDeletedEmailLockedAt": "Заблокировано",
+    "unlockDeletedEmailConfirm": "Вы уверены, что хотите разблокировать этот e-mail для регистрации?",
+    "unlockDeletedEmailEmpty": "Блокировки e-mail удалённых аккаунтов не найдены."
   }
 }

@@ -29,6 +29,7 @@
     "studyProgramme": "Study Programme",
     "studyProcedure": "Study procedure",
     "students": "Students",
+    "contactMessages": "Contact Messages",
     "itServices": "IT services",
     "library": "Library",
     "myCareer": "My career",
@@ -75,7 +76,10 @@
     "newPassword": "New Password",
     "updatePassword": "Update Password",
     "backTo": "Back to",
-    "signInLower": "Sign in"
+    "signInLower": "Sign in",
+    "needHelp": "Need help accessing your account?",
+    "contactByEmail": "Email:",
+    "contactByPhone": "Phone:"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -204,12 +208,21 @@
   "contact": {
     "title": "Contact",
     "form": "Form",
+    "messagesTitle": "Contact Messages",
+    "noMessages": "No contact messages yet.",
+    "searchPlaceholder": "Search name, email, username or message",
+    "applyFilters": "Apply Filters",
+    "clearFilters": "Clear",
+    "user": "User",
+    "date": "Date",
     "fullName": "Full Name",
     "emailAddress": "Email Address",
     "message": "Message",
     "sendMessage": "Send Message",
     "required": "All fields are required.",
-    "sent": "Message sent successfully (UI only)."
+    "sent": "Message sent successfully.",
+    "invalidEmail": "Please enter a valid email address.",
+    "failed": "Could not send message right now."
   },
   "students": {
     "title": "Student Management",

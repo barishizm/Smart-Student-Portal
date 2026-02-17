@@ -84,6 +84,18 @@
                 <p><%= t('auth.dontHaveAccount') %> <a href="/auth/register"><%= t('auth.signUp') %></a></p>
             </div>
 
+            <div class="signup-link contact-help">
+                <p><%= t('auth.needHelp') %></p>
+                <p>
+                    <%= t('auth.contactByEmail') %>
+                    <a href="mailto:support@vilniustech.lt">support@vilniustech.lt</a>
+                </p>
+                <p>
+                    <%= t('auth.contactByPhone') %>
+                    <a href="tel:+37052745000">+370 5 274 5000</a>
+                </p>
+            </div>
+
              <!-- Success message container kept for JS animations if needed, but handled by EJS above mostly -->
             <div class="success-message" id="successMessage">
                 <div class="success-icon">✓</div>

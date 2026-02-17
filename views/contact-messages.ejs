@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('partials/head') %>
+  <title>VILNIUS TECH | <%= t('contact.messagesTitle') %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('partials/sidebar') %>
+
+    <main class="main">
+      <%- include('partials/header') %>
+
+      <section class="content">
+        <article class="card">
+          <div class="card-head">
+            <h2><%= t('contact.messagesTitle') %></h2>
+            <div class="card-head-actions">
+              <a href="/dashboard" class="btn ghost small"><%= t('schedules.backDashboard') %></a>
+              <span class="badge"><%= messages.length %></span>
+            </div>
+          </div>
+
+          <% if(success_msg && success_msg.length > 0){ %>
+            <div class="alert alert-success"><%= success_msg %></div>
+          <% } %>
+          <% if(error_msg && error_msg.length > 0){ %>
+            <div class="alert alert-danger"><%= error_msg %></div>
+          <% } %>
+
+          <% const activeFilters = filters || { search: '', from: '', to: '' }; %>
+          <form action="/contact/messages" method="GET" class="profile-change-form" style="margin-bottom: 14px;">
+            <input
+              type="text"
+              name="search"
+              class="profile-change-input"
+              placeholder="<%= t('contact.searchPlaceholder') %>"
+              value="<%= activeFilters.search || '' %>">
+            <input
+              type="date"
+              name="from"
+              class="profile-change-input"
+              value="<%= activeFilters.from || '' %>">
+            <input
+              type="date"
+              name="to"
+              class="profile-change-input"
+              value="<%= activeFilters.to || '' %>">
+            <button type="submit" class="btn small"><%= t('contact.applyFilters') %></button>
+            <a href="/contact/messages" class="btn ghost small"><%= t('contact.clearFilters') %></a>
+          </form>
+
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th><%= t('contact.fullName') %></th>
+                  <th><%= t('contact.emailAddress') %></th>
+                  <th><%= t('contact.message') %></th>
+                  <th><%= t('contact.user') %></th>
+                  <th><%= t('contact.date') %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if (messages.length > 0) { %>
+                  <% messages.forEach((item) => { %>
+                    <% const createdDate = new Date(Number(item.created_at)); %>
+                    <% const createdDateLabel = Number.isNaN(createdDate.getTime())
+                      ? '-'
+                      : createdDate.toLocaleString(currentLanguage || 'en'); %>
+                    <tr>
+                      <td><%= item.id %></td>
+                      <td><%= item.name %></td>
+                      <td><%= item.email %></td>
+                      <td style="max-width:460px; white-space:normal;"><%= item.message %></td>
+                      <td><%= item.username || '-' %></td>
+                      <td><%= createdDateLabel %></td>
+                    </tr>
+                  <% }); %>
+                <% } else { %>
+                  <tr>
+                    <td colspan="6" style="text-align:center;"><%= t('contact.noMessages') %></td>
+                  </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <%- include('partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>
