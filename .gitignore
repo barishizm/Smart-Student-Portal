@@ -31,6 +31,6 @@ coverage/
 # OS
 .DS_Store
 
-# IDE (optional)
+# IDE
 .vscode/
 .idea/
