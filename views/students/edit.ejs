@@ -28,27 +28,34 @@
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <div class="form-group" style="margin-bottom:15px;">
                             <label><%= t('students.studentId') %></label>
-                            <input type="text" name="student_id" value="<%= student.student_id %>" required class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                            <input type="text" name="student_id" value="<%= student.student_id %>" required class="input" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:4px;">
                         </div>
                         <div class="form-group" style="margin-bottom:15px;">
-                            <label><%= t('students.name') %></label>
-                            <input type="text" name="name" value="<%= student.name %>" required class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
-                        </div>
-                        <div class="form-group" style="margin-bottom:15px;">
-                            <label><%= t('students.surname') %></label>
-                            <input type="text" name="surname" value="<%= student.surname %>" required class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                            <label><%= t('students.fullName') %></label>
+                            <input type="text" name="full_name" value="<%= student.display_full_name %>" required class="input" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:4px;">
                         </div>
                         <div class="form-group" style="margin-bottom:15px;">
                             <label><%= t('students.email') %></label>
-                            <input type="email" name="email" value="<%= student.email %>" class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                            <input type="email" name="email" value="<%= student.email %>" required class="input" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:4px;">
                         </div>
                         <div class="form-group" style="margin-bottom:15px;">
                             <label><%= t('students.linkedUsername') %></label>
-                            <input type="text" name="username" value="<%= student.username || '' %>" class="input" placeholder="<%= t('students.noLinkedUser') %>" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                            <input type="text" name="username" value="<%= student.username || '' %>" class="input" placeholder="<%= t('students.noLinkedUser') %>" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:4px;">
                         </div>
                         <div class="form-group" style="margin-bottom:15px;">
-                            <label><%= t('students.group') %></label>
-                            <input type="text" name="group_name" value="<%= student.group_name %>" class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                            <label><%= t('students.programDepartment') %></label>
+                            <input type="text" name="program_department" value="<%= student.program_department || '' %>" required class="input" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:4px;">
+                        </div>
+                        <div class="form-group" style="margin-bottom:15px;">
+                            <label><%= t('students.yearOfStudy') %></label>
+                            <input type="number" name="year_of_study" min="1" max="12" value="<%= student.year_of_study || '' %>" required class="input" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:4px;">
+                        </div>
+                        <div class="form-group" style="margin-bottom:15px;">
+                            <label><%= t('students.status') %></label>
+                            <select name="status" required class="input" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:4px;">
+                                <option value="Active" <%= student.display_status === 'Active' ? 'selected' : '' %>><%= t('students.active') %></option>
+                                <option value="Inactive" <%= student.display_status === 'Inactive' ? 'selected' : '' %>><%= t('students.inactive') %></option>
+                            </select>
                         </div>
 
                         <button type="button" id="togglePasswordFields" class="btn ghost" style="margin-bottom:12px;"><%= t('students.advancedPassword') %></button>
@@ -56,11 +63,11 @@
                             <p style="margin-bottom:10px; font-size:13px; color:rgba(255,255,255,.84);"><%= t('students.hiddenAction') %></p>
                             <div class="form-group" style="margin-bottom:10px;">
                                 <label><%= t('students.newPassword') %></label>
-                                <input type="password" name="new_password" class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                                <input type="password" name="new_password" class="input" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:4px;">
                             </div>
                             <div class="form-group" style="margin-bottom:0;">
                                 <label><%= t('students.confirmNewPassword') %></label>
-                                <input type="password" name="confirm_password" class="input" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                                <input type="password" name="confirm_password" class="input" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:4px;">
                             </div>
                         </div>
 

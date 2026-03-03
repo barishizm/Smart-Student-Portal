@@ -358,37 +358,111 @@ const initializeDatabase = async () => {
   await runAsync(`
     CREATE TABLE IF NOT EXISTS students (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      full_name TEXT,
       name TEXT NOT NULL,
       surname TEXT NOT NULL,
       student_id TEXT UNIQUE NOT NULL,
       email TEXT,
       user_id INTEGER,
       group_name TEXT,
+      program_department TEXT,
+      year_of_study INTEGER,
+      status TEXT DEFAULT 'Active',
       data TEXT,
-      FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE SET NULL
+      FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE SET NULL,
+      CHECK(status IN ('Active', 'Inactive'))
     )
   `);
 
   const studentColumns = await allAsync('PRAGMA table_info(students)');
   const hasStudentUserIdColumn = studentColumns.some((column) => column.name === 'user_id');
+  const hasStudentFullNameColumn = studentColumns.some((column) => column.name === 'full_name');
+  const hasProgramDepartmentColumn = studentColumns.some((column) => column.name === 'program_department');
+  const hasYearOfStudyColumn = studentColumns.some((column) => column.name === 'year_of_study');
+  const hasStatusColumn = studentColumns.some((column) => column.name === 'status');
   if (!hasStudentUserIdColumn) {
     await runAsync('ALTER TABLE students ADD COLUMN user_id INTEGER');
     console.log('Added user_id column to students table.');
   }
+
+  if (!hasStudentFullNameColumn) {
+    await runAsync('ALTER TABLE students ADD COLUMN full_name TEXT');
+    console.log('Added full_name column to students table.');
+  }
+
+  if (!hasProgramDepartmentColumn) {
+    await runAsync('ALTER TABLE students ADD COLUMN program_department TEXT');
+    console.log('Added program_department column to students table.');
+  }
+
+  if (!hasYearOfStudyColumn) {
+    await runAsync('ALTER TABLE students ADD COLUMN year_of_study INTEGER');
+    console.log('Added year_of_study column to students table.');
+  }
+
+  if (!hasStatusColumn) {
+    await runAsync("ALTER TABLE students ADD COLUMN status TEXT DEFAULT 'Active'");
+    console.log('Added status column to students table.');
+  }
+
+  await runAsync(
+    `UPDATE students
+     SET full_name = trim(COALESCE(name, '') || ' ' || COALESCE(surname, ''))
+     WHERE full_name IS NULL OR trim(full_name) = ''`
+  );
+
+  await runAsync(
+    "UPDATE students SET status = 'Active' WHERE status IS NULL OR trim(status) = ''"
+  );
+
+  await runAsync(
+    `UPDATE students
+     SET status = CASE
+       WHEN lower(trim(status)) = 'inactive' THEN 'Inactive'
+       ELSE 'Active'
+     END`
+  );
+
+  await runAsync('DROP TRIGGER IF EXISTS trg_students_status_validate_insert');
+  await runAsync('DROP TRIGGER IF EXISTS trg_students_status_validate_update');
+
+  await runAsync(`
+    CREATE TRIGGER IF NOT EXISTS trg_students_status_validate_insert
+    BEFORE INSERT ON students
+    FOR EACH ROW
+    WHEN NEW.status IS NOT NULL AND NEW.status NOT IN ('Active', 'Inactive')
+    BEGIN
+      SELECT RAISE(ABORT, 'Invalid students.status value');
+    END;
+  `);
+
+  await runAsync(`
+    CREATE TRIGGER IF NOT EXISTS trg_students_status_validate_update
+    BEFORE UPDATE OF status ON students
+    FOR EACH ROW
+    WHEN NEW.status IS NOT NULL AND NEW.status NOT IN ('Active', 'Inactive')
+    BEGIN
+      SELECT RAISE(ABORT, 'Invalid students.status value');
+    END;
+  `);
 
   await runAsync(
     'CREATE UNIQUE INDEX IF NOT EXISTS idx_students_user_id_unique ON students(user_id) WHERE user_id IS NOT NULL'
   );
 
   await runAsync(
-    `INSERT OR IGNORE INTO students (name, surname, student_id, email, user_id, group_name, data)
+    `INSERT OR IGNORE INTO students (full_name, name, surname, student_id, email, user_id, group_name, program_department, year_of_study, status, data)
      SELECT
+       trim(COALESCE(NULLIF(trim(u.first_name), ''), 'Student') || ' ' || COALESCE(NULLIF(trim(u.last_name), ''), 'User')) AS full_name,
        COALESCE(NULLIF(trim(u.first_name), ''), NULLIF(trim(u.username), ''), 'Student') AS name,
        COALESCE(NULLIF(trim(u.last_name), ''), 'User') AS surname,
        ('REG-AUTO-' || u.id) AS student_id,
        u.email,
        u.id,
        NULL,
+       NULL,
+       NULL,
+       'Active',
        NULL
      FROM users u
      LEFT JOIN students s ON lower(COALESCE(s.email, '')) = lower(COALESCE(u.email, ''))

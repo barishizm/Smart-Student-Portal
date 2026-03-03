@@ -43,4 +43,7 @@ router.post('/unlock-deleted-email', studentController.unlockDeletedAccountEmail
 // XML Export
 router.get('/xml', studentController.exportXML);
 
+// Details
+router.get('/:id', studentController.viewStudentDetails);
+
 module.exports = router;

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+    <%- include('../partials/head') %>
+    <title>VILNIUS TECH | <%= t('students.studentDetails') %></title>
+</head>
+<body>
+    <div class="dash">
+        <%- include('../partials/sidebar') %>
+
+        <main class="main">
+            <%- include('../partials/header') %>
+
+            <div class="content" style="max-width: 700px; margin: 0 auto;">
+                <div class="card">
+                    <div class="card-head">
+                        <h2><%= t('students.studentDetails') %></h2>
+                        <div class="actions">
+                            <a href="/admin/students/<%= student.id %>/edit" class="btn"><%= t('students.edit') %></a>
+                            <a href="/admin/students" class="btn ghost"><%= t('students.back') %></a>
+                        </div>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th><%= t('students.studentId') %></th>
+                                    <td><%= student.student_id %></td>
+                                </tr>
+                                <tr>
+                                    <th><%= t('students.fullName') %></th>
+                                    <td><%= student.display_full_name %></td>
+                                </tr>
+                                <tr>
+                                    <th><%= t('students.email') %></th>
+                                    <td><%= student.email || '-' %></td>
+                                </tr>
+                                <tr>
+                                    <th><%= t('students.programDepartment') %></th>
+                                    <td><%= student.program_department || '-' %></td>
+                                </tr>
+                                <tr>
+                                    <th><%= t('students.yearOfStudy') %></th>
+                                    <td><%= student.year_of_study || '-' %></td>
+                                </tr>
+                                <tr>
+                                    <th><%= t('students.status') %></th>
+                                    <td><%= student.display_status %></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <%- include('../partials/footer') %>
+        </main>
+    </div>
+</body>
+</html>

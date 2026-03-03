@@ -963,6 +963,20 @@ body{
   gap: 8px;
 }
 
+.card .form-group .input,
+.card .form-group input,
+.card .form-group select,
+.card .form-group textarea{
+  background: var(--glass2);
+  color: var(--text);
+}
+
+.card .form-group .input::placeholder,
+.card .form-group input::placeholder,
+.card .form-group textarea::placeholder{
+  color: var(--muted);
+}
+
 .filter-toggle-btn{
   min-width: 36px;
   padding: 8px;

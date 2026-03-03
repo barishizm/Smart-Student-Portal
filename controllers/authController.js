@@ -7,7 +7,6 @@ const { isAdminIdentity, getEffectiveRole } = require('../config/auth');
 const { normalizeLanguage } = require('../utils/i18n');
 
 const isSchoolEmail = (email) => /@(stud\.)?vilniustech\.lt$/i.test((email || '').trim());
-const RESET_TOKEN_TTL_MS = 15 * 60 * 1000;
 
 const hashResetToken = (token) =>
     crypto.createHash('sha256').update(token).digest('hex');
@@ -516,50 +515,47 @@ exports.forgotPasswordPage = (req, res) => {
 };
 
 exports.requestPasswordReset = async (req, res) => {
-    const email = (req.body.email || '').trim().toLowerCase();
-    const genericMessage = 'If that account exists, a password reset link has been sent.';
+    const identity = (req.body.identity || req.body.email || '').trim();
+    const password = req.body.password || '';
+    const confirmPassword = req.body.confirm_password || '';
 
-    if (!email) {
-        req.flash('error_msg', 'Please enter your email address');
+    if (!identity || !password || !confirmPassword) {
+        req.flash('error_msg', 'Please enter all fields');
+        return res.redirect('/auth/forgot-password');
+    }
+
+    if (password !== confirmPassword) {
+        req.flash('error_msg', 'Passwords do not match');
+        return res.redirect('/auth/forgot-password');
+    }
+
+    if (password.length < 6) {
+        req.flash('error_msg', 'Password must be at least 6 characters');
         return res.redirect('/auth/forgot-password');
     }
 
     try {
-        const now = Date.now();
-
-        await dbRun(
-            'DELETE FROM password_reset_tokens WHERE used_at IS NOT NULL OR expires_at < ?',
-            [now]
+        const user = await dbGet(
+            'SELECT id FROM users WHERE lower(email) = lower(?) OR lower(username) = lower(?) LIMIT 1',
+            [identity, identity]
         );
 
-        const user = await dbGet('SELECT id, email FROM users WHERE lower(email) = lower(?)', [email]);
-
-        if (user && user.id) {
-            const recentToken = await dbGet(
-                'SELECT id FROM password_reset_tokens WHERE user_id = ? AND created_at > ? ORDER BY created_at DESC LIMIT 1',
-                [user.id, now - 60 * 1000]
-            );
-
-            if (!recentToken) {
-                const rawToken = crypto.randomBytes(32).toString('hex');
-                const tokenHash = hashResetToken(rawToken);
-                const expiresAt = now + RESET_TOKEN_TTL_MS;
-
-                await dbRun('DELETE FROM password_reset_tokens WHERE user_id = ? AND used_at IS NULL', [user.id]);
-                await dbRun(
-                    'INSERT INTO password_reset_tokens (user_id, token_hash, expires_at, created_at) VALUES (?, ?, ?, ?)',
-                    [user.id, tokenHash, expiresAt, now]
-                );
-
-                console.log(`[DEV] Password reset link: /auth/reset-password/${rawToken}`);
-            }
+        if (!user) {
+            req.flash('error_msg', 'User not found');
+            return res.redirect('/auth/forgot-password');
         }
 
-        req.flash('success_msg', genericMessage);
-        return res.redirect('/auth/forgot-password');
+        const now = Date.now();
+        const passwordHash = await bcrypt.hash(password, 10);
+
+        await dbRun('UPDATE users SET password_hash = ? WHERE id = ?', [passwordHash, user.id]);
+        await dbRun('UPDATE password_reset_tokens SET used_at = ? WHERE user_id = ? AND used_at IS NULL', [now, user.id]);
+
+        req.flash('success_msg', 'Password updated successfully. Please sign in.');
+        return res.redirect('/');
     } catch (err) {
         console.error('Request password reset error:', err);
-        req.flash('success_msg', genericMessage);
+        req.flash('error_msg', 'Could not reset password. Please try again.');
         return res.redirect('/auth/forgot-password');
     }
 };

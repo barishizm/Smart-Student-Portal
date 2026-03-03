@@ -32,10 +32,47 @@ const escapeXml = (value = '') => String(value)
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&apos;');
 
+const splitFullName = (fullName = '') => {
+    const normalized = String(fullName || '').trim().replace(/\s+/g, ' ');
+    if (!normalized) {
+        return { firstName: '', lastName: '' };
+    }
+
+    const parts = normalized.split(' ');
+    const firstName = parts.shift() || '';
+    const lastName = parts.join(' ');
+    return { firstName, lastName };
+};
+
+const normalizeStudentPayload = (body = {}) => {
+    const fullName = String(body.full_name || '').trim().replace(/\s+/g, ' ');
+    const studentId = String(body.student_id || '').trim();
+    const email = String(body.email || '').trim().toLowerCase();
+    const programDepartment = String(body.program_department || '').trim();
+    const yearRaw = String(body.year_of_study || '').trim();
+    const parsedYear = Number.parseInt(yearRaw, 10);
+    const statusRaw = String(body.status || '').trim().toLowerCase();
+    const status = statusRaw === 'inactive' ? 'Inactive' : 'Active';
+
+    return {
+        fullName,
+        studentId,
+        email,
+        programDepartment,
+        yearOfStudy: Number.isNaN(parsedYear) ? null : parsedYear,
+        status,
+    };
+};
+
 // List Students
 exports.listStudents = async (req, res) => {
     const query = `
-      SELECT s.*, u.username, u.role
+            SELECT
+                s.*,
+                COALESCE(NULLIF(trim(s.full_name), ''), trim(COALESCE(s.name, '') || ' ' || COALESCE(s.surname, ''))) AS display_full_name,
+                COALESCE(NULLIF(trim(s.status), ''), 'Active') AS display_status,
+                u.username,
+                u.role
       FROM students s
       LEFT JOIN users u ON u.id = s.user_id
       ORDER BY s.id DESC
@@ -58,6 +95,36 @@ exports.listStudents = async (req, res) => {
     } catch (err) {
         console.error(err);
         return res.status(500).send('Database error');
+    }
+};
+
+exports.viewStudentDetails = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const row = await dbGet(
+            `SELECT
+               s.*,
+               COALESCE(NULLIF(trim(s.full_name), ''), trim(COALESCE(s.name, '') || ' ' || COALESCE(s.surname, ''))) AS display_full_name,
+               COALESCE(NULLIF(trim(s.status), ''), 'Active') AS display_status,
+               u.username,
+               u.role
+             FROM students s
+             LEFT JOIN users u ON u.id = s.user_id
+             WHERE s.id = ?`,
+            [id]
+        );
+
+        if (!row) {
+            req.flash('error_msg', 'Student not found');
+            return res.redirect('/admin/students');
+        }
+
+        return res.render('students/detail', { student: row });
+    } catch (err) {
+        console.error(err);
+        req.flash('error_msg', 'Student not found');
+        return res.redirect('/admin/students');
     }
 };
 
@@ -93,27 +160,44 @@ exports.newStudentForm = (req, res) => {
 
 // Create Student
 exports.createStudent = async (req, res) => {
-    const name = (req.body.name || '').trim();
-    const surname = (req.body.surname || '').trim();
-    const student_id = (req.body.student_id || '').trim();
-    const email = (req.body.email || '').trim().toLowerCase();
-    const group_name = (req.body.group_name || '').trim();
+    const payload = normalizeStudentPayload(req.body);
+    const { firstName, lastName } = splitFullName(payload.fullName);
 
     try {
-        let linkedUser = null;
-        if (email) {
-            linkedUser = await dbGet('SELECT id, role FROM users WHERE lower(email) = lower(?) LIMIT 1', [email]);
+        if (!payload.fullName || !payload.studentId || !payload.email || !payload.programDepartment || !payload.yearOfStudy) {
+            req.flash('error_msg', 'Please fill all required fields');
+            return res.redirect('/admin/students/new');
         }
 
+        if (payload.yearOfStudy < 1 || payload.yearOfStudy > 12) {
+            req.flash('error_msg', 'Year of study must be between 1 and 12');
+            return res.redirect('/admin/students/new');
+        }
+
+        let linkedUser = null;
+        linkedUser = await dbGet('SELECT id, role FROM users WHERE lower(email) = lower(?) LIMIT 1', [payload.email]);
+
         await dbRun(
-            'INSERT INTO students (name, surname, student_id, email, user_id, group_name) VALUES (?, ?, ?, ?, ?, ?)',
-            [name, surname, student_id, email || null, linkedUser?.id || null, group_name || null]
+            `INSERT INTO students (full_name, name, surname, student_id, email, user_id, group_name, program_department, year_of_study, status)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [
+                payload.fullName,
+                firstName || payload.fullName,
+                lastName || '',
+                payload.studentId,
+                payload.email,
+                linkedUser?.id || null,
+                null,
+                payload.programDepartment,
+                payload.yearOfStudy,
+                payload.status,
+            ]
         );
 
         if (linkedUser && linkedUser.role !== 'admin') {
             await dbRun(
                 'UPDATE users SET first_name = ?, last_name = ?, email = ? WHERE id = ?',
-                [name, surname, email, linkedUser.id]
+                [firstName || payload.fullName, lastName || null, payload.email, linkedUser.id]
             );
         }
 
@@ -132,7 +216,12 @@ exports.editStudentForm = async (req, res) => {
 
     try {
         const row = await dbGet(
-            `SELECT s.*, u.username, u.role
+            `SELECT
+               s.*,
+               COALESCE(NULLIF(trim(s.full_name), ''), trim(COALESCE(s.name, '') || ' ' || COALESCE(s.surname, ''))) AS display_full_name,
+               COALESCE(NULLIF(trim(s.status), ''), 'Active') AS display_status,
+               u.username,
+               u.role
              FROM students s
              LEFT JOIN users u ON u.id = s.user_id
              WHERE s.id = ?`,
@@ -155,16 +244,23 @@ exports.editStudentForm = async (req, res) => {
 // Update Student
 exports.updateStudent = async (req, res) => {
     const id = req.params.id;
-    const name = (req.body.name || '').trim();
-    const surname = (req.body.surname || '').trim();
-    const student_id = (req.body.student_id || '').trim();
-    const email = (req.body.email || '').trim().toLowerCase();
-    const group_name = (req.body.group_name || '').trim();
+    const payload = normalizeStudentPayload(req.body);
+    const { firstName, lastName } = splitFullName(payload.fullName);
     const username = (req.body.username || '').trim();
     const newPassword = req.body.new_password || '';
     const confirmPassword = req.body.confirm_password || '';
 
     try {
+        if (!payload.fullName || !payload.studentId || !payload.email || !payload.programDepartment || !payload.yearOfStudy) {
+            req.flash('error_msg', 'Please fill all required fields');
+            return res.redirect(`/admin/students/${id}/edit`);
+        }
+
+        if (payload.yearOfStudy < 1 || payload.yearOfStudy > 12) {
+            req.flash('error_msg', 'Year of study must be between 1 and 12');
+            return res.redirect(`/admin/students/${id}/edit`);
+        }
+
         const student = await dbGet('SELECT * FROM students WHERE id = ?', [id]);
         if (!student) {
             req.flash('error_msg', 'Student not found');
@@ -176,8 +272,8 @@ exports.updateStudent = async (req, res) => {
             linkedUser = await dbGet('SELECT * FROM users WHERE id = ?', [student.user_id]);
         }
 
-        if (!linkedUser && email) {
-            linkedUser = await dbGet('SELECT * FROM users WHERE lower(email) = lower(?) LIMIT 1', [email]);
+        if (!linkedUser && payload.email) {
+            linkedUser = await dbGet('SELECT * FROM users WHERE lower(email) = lower(?) LIMIT 1', [payload.email]);
         }
 
         if (linkedUser && linkedUser.role === 'admin') {
@@ -203,15 +299,36 @@ exports.updateStudent = async (req, res) => {
         }
 
         await dbRun(
-            'UPDATE students SET name = ?, surname = ?, student_id = ?, email = ?, user_id = ?, group_name = ? WHERE id = ?',
-            [name, surname, student_id, email || null, linkedUser?.id || null, group_name || null, id]
+            `UPDATE students
+             SET full_name = ?,
+                 name = ?,
+                 surname = ?,
+                 student_id = ?,
+                 email = ?,
+                 user_id = ?,
+                 program_department = ?,
+                 year_of_study = ?,
+                 status = ?
+             WHERE id = ?`,
+            [
+                payload.fullName,
+                firstName || payload.fullName,
+                lastName || '',
+                payload.studentId,
+                payload.email,
+                linkedUser?.id || null,
+                payload.programDepartment,
+                payload.yearOfStudy,
+                payload.status,
+                id,
+            ]
         );
 
         if (linkedUser) {
             const nextUsername = username || linkedUser.username;
             await dbRun(
                 'UPDATE users SET first_name = ?, last_name = ?, username = ?, email = ? WHERE id = ?',
-                [name, surname, nextUsername, email || null, linkedUser.id]
+                [firstName || payload.fullName, lastName || null, nextUsername, payload.email, linkedUser.id]
             );
 
             if (newPassword) {
@@ -288,11 +405,12 @@ exports.exportXML = (req, res) => {
         rows.forEach(student => {
             xml += '  <student>\n';
             xml += `    <id>${escapeXml(student.id)}</id>\n`;
-            xml += `    <name>${escapeXml(student.name)}</name>\n`;
-            xml += `    <surname>${escapeXml(student.surname)}</surname>\n`;
+            xml += `    <full_name>${escapeXml(student.full_name || `${student.name || ''} ${student.surname || ''}`.trim())}</full_name>\n`;
             xml += `    <student_id>${escapeXml(student.student_id)}</student_id>\n`;
             xml += `    <email>${escapeXml(student.email)}</email>\n`;
-            xml += `    <group>${escapeXml(student.group_name)}</group>\n`;
+            xml += `    <program_department>${escapeXml(student.program_department)}</program_department>\n`;
+            xml += `    <year_of_study>${escapeXml(student.year_of_study)}</year_of_study>\n`;
+            xml += `    <status>${escapeXml(student.status || 'Active')}</status>\n`;
             xml += '  </student>\n';
         });
         xml += '</students>';
