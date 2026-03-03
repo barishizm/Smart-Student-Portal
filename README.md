@@ -10,7 +10,7 @@ The app supports:
 
 This project is tailored for a university-style environment (VILNIUS TECH branding in UI), with a dedicated admin identity for student records management.
 
-## Table of Contents
+## Table of Contents.
 
 - [Overview](#overview)
 - [Tech Stack](#tech-stack)
