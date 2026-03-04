@@ -3,7 +3,7 @@
 A role-aware student management portal built with Express, EJS, and SQLite.  
 The app supports:
 
-- User registration and login
+- User registration and login.
 - Session-based authentication
 - Admin-only student CRUD operations
 - XML export of student data with XSL styling
