@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('auditoriumPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <p class="muted" style="margin-bottom:20px;"><%= page.description %></p>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;">
+            <% page.rooms.forEach((room) => { %>
+              <div class="list-item" style="padding:12px 14px;display:flex;flex-direction:column;gap:4px;">
+                <div style="display:flex;justify-content:space-between;">
+                  <strong><%= room.room %></strong>
+                  <span style="width:10px;height:10px;border-radius:50%;background:<%= room.dot %>;display:inline-block;margin-top:3px;"></span>
+                </div>
+                <span class="muted" style="font-size:12px;"><%= room.meta %></span>
+              </div>
+            <% }) %>
+          </div>
+        </article>
+
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('internshipOffersPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <p class="muted" style="margin-bottom:20px;"><%= page.description %></p>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th><%= page.table.company %></th><th><%= page.table.role %></th><th><%= page.table.duration %></th><th><%= page.table.paid %></th><th><%= page.table.location %></th><th><%= page.table.deadline %></th></tr></thead>
+              <tbody>
+                <% page.rows.forEach((row) => { %>
+                  <tr><td><strong><%= row.company %></strong></td><td><%= row.role %></td><td><%= row.duration %></td><td><span class="badge" style="background:<%= row.badgeBackground %>;color:<%= row.badgeColor %>;border-color:<%= row.badgeBorder %>;"><%= row.paid %></span></td><td><%= row.location %></td><td><%= row.deadline %></td></tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

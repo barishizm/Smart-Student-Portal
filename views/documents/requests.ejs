@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('documentRequestsPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <p class="muted" style="margin-bottom:20px;"><%= page.description %></p>
+          <form class="profile-change-form" style="margin-bottom:24px;">
+            <div class="form-group">
+              <label class="profile-change-title"><%= page.form.documentType %></label>
+              <select class="profile-change-input">
+                <% page.form.documentOptions.forEach((option) => { %>
+                  <option><%= option %></option>
+                <% }) %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="profile-change-title"><%= page.form.purpose %></label>
+              <input type="text" class="profile-change-input" placeholder="<%= page.form.purposePlaceholder %>">
+            </div>
+            <div class="form-group">
+              <label class="profile-change-title"><%= page.form.language %></label>
+              <select class="profile-change-input">
+                <% page.form.languageOptions.forEach((option) => { %>
+                  <option><%= option %></option>
+                <% }) %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="profile-change-title"><%= page.form.copies %></label>
+              <input type="number" class="profile-change-input" value="1" min="1" max="10">
+            </div>
+            <button type="button" class="btn profile-change-submit" onclick="alert('<%= page.form.submitAlert %>')"><%= page.form.submit %></button>
+          </form>
+          <h3 style="font-size:14px;font-weight:600;margin-bottom:12px;color:rgba(255,255,255,.7);"><%= page.previousTitle %></h3>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th><%= page.table.document %></th><th><%= page.table.requested %></th><th><%= page.table.ready %></th><th><%= page.table.status %></th></tr></thead>
+              <tbody>
+                <% page.rows.forEach((row) => { %>
+                  <tr><td><%= row.document %></td><td><%= row.requested %></td><td><%= row.ready %></td><td><span class="badge" style="background:rgba(16,185,129,.15);color:#6ee7b7;border-color:rgba(16,185,129,.3);"><%= row.status %></span></td></tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

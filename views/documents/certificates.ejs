@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('certificatesPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <p class="muted" style="margin-bottom:20px;"><%= page.description %></p>
+          <div style="display:grid;gap:12px;">
+            <% page.items.forEach((item) => { %>
+              <div class="list-item" style="padding:16px;display:flex;justify-content:space-between;align-items:center;<%= item.locked ? 'opacity:0.5;' : '' %>">
+                <div>
+                  <strong><%= item.title %></strong>
+                  <p class="muted" style="font-size:12px;margin-top:2px;"><%= item.description %></p>
+                </div>
+                <% if (item.locked) { %>
+                  <button disabled class="btn" style="width:auto;padding:8px 16px;font-size:13px;cursor:not-allowed;"><i class="fa-solid fa-lock" style="margin-right:6px;"></i><%= item.button %></button>
+                <% } else { %>
+                  <button onclick="alert('<%= item.alert %>')" class="btn" style="width:auto;padding:8px 16px;font-size:13px;"><i class="fa-solid fa-download" style="margin-right:6px;"></i><%= item.button %></button>
+                <% } %>
+              </div>
+            <% }) %>
+          </div>
+        </article>
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('careerDaysPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <p class="muted" style="margin-bottom:20px;"><%= page.description %></p>
+          <h3 style="font-size:14px;font-weight:600;margin-bottom:12px;color:rgba(255,255,255,.7);"><%= page.sectionTitle %></h3>
+          <div style="display:grid;gap:12px;margin-bottom:24px;">
+            <% page.events.forEach((event) => { %>
+              <div class="list-item" style="padding:16px;display:flex;gap:16px;align-items:flex-start;">
+                <div style="min-width:52px;text-align:center;background:<%= event.accentBackground %>;border:1px solid <%= event.accentBorder %>;border-radius:10px;padding:8px 4px;">
+                  <div style="font-size:18px;font-weight:700;color:<%= event.accentColor %>;"><%= event.day %></div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.6);"><%= event.month %></div>
+                </div>
+                <div>
+                  <strong><%= event.title %></strong>
+                  <p class="muted" style="font-size:12px;margin-top:2px;"><%= event.meta %></p>
+                  <p style="font-size:13px;color:rgba(255,255,255,.8);margin-top:6px;line-height:1.5;"><%= event.description %></p>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+        </article>
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('feesPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <div class="stats" style="margin-bottom:20px;">
+            <% page.stats.forEach((stat) => { %>
+              <div class="stat"><strong<%= stat.highlight ? ' style="color:#6ee7b7;"' : '' %>><%= stat.value %></strong><small><%= stat.label %></small></div>
+            <% }) %>
+          </div>
+          <div class="list-item" style="padding:14px 16px;margin-bottom:14px;background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.25);">
+            <p style="font-size:13px;color:rgba(255,255,255,.9);"><i class="fa-solid fa-circle-check" style="color:#6ee7b7;margin-right:8px;"></i><%= page.notice %></p>
+          </div>
+          <h3 style="font-size:14px;font-weight:600;margin-bottom:12px;color:rgba(255,255,255,.7);"><%= page.tableTitle %></h3>
+          <div class="table-wrap" style="margin-bottom:20px;">
+            <table class="table">
+              <thead><tr><th><%= page.table.program %></th><th><%= page.table.semester %></th><th><%= page.table.year %></th></tr></thead>
+              <tbody>
+                <% page.rows.forEach((row) => { %>
+                  <tr><td><%= row.program %></td><td><%= row.semester %></td><td><%= row.year %></td></tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+          <div class="list-item" style="padding:14px 16px;">
+            <p style="font-size:13px;color:rgba(255,255,255,.8);"><i class="fa-solid fa-credit-card" style="color:#67e8f9;margin-right:8px;"></i><%= page.paymentNote %></p>
+          </div>
+        </article>
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

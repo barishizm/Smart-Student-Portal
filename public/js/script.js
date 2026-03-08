@@ -133,7 +133,7 @@ class LoginForm1 {
     }, 150);
 
     FormUtils.showNotification(
-      "Redirecting to sign up page...",
+      FormUtils.translate('redirectSignup', 'Redirecting to sign up page...'),
       "info",
       this.form,
     );
@@ -157,7 +157,7 @@ class LoginForm1 {
     }, 200);
 
     FormUtils.showNotification(
-      `Connecting to ${provider}...`,
+      `${FormUtils.translate('connectingTo', 'Connecting to')} ${provider}...`,
       "info",
       this.form,
     );
@@ -211,7 +211,7 @@ class LoginForm1 {
 
   static validateLoginIdentity(value) {
     if (!value) {
-      return { isValid: false, message: "Email or username is required" };
+      return { isValid: false, message: FormUtils.translate('loginIdentityRequired', 'Email or username is required') };
     }
 
     if (value.includes("@")) {
@@ -219,7 +219,7 @@ class LoginForm1 {
     }
 
     if (value.length < 3) {
-      return { isValid: false, message: "Username must be at least 3 characters" };
+      return { isValid: false, message: FormUtils.translate('usernameMin', 'Username must be at least 3 characters') };
     }
 
     return { isValid: true };
@@ -284,7 +284,7 @@ class LoginForm1 {
 
   showLoginError(message) {
     FormUtils.showNotification(
-      message || "Login failed. Please try again.",
+      message || FormUtils.translate('loginFailed', 'Login failed. Please try again.'),
       "error",
       this.form,
     );
@@ -383,7 +383,7 @@ class LoginForm1 {
 
   static validateLoginPassword(value) {
     if (!value) {
-      return { isValid: false, message: "Password is required" };
+      return { isValid: false, message: FormUtils.translate('passwordRequired', 'Password is required') };
     }
     return { isValid: true };
   }

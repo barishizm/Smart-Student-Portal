@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('approvalPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <p class="muted" style="margin-bottom:20px;"><%= page.description %></p>
+          <div style="display:grid;gap:12px;">
+            <% page.items.forEach((item) => { %>
+              <div class="list-item" style="padding:16px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;">
+                <div>
+                  <strong><%= item.title %></strong>
+                  <p class="muted" style="font-size:12px;margin-top:4px;"><%= item.description %></p>
+                </div>
+                <span class="badge" style="background:<%= item.badgeBackground %>;color:<%= item.badgeColor %>;border-color:<%= item.badgeBorder %>;"><%= item.status %></span>
+              </div>
+            <% }) %>
+          </div>
+
+          <div class="table-wrap" style="margin-top:20px;">
+            <table class="table">
+              <thead><tr><th><%= page.table.approver %></th><th><%= page.table.documentType %></th><th><%= page.table.sla %></th><th><%= page.table.contact %></th></tr></thead>
+              <tbody>
+                <% page.rows.forEach((row) => { %>
+                  <tr><td><%= row.approver %></td><td><%= row.documentType %></td><td><%= row.sla %></td><td><%= row.contact %></td></tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('partials/head') %>
+  <% const page = t('libraryPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('partials/sidebar') %>
+    <main class="main">
+      <%- include('partials/header') %>
+      <section class="content">
+        <article class="card" style="margin-bottom:14px;">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <p class="muted" style="margin-bottom:16px;"><%= page.description %></p>
+          <form class="profile-change-form" style="display:flex;gap:10px;align-items:flex-end;" onsubmit="return false;">
+            <div class="form-group" style="flex:1;margin-bottom:0;">
+              <label class="profile-change-title"><%= page.searchLabel %></label>
+              <input type="text" class="profile-change-input" placeholder="<%= page.searchPlaceholder %>">
+            </div>
+            <button type="button" class="btn" style="width:auto;padding:11px 20px;white-space:nowrap;" onclick="alert('<%= page.searchComingSoon %>')"><i class="fa-solid fa-magnifying-glass" style="margin-right:6px;"></i><%= page.searchButton %></button>
+          </form>
+        </article>
+
+        <article class="card" style="margin-bottom:14px;">
+          <div class="card-head">
+            <h2><%= page.borrowedTitle %></h2>
+            <span class="badge"><%= page.borrowedBadge %></span>
+          </div>
+          <div class="list-item" style="padding:14px 16px;text-align:center;">
+            <i class="fa-solid fa-book-open" style="font-size:32px;color:rgba(255,255,255,.2);margin-bottom:8px;display:block;"></i>
+            <p class="muted" style="font-size:13px;"><%= page.noBorrowedBooks %></p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.resourcesTitle %></h2>
+            <span class="badge"><%= page.resourcesBadge %></span>
+          </div>
+          <div style="display:grid;gap:10px;">
+            <% page.resources.forEach((resource) => { %>
+              <div class="list-item" style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center;">
+                <div><strong><%= resource.name %></strong><p class="muted" style="font-size:12px;margin-top:2px;"><%= resource.description %></p></div>
+                <span class="badge" style="background:<%= resource.badgeBackground %>;color:<%= resource.badgeColor %>;border-color:<%= resource.badgeBorder %>;"><%= resource.access %></span>
+              </div>
+            <% }) %>
+          </div>
+        </article>
+      </section>
+      <%- include('partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

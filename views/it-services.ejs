@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('partials/head') %>
+  <% const page = t('itServicesPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('partials/sidebar') %>
+    <main class="main">
+      <%- include('partials/header') %>
+      <section class="content">
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <p class="muted" style="margin-bottom:20px;"><%= page.description %> <strong>helpdesk@vilniustech.lt</strong> <%= page.supportSuffix %> +370 5 274 4960.</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;">
+            <% page.services.forEach((service) => { %>
+            <div class="list-item" style="padding:16px;display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <i class="<%= service.icon %>" style="font-size:20px;color:<%= service.color %>;width:24px;text-align:center;"></i>
+                <strong><%= service.title %></strong>
+                <span style="margin-left:auto;width:8px;height:8px;border-radius:50%;background:<%= service.statusColor %>;flex-shrink:0;"></span>
+              </div>
+              <p style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.5;"><%= service.description %></p>
+              <span class="muted" style="font-size:12px;"><%= service.meta %></span>
+            </div>
+            <% }) %>
+          </div>
+        </article>
+      </section>
+      <%- include('partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

@@ -11,7 +11,7 @@
         <main class="main">
             <%- include('../partials/header') %>
 
-            <div class="content" style="max-width: 600px; margin: 0 auto;">
+            <div class="content">
                 <div class="card">
                     <div class="card-head">
                         <h2><%= t('students.addNewStudent') %></h2>
@@ -19,41 +19,21 @@
                     </div>
                     
                     <% if(error_msg && error_msg.length > 0){ %>
-                        <div style="background:#f8d7da; color:#721c24; padding:10px; margin-bottom:15px; border-radius:5px;">
-                            <%= error_msg %>
-                        </div>
+                        <div class="alert alert-danger"><%= error_msg %></div>
                     <% } %>
 
-                    <form action="/admin/students" method="POST">
+                    <form action="/admin/students" method="POST" class="profile-change-form">
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                        <div class="form-group" style="margin-bottom:15px;">
-                            <label><%= t('students.studentId') %></label>
-                            <input type="text" name="student_id" required class="input" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:4px;">
-                        </div>
-                        <div class="form-group" style="margin-bottom:15px;">
-                            <label><%= t('students.fullName') %></label>
-                            <input type="text" name="full_name" required class="input" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:4px;">
-                        </div>
-                        <div class="form-group" style="margin-bottom:15px;">
-                            <label><%= t('students.email') %></label>
-                            <input type="email" name="email" required class="input" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:4px;">
-                        </div>
-                        <div class="form-group" style="margin-bottom:15px;">
-                            <label><%= t('students.programDepartment') %></label>
-                            <input type="text" name="program_department" required class="input" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:4px;">
-                        </div>
-                        <div class="form-group" style="margin-bottom:15px;">
-                            <label><%= t('students.yearOfStudy') %></label>
-                            <input type="number" name="year_of_study" min="1" max="12" required class="input" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:4px;">
-                        </div>
-                        <div class="form-group" style="margin-bottom:15px;">
-                            <label><%= t('students.status') %></label>
-                            <select name="status" required class="input" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:4px;">
-                                <option value="Active"><%= t('students.active') %></option>
-                                <option value="Inactive"><%= t('students.inactive') %></option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn"><%= t('students.addStudent') %></button>
+                        <input type="text" name="student_id" required class="profile-change-input" placeholder="<%= t('students.studentId') %>">
+                        <input type="text" name="full_name" required class="profile-change-input" placeholder="<%= t('students.fullName') %>">
+                        <input type="email" name="email" required class="profile-change-input" placeholder="<%= t('students.email') %>">
+                        <input type="text" name="program_department" required class="profile-change-input" placeholder="<%= t('students.programDepartment') %>">
+                        <input type="number" name="year_of_study" min="1" max="12" required class="profile-change-input" placeholder="<%= t('students.yearOfStudy') %>">
+                        <select name="status" required class="profile-change-input">
+                            <option value="Active"><%= t('students.active') %></option>
+                            <option value="Inactive"><%= t('students.inactive') %></option>
+                        </select>
+                        <button type="submit" class="btn profile-change-submit"><%= t('students.addStudent') %></button>
                     </form>
                 </div>
             </div>

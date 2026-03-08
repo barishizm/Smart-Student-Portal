@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('reportSlipPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <p class="muted" style="margin-bottom:20px;"><%= page.description %></p>
+          <div class="table-wrap" style="margin-bottom:20px;">
+            <table class="table">
+              <thead><tr><th><%= page.table.unit %></th><th><%= page.table.status %></th><th><%= page.table.confirmedBy %></th><th><%= page.table.lastUpdate %></th></tr></thead>
+              <tbody>
+                <% page.rows.forEach((row) => { %>
+                  <tr><td><%= row.unit %></td><td><span class="badge" style="background:<%= row.badgeBackground %>;color:<%= row.badgeColor %>;border-color:<%= row.badgeBorder %>;"><%= row.status %></span></td><td><%= row.confirmedBy %></td><td><%= row.lastUpdate %></td></tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+          <div class="list-item" style="padding:14px 16px;">
+            <p style="font-size:13px;color:rgba(255,255,255,.82);"><i class="fa-solid fa-circle-info" style="color:#67e8f9;margin-right:8px;"></i><%= page.note %></p>
+          </div>
+        </article>
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

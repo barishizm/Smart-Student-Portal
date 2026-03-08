@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('thesisPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+
+          <div class="stats" style="margin-bottom:24px;">
+            <% page.stats.forEach((stat) => { %>
+              <div class="stat"><strong<%= stat.highlight ? ' style="color:#fcd34d;"' : '' %>><%= stat.value %></strong><small><%= stat.label %></small></div>
+            <% }) %>
+          </div>
+
+          <div style="display:grid;gap:14px;">
+            <div class="list-item" style="padding:16px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                <i class="fa-solid fa-circle-exclamation" style="color:#fcd34d;font-size:16px;"></i>
+                <strong><%= page.alertTitle %></strong>
+              </div>
+              <p class="muted" style="font-size:13px;line-height:1.6;"><%= page.alertDescription %></p>
+            </div>
+
+            <div class="list-item" style="padding:16px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                <i class="fa-solid fa-list-check" style="color:#67e8f9;font-size:16px;"></i>
+                <strong><%= page.requirementsTitle %></strong>
+              </div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <% page.requirements.forEach((item) => { %>
+                  <li style="display:flex;align-items:center;gap:8px;font-size:13px;"><i class="fa-regular fa-circle" style="color:rgba(255,255,255,.3);font-size:10px;"></i> <%= item %></li>
+                <% }) %>
+              </ul>
+            </div>
+
+            <div class="list-item" style="padding:16px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                <i class="fa-solid fa-calendar-days" style="color:#6ee7b7;font-size:16px;"></i>
+                <strong><%= page.datesTitle %></strong>
+              </div>
+              <div class="table-wrap">
+                <table class="table">
+                  <thead><tr><th><%= page.table.event %></th><th><%= page.table.date %></th></tr></thead>
+                  <tbody>
+                    <% page.rows.forEach((row) => { %>
+                      <tr><td><%= row.event %></td><td><%= row.date %></td></tr>
+                    <% }) %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

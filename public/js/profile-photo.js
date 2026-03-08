@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const cropImage = document.getElementById('profileCropImage');
   const uploadBtn = document.getElementById('uploadCroppedPhotoBtn');
   const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+  const i18nElement = document.getElementById('profilePhotoI18n');
+  const i18n = i18nElement ? JSON.parse(i18nElement.textContent) : {};
 
   if (!fileInput || !cropArea || !cropImage || !uploadBtn) {
     return;
@@ -50,13 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
     if (!allowedTypes.includes(file.type)) {
-      alert('Only jpg, png, or webp images are allowed.');
+      alert(i18n.invalidType || 'Only jpg, png, or webp images are allowed.');
       fileInput.value = '';
       return;
     }
 
     if (file.size > 2 * 1024 * 1024) {
-      alert('Image size must be 2MB or less.');
+      alert(i18n.tooLarge || 'Image size must be 2MB or less.');
       fileInput.value = '';
       return;
     }
@@ -69,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (typeof Cropper === 'undefined') {
       cropArea.hidden = true;
-      uploadBtn.textContent = 'Upload Photo';
+      uploadBtn.textContent = i18n.uploadPhoto || 'Upload Photo';
       return;
     }
 
@@ -85,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         responsive: true,
         guides: true
       });
-      uploadBtn.textContent = 'Upload Cropped Photo';
+      uploadBtn.textContent = i18n.uploadCroppedPhoto || 'Upload Cropped Photo';
     };
   });
 
@@ -113,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .toBlob(async (blob) => {
           if (!blob) {
             uploadBtn.disabled = false;
-            alert('Could not process image.');
+            alert(i18n.processFailed || 'Could not process image.');
             return;
           }
 
@@ -121,12 +123,12 @@ document.addEventListener('DOMContentLoaded', () => {
             await uploadFile(blob, 'avatar.webp');
           } catch (_err) {
             uploadBtn.disabled = false;
-            alert('Upload failed. Please try again.');
+            alert(i18n.uploadFailed || 'Upload failed. Please try again.');
           }
         }, 'image/webp', 0.9);
     } catch (_err) {
       uploadBtn.disabled = false;
-      alert('Upload failed. Please try again.');
+      alert(i18n.uploadFailed || 'Upload failed. Please try again.');
     }
   });
 });

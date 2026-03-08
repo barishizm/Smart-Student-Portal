@@ -50,18 +50,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const getCurrentLectureLabel = (date) => {
     const nowMinutes = (date.getHours() * 60) + date.getMinutes();
     const slots = [
-      { start: 8 * 60 + 30, end: 10 * 60 + 5, label: '1st lecture' },
-      { start: 10 * 60 + 20, end: 11 * 60 + 55, label: '2nd lecture' },
-      { start: 12 * 60 + 10, end: 13 * 60 + 45, label: '3rd lecture' },
-      { start: 13 * 60 + 45, end: 14 * 60 + 30, label: 'Lunch Break' },
-      { start: 14 * 60 + 30, end: 16 * 60 + 5, label: '4th lecture' },
-      { start: 16 * 60 + 20, end: 17 * 60 + 55, label: '5th lecture' },
-      { start: 18 * 60 + 10, end: 19 * 60 + 45, label: '6th lecture' },
-      { start: 19 * 60 + 55, end: 21 * 60 + 30, label: '7th lecture' }
+      { start: 8 * 60 + 30, end: 10 * 60 + 5, label: dashboardI18n.slot1 || '1st lecture' },
+      { start: 10 * 60 + 20, end: 11 * 60 + 55, label: dashboardI18n.slot2 || '2nd lecture' },
+      { start: 12 * 60 + 10, end: 13 * 60 + 45, label: dashboardI18n.slot3 || '3rd lecture' },
+      { start: 13 * 60 + 45, end: 14 * 60 + 30, label: dashboardI18n.lunchBreak || 'Lunch Break' },
+      { start: 14 * 60 + 30, end: 16 * 60 + 5, label: dashboardI18n.slot4 || '4th lecture' },
+      { start: 16 * 60 + 20, end: 17 * 60 + 55, label: dashboardI18n.slot5 || '5th lecture' },
+      { start: 18 * 60 + 10, end: 19 * 60 + 45, label: dashboardI18n.slot6 || '6th lecture' },
+      { start: 19 * 60 + 55, end: 21 * 60 + 30, label: dashboardI18n.slot7 || '7th lecture' }
     ];
 
     const activeSlot = slots.find((slot) => nowMinutes >= slot.start && nowMinutes < slot.end);
-    return activeSlot ? activeSlot.label : 'Break';
+    return activeSlot ? activeSlot.label : (dashboardI18n.break || 'Break');
   };
 
   const escapeHtml = (value = '') => String(value)
@@ -130,11 +130,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const updateHeaderScheduleInfo = () => {
     if (!headerScheduleInfo) return;
     const now = new Date();
-    headerScheduleInfo.textContent = `${formatDateLocal(now)} • Week ${getWeekCycle(now)} • ${getCurrentLectureLabel(now)}`;
+    headerScheduleInfo.textContent = `${formatDateLocal(now)} • ${dashboardI18n.week || 'Week'} ${getWeekCycle(now)} • ${getCurrentLectureLabel(now)}`;
   };
 
   updateHeaderScheduleInfo();
   setInterval(updateHeaderScheduleInfo, 30 * 1000);
+
+  // Mark the current page's nav link as active
+  const currentPath = window.location.pathname;
+  const sidebarNavLinks = document.querySelectorAll('.sidebar .nav-item[href]');
+  sidebarNavLinks.forEach((link) => {
+    const href = link.getAttribute('href');
+    if (href && href !== '#' && currentPath.startsWith(href)) {
+      link.classList.add('active');
+    }
+  });
 
   const nav = sidebar?.querySelector('.nav');
   const fitSidebarMenuScale = () => {
@@ -171,18 +181,28 @@ document.addEventListener('DOMContentLoaded', () => {
     window.setTimeout(fitSidebarMenuScale, 180);
   });
 
+  const mobileSidebarOverlay = document.getElementById('mobileSidebarOverlay');
+
   const closeMobileMenu = () => {
     if (!sidebar || !mobileMenuBtn) return;
     sidebar.classList.remove('mobile-open');
     mobileMenuBtn.setAttribute('aria-expanded', 'false');
+    if (mobileSidebarOverlay) {
+      mobileSidebarOverlay.classList.remove('visible');
+    }
   };
 
   mobileMenuBtn?.addEventListener('click', () => {
     if (!sidebar) return;
     const isOpen = sidebar.classList.toggle('mobile-open');
     mobileMenuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    if (mobileSidebarOverlay) {
+      mobileSidebarOverlay.classList.toggle('visible', isOpen);
+    }
     window.setTimeout(fitSidebarMenuScale, 120);
   });
+
+  mobileSidebarOverlay?.addEventListener('click', closeMobileMenu);
 
   // Profile dropdown
   profileTrigger?.addEventListener('click', () => {

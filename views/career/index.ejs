@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('careerHomePage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <p class="muted" style="margin-bottom:20px;"><%= page.description %></p>
+          <div class="stats" style="margin-bottom:24px;">
+            <% page.stats.forEach((stat) => { %>
+              <div class="stat"><strong><%= stat.value %></strong><small><%= stat.label %></small></div>
+            <% }) %>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;">
+            <% page.links.forEach((link) => { %>
+              <a href="<%= link.href %>" class="list-item" style="padding:16px;text-decoration:none;display:flex;flex-direction:column;gap:8px;">
+                <i class="<%= link.icon %>" style="font-size:22px;color:<%= link.color %>;"></i>
+                <strong><%= link.title %></strong>
+                <span class="muted" style="font-size:12px;"><%= link.description %></span>
+              </a>
+            <% }) %>
+          </div>
+        </article>
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

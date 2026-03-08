@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('partials/head') %>
+  <% const page = t('lifePage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('partials/sidebar') %>
+    <main class="main">
+      <%- include('partials/header') %>
+      <section class="content">
+        <article class="card" style="margin-bottom:14px;">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <p class="muted" style="margin-bottom:20px;"><%= page.description %></p>
+          <div class="stats" style="margin-bottom:20px;">
+            <% page.stats.forEach((stat) => { %>
+              <div class="stat"><strong><%= stat.value %></strong><small><%= stat.label %></small></div>
+            <% }) %>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;">
+            <% page.cards.forEach((card) => { %>
+              <div class="list-item" style="padding:16px;display:flex;flex-direction:column;gap:8px;">
+                <strong><i class="<%= card.icon %>" style="margin-right:8px;color:<%= card.color %>;"></i><%= card.title %></strong>
+                <p style="font-size:13px;color:rgba(255,255,255,.82);line-height:1.6;"><%= card.description %></p>
+                <span class="muted" style="font-size:12px;"><%= card.meta %></span>
+              </div>
+            <% }) %>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.supportTitle %></h2>
+            <span class="badge"><%= page.supportBadge %></span>
+          </div>
+          <div style="display:grid;gap:10px;">
+            <% page.supportItems.forEach((item) => { %>
+              <div class="list-item" style="padding:14px 16px;">
+                <strong><%= item.title %></strong>
+                <p class="muted" style="font-size:12px;margin-top:6px;"><%= item.description %></p>
+              </div>
+            <% }) %>
+          </div>
+        </article>
+      </section>
+      <%- include('partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,7 +1,7 @@
 <header class="topbar">
   <div class="crumbs">
     <h1><%= t('header.portal') %></h1>
-    <p id="headerScheduleInfo"><%= headerInfo.date %> • Week <%= headerInfo.week %> • <%= headerInfo.lecture %></p>
+    <p id="headerScheduleInfo"><%= headerInfo.date %> • <%= t('header.week') %> <%= headerInfo.week %> • <%= t(headerInfo.lectureKey) %></p>
   </div>
 
   <div class="top-actions">
@@ -45,19 +45,19 @@
           <% } %>
         </div>
         <div class="profile-meta">
-          <strong id="profileName"><%= user ? user.username : 'Guest' %></strong>
-          <small><%= user ? t(`roles.${user.role}`) : 'Visitor' %></small>
+          <strong id="profileName"><%= user ? user.username : t('header.guest') %></strong>
+          <small><%= user ? t(`roles.${user.role}`) : t('header.visitor') %></small>
         </div>
       </button>
 
       <div class="profile-submenu" id="profileSubmenu">
         <a href="/profile" class="profile-subitem" id="profileLink">
           <span aria-hidden="true">👤</span>
-          Profile
+          <%= t('header.profile') %>
         </a>
         <a href="/auth/logout" class="profile-subitem" id="profileLogout">
           <span aria-hidden="true">↩</span>
-          Logout
+          <%= t('header.logout') %>
         </a>
       </div>
     </div>
@@ -69,6 +69,16 @@
     "noNotifications": "<%= t('header.noNotifications') %>",
     "loadFailed": "<%= t('header.loadFailed') %>",
     "markRead": "<%= t('header.markRead') %>",
-    "deleteLabel": "<%= t('header.delete') %>"
+    "deleteLabel": "<%= t('header.delete') %>",
+    "week": "<%= t('header.week') %>",
+    "slot1": "<%= t('header.lectureSlots.slot1') %>",
+    "slot2": "<%= t('header.lectureSlots.slot2') %>",
+    "slot3": "<%= t('header.lectureSlots.slot3') %>",
+    "lunchBreak": "<%= t('header.lectureSlots.lunchBreak') %>",
+    "slot4": "<%= t('header.lectureSlots.slot4') %>",
+    "slot5": "<%= t('header.lectureSlots.slot5') %>",
+    "slot6": "<%= t('header.lectureSlots.slot6') %>",
+    "slot7": "<%= t('header.lectureSlots.slot7') %>",
+    "break": "<%= t('header.lectureSlots.break') %>"
   }
 </script>

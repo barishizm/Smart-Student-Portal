@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('examsPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <p class="muted" style="margin-bottom:20px;"><%= page.descriptionPrefix %> <strong><%= page.sessionDates %></strong>. <%= page.descriptionSuffix %></p>
+
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr><th><%= page.table.subject %></th><th><%= page.table.date %></th><th><%= page.table.time %></th><th><%= page.table.room %></th><th><%= page.table.type %></th><th><%= page.table.status %></th></tr>
+              </thead>
+              <tbody>
+                <% page.rows.forEach((row) => { %>
+                  <tr>
+                    <td><strong><%= row.subject %></strong></td>
+                    <td><%= row.date %></td>
+                    <td><%= row.time %></td>
+                    <td><%= row.room %></td>
+                    <td><span class="badge" style="background:<%= row.typeBackground %>;color:<%= row.typeColor %>;border-color:<%= row.typeBorder %>;"><%= row.type %></span></td>
+                    <td><span class="badge" style="background:<%= row.statusBackground %>;color:<%= row.statusColor %>;border-color:<%= row.statusBorder %>;"><%= row.status %></span></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

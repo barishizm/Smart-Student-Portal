@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('consultationsPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <p class="muted" style="margin-bottom:20px;"><%= page.description %></p>
+
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr><th><%= page.table.lecturer %></th><th><%= page.table.subject %></th><th><%= page.table.day %></th><th><%= page.table.time %></th><th><%= page.table.room %></th></tr>
+              </thead>
+              <tbody>
+                <% page.rows.forEach((row) => { %>
+                  <tr>
+                    <td><strong><%= row.lecturer %></strong></td>
+                    <td><%= row.subject %></td>
+                    <td><%= row.day %></td>
+                    <td><%= row.time %></td>
+                    <td><%= row.room %></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

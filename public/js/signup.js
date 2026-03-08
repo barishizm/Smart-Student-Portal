@@ -61,22 +61,22 @@ class SignupForm {
 
   validateFullName(value) {
     if (!value || value.trim().length < 3) {
-      return { isValid: false, message: 'Full name is required' };
+      return { isValid: false, message: FormUtils.translate('fullNameRequired', 'Full name is required') };
     }
     return { isValid: true };
   }
 
   validateConfirmPassword(value) {
-    if (!value) return { isValid: false, message: 'Confirm password is required' };
+    if (!value) return { isValid: false, message: FormUtils.translate('confirmPasswordRequired', 'Confirm password is required') };
     if (value !== this.passwordInput.value) {
-      return { isValid: false, message: 'Passwords do not match' };
+      return { isValid: false, message: FormUtils.translate('passwordsDoNotMatch', 'Passwords do not match') };
     }
     return { isValid: true };
   }
 
   validateTerms(value, field) {
     if (!field.checked) {
-      return { isValid: false, message: 'You must agree to Terms' };
+      return { isValid: false, message: FormUtils.translate('termsRequired', 'You must agree to the terms') };
     }
     return { isValid: true };
   }
@@ -136,7 +136,7 @@ class SignupForm {
 
       this.showSuccessMessage();
     } catch (err) {
-      FormUtils.showNotification('Sign up failed. Please try again.', 'error', this.form);
+      FormUtils.showNotification(FormUtils.translate('signUpFailed', 'Sign up failed. Please try again.'), 'error', this.form);
     } finally {
       this.isSubmitting = false;
       this.submitBtn.classList.remove('loading');

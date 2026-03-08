@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('scholarshipsPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <div style="display:grid;gap:14px;">
+            <% page.items.forEach((item) => { %>
+              <div class="list-item" style="padding:16px;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><i class="fa-solid fa-trophy" style="color:#fcd34d;font-size:16px;"></i><strong><%= item.title %></strong><span class="badge" style="background:<%= item.badgeBackground %>;color:<%= item.badgeColor %>;border-color:<%= item.badgeBorder %>;margin-left:auto;"><%= item.status %></span></div>
+                <p style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.6;margin-bottom:8px;"><%= item.description %></p>
+                <p class="muted" style="font-size:12px;"><%= item.note %></p>
+              </div>
+            <% }) %>
+          </div>
+        </article>
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

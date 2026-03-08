@@ -1,164 +1,188 @@
-<aside class="sidebar" aria-label="Primary navigation">
+<aside class="sidebar" aria-label="<%= t('sidebar.primaryNavigation') %>">
   <div class="sidebar-head">
-    <a class="brand" href="/dashboard">
+    <a class="brand" href="/dashboard" aria-label="<%= t('header.portal') %>">
       <span class="brand-text">
-      <img src="/images/vgtu-log.png" alt="VGTU" class="brand-wordmark">
+        <img src="/images/vgtu-log.png" alt="VGTU" class="brand-wordmark">
       </span>
       <img src="/images/vgtu-mini-logo.png" alt="VGTU" class="brand-mini-logo">
-      </a>
+    </a>
 
     <button
       class="mobile-menu-btn"
       id="mobileMenuBtn"
       type="button"
-      aria-label="Toggle menu"
+      aria-label="<%= t('sidebar.toggleMenu') %>"
       aria-expanded="false"
       aria-controls="primaryNav"
-    >☰</button>
+    >
+      <svg class="hamburger-icon" width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true">
+        <rect x="0" y="0" width="18" height="2" rx="1" fill="currentColor"/>
+        <rect x="0" y="6" width="12" height="2" rx="1" fill="currentColor"/>
+        <rect x="0" y="12" width="18" height="2" rx="1" fill="currentColor"/>
+      </svg>
+    </button>
   </div>
 
   <nav class="nav" id="primaryNav">
+
+    <!-- Dashboard home -->
+    <a class="nav-item" href="/dashboard" title="<%= t('dashboard.title') %>">
+      <span class="nav-ico" aria-hidden="true"><i class="fa-solid fa-house-chimney"></i></span>
+      <span class="nav-label"><%= t('dashboard.title') %></span>
+    </a>
+
+    <div class="nav-divider"></div>
+
+    <!-- Studies section -->
     <div class="nav-group has-submenu" id="studiesItem">
-      <a class="nav-item nav-trigger" href="#" id="studiesTrigger">
-        <span class="nav-ico" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></span>
+      <a class="nav-item nav-trigger" href="#" id="studiesTrigger" title="<%= t('sidebar.studies') %>">
+        <span class="nav-ico nav-ico--indigo" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></span>
         <span class="nav-label"><%= t('sidebar.studies') %></span>
         <span class="nav-caret" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
       </a>
 
       <div class="submenu" id="studiesSubmenu">
-        <div class="nav-subgroup">
-          <a class="nav-subitem nav-subtrigger" href="#">This semester <span class="sub-caret" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span></a>
+        <div class="nav-subgroup" id="thisSemesterGroup">
+          <a class="nav-subitem nav-subtrigger" href="#">
+            <span class="subitem-ico"><i class="fa-regular fa-calendar-days"></i></span>
+            <%= t('sidebar.thisSemester') %>
+            <span class="sub-caret" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
           <div class="submenu-level2">
-            <a class="nav-subitem" href="#">Study programme</a>
-            <a class="nav-subitem" href="#">Cloud Computing</a>
-            <a class="nav-subitem" href="#">Decision Making</a>
-            <a class="nav-subitem" href="#">Internet Technologies</a>
-            <a class="nav-subitem" href="#">Image Recognition Systems</a>
-            <a class="nav-subitem" href="#">Big Data Processing</a>
-            <a class="nav-subitem" href="#">C# Programming ( Free choice obligatory course )</a>
-            <a class="nav-subitem" href="#">Optional subject (Student has 0 credits)</a>
-            <a class="nav-subitem" href="#">Academic debts</a>
+            <a class="nav-subitem" href="/studies/programs"><%= t('sidebar.studyProgramme') %></a>
+            <a class="nav-subitem" href="/studies/semester#cloud-computing"><%= t('sidebar.cloudComputing') %></a>
+            <a class="nav-subitem" href="/studies/semester#decision-making"><%= t('sidebar.decisionMaking') %></a>
+            <a class="nav-subitem" href="/studies/semester#internet-technologies"><%= t('sidebar.internetTechnologies') %></a>
+            <a class="nav-subitem" href="/studies/semester#image-recognition-systems"><%= t('sidebar.imageRecognitionSystems') %></a>
+            <a class="nav-subitem" href="/studies/semester#big-data-processing"><%= t('sidebar.bigDataProcessing') %></a>
+            <a class="nav-subitem" href="/studies/semester#csharp-programming"><%= t('sidebar.csharpProgramming') %></a>
+            <a class="nav-subitem" href="/studies/semester#optional-subject"><%= t('sidebar.optionalSubject') %></a>
+            <a class="nav-subitem" href="/studies/semester#academic-debts"><%= t('sidebar.academicDebts') %></a>
           </div>
         </div>
-
-        <a class="nav-subitem" href="#">Study programme</a>
-        <a class="nav-subitem" href="#">My results</a>
-        <a class="nav-subitem" href="#">Thesis subject</a>
-        <a class="nav-subitem" href="#">Exams timetable</a>
-        <a class="nav-subitem" href="#">All programs</a>
-        <a class="nav-subitem" href="#">Internships</a>
-        <a class="nav-subitem" href="#">Auditorium Occupancy</a>
-        <a class="nav-subitem" href="#">Lecture schedule</a>
-        <a class="nav-subitem" href="#">Lecturer's consultation</a>
-        <a class="nav-subitem" href="#">Study programme report</a>
+        <a class="nav-subitem" href="/studies/results"><span class="subitem-ico"><i class="fa-solid fa-list-check"></i></span><%= t('sidebar.myResults') %></a>
+        <a class="nav-subitem" href="/studies/thesis"><span class="subitem-ico"><i class="fa-solid fa-scroll"></i></span><%= t('sidebar.thesisSubject') %></a>
+        <a class="nav-subitem" href="/studies/exams"><span class="subitem-ico"><i class="fa-regular fa-clock"></i></span><%= t('sidebar.examsTimetable') %></a>
+        <a class="nav-subitem" href="/studies/programs"><span class="subitem-ico"><i class="fa-solid fa-table-list"></i></span><%= t('sidebar.allPrograms') %></a>
+        <a class="nav-subitem" href="/studies/internships"><span class="subitem-ico"><i class="fa-solid fa-briefcase"></i></span><%= t('sidebar.internships') %></a>
+        <a class="nav-subitem" href="/studies/auditorium"><span class="subitem-ico"><i class="fa-solid fa-door-open"></i></span><%= t('sidebar.auditoriumOccupancy') %></a>
+        <a class="nav-subitem" href="/studies/lecture-schedule"><span class="subitem-ico"><i class="fa-solid fa-calendar-week"></i></span><%= t('sidebar.lectureSchedule') %></a>
+        <a class="nav-subitem" href="/studies/consultations"><span class="subitem-ico"><i class="fa-solid fa-person-chalkboard"></i></span><%= t('sidebar.lecturerConsultation') %></a>
       </div>
     </div>
 
     <div class="nav-group has-submenu" id="procedureItem">
-      <a class="nav-item nav-trigger" href="#" id="procedureTrigger">
-        <span class="nav-ico" aria-hidden="true"><i class="fa-solid fa-bullhorn"></i></span>
-        <span class="nav-label">Study procedure</span>
+      <a class="nav-item nav-trigger" href="#" id="procedureTrigger" title="<%= t('sidebar.studyProcedure') %>">
+        <span class="nav-ico nav-ico--cyan" aria-hidden="true"><i class="fa-solid fa-clipboard-list"></i></span>
+        <span class="nav-label"><%= t('sidebar.studyProcedure') %></span>
         <span class="nav-caret" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
       </a>
       <div class="submenu">
-        <a class="nav-subitem" href="#">Academic ethics</a>
-        <a class="nav-subitem" href="#">Time of lectures</a>
-        <a class="nav-subitem" href="#">Middle tests, homework and course projects</a>
-        <a class="nav-subitem" href="#">Exam Session</a>
-        <a class="nav-subitem" href="#">Adjustment of studies</a>
-        <a class="nav-subitem" href="#">Written work requirements</a>
-        <a class="nav-subitem" href="#">Grading system</a>
-        <a class="nav-subitem" href="#">Appeals</a>
-        <a class="nav-subitem" href="#">Scholarships</a>
-        <a class="nav-subitem" href="#">Final works</a>
+        <a class="nav-subitem" href="/procedure/ethics"><span class="subitem-ico"><i class="fa-solid fa-scale-balanced"></i></span><%= t('sidebar.academicEthics') %></a>
+        <a class="nav-subitem" href="/procedure/timetable"><span class="subitem-ico"><i class="fa-regular fa-clock"></i></span><%= t('sidebar.timeOfLectures') %></a>
+        <a class="nav-subitem" href="/procedure/tests"><span class="subitem-ico"><i class="fa-solid fa-pen-to-square"></i></span><%= t('sidebar.middleTestsHomework') %></a>
+        <a class="nav-subitem" href="/procedure/exam-session"><span class="subitem-ico"><i class="fa-solid fa-file-pen"></i></span><%= t('sidebar.examSession') %></a>
+        <a class="nav-subitem" href="/procedure/adjustment"><span class="subitem-ico"><i class="fa-solid fa-rotate"></i></span><%= t('sidebar.adjustmentOfStudies') %></a>
+        <a class="nav-subitem" href="/procedure/grading"><span class="subitem-ico"><i class="fa-solid fa-star"></i></span><%= t('sidebar.gradingSystem') %></a>
+        <a class="nav-subitem" href="/procedure/scholarships"><span class="subitem-ico"><i class="fa-solid fa-hand-holding-dollar"></i></span><%= t('sidebar.scholarships') %></a>
+        <a class="nav-subitem" href="/procedure/final-works"><span class="subitem-ico"><i class="fa-solid fa-flag-checkered"></i></span><%= t('sidebar.finalWorks') %></a>
       </div>
     </div>
 
-    <a class="nav-item" href="#">
-      <span class="nav-ico" aria-hidden="true"><i class="fa-solid fa-gear"></i></span>
+    <div class="nav-divider"></div>
+
+    <!-- Resources -->
+    <a class="nav-item" href="/resources/it-services" title="<%= t('sidebar.itServices') %>">
+      <span class="nav-ico nav-ico--purple" aria-hidden="true"><i class="fa-solid fa-server"></i></span>
       <span class="nav-label"><%= t('sidebar.itServices') %></span>
     </a>
 
-    <a class="nav-item" href="#">
-      <span class="nav-ico" aria-hidden="true"><i class="fa-solid fa-book"></i></span>
-      <span class="nav-label">Library</span>
+    <a class="nav-item" href="/resources/library" title="<%= t('sidebar.library') %>">
+      <span class="nav-ico nav-ico--amber" aria-hidden="true"><i class="fa-solid fa-book-open"></i></span>
+      <span class="nav-label"><%= t('sidebar.library') %></span>
     </a>
 
+    <div class="nav-divider"></div>
+
+    <!-- Career & Life -->
     <div class="nav-group has-submenu" id="careerItem">
-      <a class="nav-item nav-trigger" href="#" id="careerTrigger">
-        <span class="nav-ico" aria-hidden="true"><i class="fa-solid fa-briefcase"></i></span>
-        <span class="nav-label">My career</span>
+      <a class="nav-item nav-trigger" href="#" id="careerTrigger" title="<%= t('sidebar.myCareer') %>">
+        <span class="nav-ico nav-ico--green" aria-hidden="true"><i class="fa-solid fa-chart-line"></i></span>
+        <span class="nav-label"><%= t('sidebar.myCareer') %></span>
         <span class="nav-caret" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
       </a>
       <div class="submenu">
-        <a class="nav-subitem" href="#">Career planning advice</a>
-        <a class="nav-subitem" href="#">Internship consultation</a>
-        <a class="nav-subitem" href="#">VILNIUS TECH career days</a>
-        <a class="nav-subitem" href="#">Job offers</a>
-        <a class="nav-subitem" href="#">Internship offers</a>
-        <a class="nav-subitem" href="#">Contacts</a>
+        <a class="nav-subitem" href="/career/advice"><span class="subitem-ico"><i class="fa-solid fa-comments"></i></span><%= t('sidebar.careerPlanningAdvice') %></a>
+        <a class="nav-subitem" href="/career/internship-consultation"><span class="subitem-ico"><i class="fa-solid fa-user-tie"></i></span><%= t('sidebar.internshipConsultation') %></a>
+        <a class="nav-subitem" href="/career/days"><span class="subitem-ico"><i class="fa-solid fa-calendar-star"></i></span><%= t('sidebar.careerDays') %></a>
+        <a class="nav-subitem" href="/career/jobs"><span class="subitem-ico"><i class="fa-solid fa-magnifying-glass"></i></span><%= t('sidebar.jobOffers') %></a>
+        <a class="nav-subitem" href="/career/internship-offers"><span class="subitem-ico"><i class="fa-solid fa-file-signature"></i></span><%= t('sidebar.internshipOffers') %></a>
       </div>
     </div>
 
-    <a class="nav-item" href="#">
-      <span class="nav-ico" aria-hidden="true"><i class="fa-regular fa-id-card"></i></span>
-      <span class="nav-label">International opportunities</span>
-      <span class="nav-caret" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
+    <a class="nav-item" href="/resources/international" title="<%= t('sidebar.internationalOpportunities') %>">
+      <span class="nav-ico nav-ico--sky" aria-hidden="true"><i class="fa-solid fa-earth-europe"></i></span>
+      <span class="nav-label"><%= t('sidebar.internationalOpportunities') %></span>
     </a>
 
-    <a class="nav-item" href="#">
-      <span class="nav-ico" aria-hidden="true"><i class="fa-solid fa-building-columns"></i></span>
-      <span class="nav-label">Life in VILNIUS TECH</span>
-      <span class="nav-caret" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
+    <a class="nav-item" href="/resources/life" title="<%= t('sidebar.lifeInVilniusTech') %>">
+      <span class="nav-ico nav-ico--pink" aria-hidden="true"><i class="fa-solid fa-building-columns"></i></span>
+      <span class="nav-label"><%= t('sidebar.lifeInVilniusTech') %></span>
     </a>
 
+    <div class="nav-divider"></div>
+
+    <!-- Documents & more -->
     <div class="nav-group has-submenu" id="documentsItem">
-      <a class="nav-item nav-trigger" href="#" id="documentsTrigger">
-        <span class="nav-ico" aria-hidden="true"><i class="fa-regular fa-copy"></i></span>
-        <span class="nav-label">My documents</span>
+      <a class="nav-item nav-trigger" href="#" id="documentsTrigger" title="<%= t('sidebar.myDocuments') %>">
+        <span class="nav-ico" aria-hidden="true"><i class="fa-regular fa-folder-open"></i></span>
+        <span class="nav-label"><%= t('sidebar.myDocuments') %></span>
         <span class="nav-caret" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
       </a>
       <div class="submenu">
-        <a class="nav-subitem" href="#">Requests</a>
-        <a class="nav-subitem" href="#">Fees for studies</a>
-        <a class="nav-subitem" href="#">Certificates</a>
-        <a class="nav-subitem" href="#">Final report slip</a>
-        <a class="nav-subitem" href="#">Documents for approval</a>
-        <a class="nav-subitem" href="#">Other</a>
+        <a class="nav-subitem" href="/documents/requests"><span class="subitem-ico"><i class="fa-solid fa-inbox"></i></span><%= t('sidebar.requests') %></a>
+        <a class="nav-subitem" href="/documents/fees"><span class="subitem-ico"><i class="fa-solid fa-money-bill"></i></span><%= t('sidebar.feesForStudies') %></a>
+        <a class="nav-subitem" href="/documents/certificates"><span class="subitem-ico"><i class="fa-solid fa-certificate"></i></span><%= t('sidebar.certificates') %></a>
+        <a class="nav-subitem" href="/documents/report-slip"><span class="subitem-ico"><i class="fa-solid fa-file-circle-check"></i></span><%= t('sidebar.finalReportSlip') %></a>
+        <a class="nav-subitem" href="/documents/approval"><span class="subitem-ico"><i class="fa-solid fa-stamp"></i></span><%= t('sidebar.documentsForApproval') %></a>
       </div>
     </div>
 
-    <a class="nav-item" href="#">
-      <span class="nav-ico" aria-hidden="true"><i class="fa-regular fa-clone"></i></span>
-      <span class="nav-label">Surveys</span>
-      <span class="nav-caret" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
+    <a class="nav-item" href="/resources/surveys" title="<%= t('sidebar.surveys') %>">
+      <span class="nav-ico" aria-hidden="true"><i class="fa-solid fa-square-poll-horizontal"></i></span>
+      <span class="nav-label"><%= t('sidebar.surveys') %></span>
     </a>
 
-    <a class="nav-item" href="#">
-      <span class="nav-ico" aria-hidden="true"><i class="fa-solid fa-kit-medical"></i></span>
-      <span class="nav-label">Safety at VILNIUS TECH</span>
+    <a class="nav-item" href="/resources/safety" title="<%= t('sidebar.safetyAtVilniusTech') %>">
+      <span class="nav-ico" aria-hidden="true"><i class="fa-solid fa-shield-halved"></i></span>
+      <span class="nav-label"><%= t('sidebar.safetyAtVilniusTech') %></span>
     </a>
-    
+
     <!-- Admin Section -->
     <% if(user && user.role === 'admin') { %>
-    <div class="nav-group" id="adminItem">
-        <a class="nav-item" href="/admin/students">
-            <span class="nav-ico" aria-hidden="true"><i class="fa-solid fa-users"></i></span>
-        <span class="nav-label"><%= t('sidebar.students') %></span>
-        </a>
-      <a class="nav-item" href="/contact/messages">
-        <span class="nav-ico" aria-hidden="true"><i class="fa-solid fa-envelope"></i></span>
+    <div class="nav-divider"></div>
+    <span class="nav-section-label"><%= t('roles.admin') %></span>
+    <a class="nav-item" href="/admin/students" title="<%= t('sidebar.students') %>">
+      <span class="nav-ico nav-ico--amber" aria-hidden="true"><i class="fa-solid fa-users"></i></span>
+      <span class="nav-label"><%= t('sidebar.students') %></span>
+    </a>
+    <a class="nav-item" href="/contact/messages" title="<%= t('sidebar.contactMessages') %>">
+      <span class="nav-ico nav-ico--cyan" aria-hidden="true"><i class="fa-solid fa-envelope-open-text"></i></span>
       <span class="nav-label"><%= t('sidebar.contactMessages') %></span>
-      </a>
-    </div>
+    </a>
     <% } %>
-    
+
   </nav>
 
   <div class="sidebar-footer">
     <button class="pill collapse-btn" id="collapseBtn" type="button" aria-label="<%= t('sidebar.toggleSidebar') %>">
-      <span class="collapse-icon" aria-hidden="true"></span>
+      <span class="collapse-icon" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
       <span class="pill-label"><%= t('sidebar.collapse') %></span>
     </button>
   </div>
 </aside>
+<div class="mobile-sidebar-overlay" id="mobileSidebarOverlay" aria-hidden="true"></div>

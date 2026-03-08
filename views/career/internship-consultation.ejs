@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('internshipConsultationPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <p class="muted" style="margin-bottom:20px;"><%= page.description %></p>
+          <div style="display:grid;gap:14px;">
+            <div class="list-item" style="padding:16px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><i class="fa-solid fa-list-ol" style="color:#67e8f9;font-size:16px;"></i><strong><%= page.processTitle %></strong></div>
+              <ol style="list-style:decimal;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:13px;color:rgba(255,255,255,.8);">
+                <% page.process.forEach((step) => { %>
+                  <li><%= step %></li>
+                <% }) %>
+              </ol>
+            </div>
+            <div class="list-item" style="padding:16px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><i class="fa-solid fa-clipboard-check" style="color:#6ee7b7;font-size:16px;"></i><strong><%= page.requirementsTitle %></strong></div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
+                <% page.requirements.forEach((item) => { %>
+                  <li style="font-size:13px;color:rgba(255,255,255,.8);"><i class="fa-solid fa-check" style="color:#6ee7b7;margin-right:8px;width:14px;"></i><%= item %></li>
+                <% }) %>
+              </ul>
+            </div>
+            <div class="list-item" style="padding:14px 16px;">
+              <p style="font-size:13px;color:rgba(255,255,255,.8);"><%= page.contactLine %></p>
+            </div>
+          </div>
+        </article>
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

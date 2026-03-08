@@ -29,26 +29,26 @@ const getWeekCycle = (date) => {
     return weekOfMonth % 2 === 1 ? 1 : 2;
 };
 
-const getCurrentLectureLabel = (date) => {
+const getCurrentLectureKey = (date) => {
     const nowMinutes = (date.getHours() * 60) + date.getMinutes();
 
     const slots = [
-        { start: 8 * 60 + 30, end: 10 * 60 + 5, label: '1st lecture' },
-        { start: 10 * 60 + 20, end: 11 * 60 + 55, label: '2nd lecture' },
-        { start: 12 * 60 + 10, end: 13 * 60 + 45, label: '3rd lecture' },
-        { start: 13 * 60 + 45, end: 14 * 60 + 30, label: 'Lunch Break' },
-        { start: 14 * 60 + 30, end: 16 * 60 + 5, label: '4th lecture' },
-        { start: 16 * 60 + 20, end: 17 * 60 + 55, label: '5th lecture' },
-        { start: 18 * 60 + 10, end: 19 * 60 + 45, label: '6th lecture' },
-        { start: 19 * 60 + 55, end: 21 * 60 + 30, label: '7th lecture' }
+        { start: 8 * 60 + 30, end: 10 * 60 + 5, key: 'header.lectureSlots.slot1' },
+        { start: 10 * 60 + 20, end: 11 * 60 + 55, key: 'header.lectureSlots.slot2' },
+        { start: 12 * 60 + 10, end: 13 * 60 + 45, key: 'header.lectureSlots.slot3' },
+        { start: 13 * 60 + 45, end: 14 * 60 + 30, key: 'header.lectureSlots.lunchBreak' },
+        { start: 14 * 60 + 30, end: 16 * 60 + 5, key: 'header.lectureSlots.slot4' },
+        { start: 16 * 60 + 20, end: 17 * 60 + 55, key: 'header.lectureSlots.slot5' },
+        { start: 18 * 60 + 10, end: 19 * 60 + 45, key: 'header.lectureSlots.slot6' },
+        { start: 19 * 60 + 55, end: 21 * 60 + 30, key: 'header.lectureSlots.slot7' }
     ];
 
     const activeSlot = slots.find((slot) => nowMinutes >= slot.start && nowMinutes < slot.end);
     if (activeSlot) {
-        return activeSlot.label;
+        return activeSlot.key;
     }
 
-    return 'Break';
+    return 'header.lectureSlots.break';
 };
 
 // View engine setup
@@ -103,7 +103,7 @@ app.use(async (req, res, next) => {
     res.locals.headerInfo = {
         date: formatDateLocal(now),
         week: getWeekCycle(now),
-        lecture: getCurrentLectureLabel(now)
+        lectureKey: getCurrentLectureKey(now)
     };
 
     res.locals.success_msg = req.flash('success_msg');
@@ -143,6 +143,11 @@ const studentRoutes = require('./routes/students');
 const notificationRoutes = require('./routes/notifications');
 const eventsRoutes = require('./routes/events');
 const scheduleRoutes = require('./routes/schedules');
+const studiesRoutes = require('./routes/studies');
+const procedureRoutes = require('./routes/procedure');
+const resourcesRoutes = require('./routes/resources');
+const careerRoutes = require('./routes/career');
+const documentsRoutes = require('./routes/documents');
 
 app.use('/', indexRoutes);
 app.use('/auth', authRoutes);
@@ -150,6 +155,11 @@ app.use('/admin/students', studentRoutes); // Protected route will be handled in
 app.use('/notifications', notificationRoutes);
 app.use('/events', eventsRoutes);
 app.use('/schedules', scheduleRoutes);
+app.use('/studies', studiesRoutes);
+app.use('/procedure', procedureRoutes);
+app.use('/resources', resourcesRoutes);
+app.use('/career', careerRoutes);
+app.use('/documents', documentsRoutes);
 
 // Start server only after DB migrations are ready.
 db.ready

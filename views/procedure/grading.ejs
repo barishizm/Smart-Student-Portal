@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('gradingPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <p class="muted" style="margin-bottom:20px;"><%= page.description %></p>
+          <div class="table-wrap" style="margin-bottom:20px;">
+            <table class="table">
+              <thead><tr><th><%= page.table.grade %></th><th><%= page.table.description %></th><th><%= page.table.ects %></th><th><%= page.table.percentage %></th></tr></thead>
+              <tbody>
+                <% page.rows.forEach((row) => { %>
+                  <tr><td><strong style="color:<%= row.gradeColor %>;"><%= row.grade %></strong></td><td><%= row.description %></td><td><span class="badge" style="background:<%= row.badgeBackground %>;color:<%= row.badgeColor %>;border-color:<%= row.badgeBorder %>;"><%= row.ects %></span></td><td><%= row.percentage %></td></tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+          <div class="list-item" style="padding:14px 16px;">
+            <p style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.6;"><i class="fa-solid fa-circle-info" style="color:#67e8f9;margin-right:8px;"></i><%= page.note %></p>
+          </div>
+        </article>
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

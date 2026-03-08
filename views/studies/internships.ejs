@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('internshipsPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+
+          <div class="stats" style="margin-bottom:20px;">
+            <% page.stats.forEach((stat) => { %>
+              <div class="stat"><strong<%= stat.highlight ? ' style="color:#6ee7b7;"' : '' %>><%= stat.value %></strong><small><%= stat.label %></small></div>
+            <% }) %>
+          </div>
+
+          <div class="list-item" style="padding:14px 16px;margin-bottom:14px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <i class="fa-solid fa-circle-info" style="color:#67e8f9;"></i>
+              <strong><%= page.howToTitle %></strong>
+            </div>
+            <ol style="list-style:decimal;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:13px;color:rgba(255,255,255,.8);">
+              <% page.steps.forEach((step) => { %>
+                <li><%= step %></li>
+              <% }) %>
+            </ol>
+          </div>
+
+          <h3 style="font-size:14px;font-weight:600;margin-bottom:12px;color:rgba(255,255,255,.7);"><%= page.availableTitle %></h3>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th><%= page.table.company %></th><th><%= page.table.position %></th><th><%= page.table.duration %></th><th><%= page.table.location %></th><th><%= page.table.deadline %></th></tr></thead>
+              <tbody>
+                <% page.rows.forEach((row) => { %>
+                  <tr><td><strong><%= row.company %></strong></td><td><%= row.position %></td><td><%= row.duration %></td><td><%= row.location %></td><td><%= row.deadline %></td></tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('timetablePage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <p class="muted" style="margin-bottom:20px;"><%= page.description %></p>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th><%= page.table.slot %></th><th><%= page.table.start %></th><th><%= page.table.end %></th><th><%= page.table.duration %></th><th><%= page.table.breakAfter %></th></tr></thead>
+              <tbody>
+                <% page.rows.forEach((row) => { %>
+                  <tr><td><strong><%= row.slot %></strong></td><td><%= row.start %></td><td><%= row.end %></td><td><%= row.duration %></td><td><%= row.breakAfter %></td></tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+          <div class="list-item" style="padding:14px 16px;margin-top:14px;">
+            <p style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.6;"><i class="fa-solid fa-circle-info" style="color:#67e8f9;margin-right:8px;"></i><%= page.note %></p>
+          </div>
+        </article>
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

@@ -21,7 +21,23 @@
     "loadFailed": "Nepavyko įkelti pranešimų.",
     "markRead": "Pažymėti perskaitytu",
     "delete": "Ištrinti",
-    "profileMenu": "Atidaryti profilio meniu"
+    "profileMenu": "Atidaryti profilio meniu",
+    "week": "Savaitė",
+    "guest": "Svečias",
+    "visitor": "Lankytojas",
+    "profile": "Profilis",
+    "logout": "Atsijungti",
+    "lectureSlots": {
+      "slot1": "1 paskaita",
+      "slot2": "2 paskaita",
+      "slot3": "3 paskaita",
+      "lunchBreak": "Pietų pertrauka",
+      "slot4": "4 paskaita",
+      "slot5": "5 paskaita",
+      "slot6": "6 paskaita",
+      "slot7": "7 paskaita",
+      "break": "Pertrauka"
+    }
   },
   "sidebar": {
     "studies": "Studijos",
@@ -31,12 +47,60 @@
     "contactMessages": "Kontaktų žinutės",
     "itServices": "IT paslaugos",
     "collapse": "Sutraukti",
-    "toggleSidebar": "Perjungti šoninę juostą"
+    "toggleSidebar": "Perjungti šoninę juostą",
+    "studyProcedure": "Studijų tvarka",
+    "library": "Biblioteka",
+    "myCareer": "Mano karjera",
+    "internationalOpportunities": "Tarptautinės galimybės",
+    "lifeInVilniusTech": "Gyvenimas VILNIUS TECH",
+    "myDocuments": "Mano dokumentai",
+    "surveys": "Apklausos",
+    "safetyAtVilniusTech": "Sauga VILNIUS TECH",
+    "primaryNavigation": "Pagrindinė navigacija",
+    "toggleMenu": "Perjungti meniu",
+    "myResults": "Mano rezultatai",
+    "thesisSubject": "Baigiamojo darbo tema",
+    "examsTimetable": "Egzaminų tvarkaraštis",
+    "allPrograms": "Visos programos",
+    "internships": "Praktikos",
+    "auditoriumOccupancy": "Auditorijų užimtumas",
+    "lectureSchedule": "Paskaitų tvarkaraštis",
+    "lecturerConsultation": "Dėstytojo konsultacija",
+    "academicEthics": "Akademinė etika",
+    "timeOfLectures": "Paskaitų laikas",
+    "middleTestsHomework": "Tarpiniai atsiskaitymai ir kursiniai darbai",
+    "examSession": "Egzaminų sesija",
+    "adjustmentOfStudies": "Studijų koregavimas",
+    "gradingSystem": "Vertinimo sistema",
+    "scholarships": "Stipendijos",
+    "finalWorks": "Baigiamieji darbai",
+    "careerPlanningAdvice": "Karjeros planavimo konsultacija",
+    "internshipConsultation": "Praktikos konsultacija",
+    "careerDays": "Karjeros dienos",
+    "jobOffers": "Darbo pasiūlymai",
+    "internshipOffers": "Praktikos pasiūlymai",
+    "requests": "Prašymai",
+    "feesForStudies": "Studijų mokesčiai",
+    "certificates": "Pažymos",
+    "finalReportSlip": "Atsiskaitymo lapelis",
+    "documentsForApproval": "Dokumentai tvirtinimui",
+    "cloudComputing": "Cloud Computing",
+    "decisionMaking": "Decision Making",
+    "internetTechnologies": "Internet Technologies",
+    "imageRecognitionSystems": "Image Recognition Systems",
+    "bigDataProcessing": "Big Data Processing",
+    "csharpProgramming": "C# Programming",
+    "optionalSubject": "Pasirenkamas dalykas",
+    "academicDebts": "Akademinės skolos"
   },
   "footer": {
     "about": "Apie",
     "contact": "Kontaktai",
-    "designedBy": "Sukūrė barishizm"
+    "designedBy": "Sukūrė barishizm",
+    "linksLabel": "Poraštės nuorodos",
+    "socialX": "X",
+    "socialInstagram": "Instagram",
+    "socialFacebook": "Facebook"
   },
   "auth": {
     "loginTitle": "Prisijungti",
@@ -71,7 +135,28 @@
     "signInLower": "prisijungimą",
     "needHelp": "Nepavyksta prisijungti prie paskyros?",
     "contactByEmail": "El. paštas:",
-    "contactByPhone": "Telefonas:"
+    "contactByPhone": "Telefonas:",
+    "togglePasswordVisibility": "Perjungti slaptažodžio matomumą",
+    "loginSuccessTitle": "Prisijungimas sėkmingas!",
+    "loginSuccessRedirect": "Nukreipiama į jūsų skydelį...",
+    "validation": {
+      "emailRequired": "El. pašto adresas yra privalomas",
+      "invalidEmail": "Įveskite galiojantį el. pašto adresą",
+      "passwordRequired": "Slaptažodis yra privalomas",
+      "passwordMin": "Slaptažodis turi būti bent 8 simbolių",
+      "passwordStrength": "Slaptažodyje turi būti didžioji, mažoji raidė ir skaičius",
+      "usernameMin": "Naudotojo vardas turi būti bent 3 simbolių",
+      "loginIdentityRequired": "Reikalingas el. paštas arba naudotojo vardas",
+      "loginFailed": "Prisijungti nepavyko. Bandykite dar kartą.",
+      "redirectSignup": "Nukreipiama į registracijos puslapį...",
+      "connectingTo": "Jungiama prie",
+      "fullNameRequired": "Vardas ir pavardė yra privalomi",
+      "confirmPasswordRequired": "Slaptažodžio patvirtinimas yra privalomas",
+      "passwordsDoNotMatch": "Slaptažodžiai nesutampa",
+      "termsRequired": "Turite sutikti su sąlygomis",
+      "signUpFailed": "Registracija nepavyko. Bandykite dar kartą."
+    },
+    "schoolEmailHint": "Naudokite savo mokyklos el. paštą"
   },
   "dashboard": {
     "title": "Skydelis",
@@ -183,7 +268,25 @@
     "newPassword": "Naujas slaptažodis",
     "confirmNewPassword": "Patvirtinkite naują slaptažodį",
     "updatePassword": "Atnaujinti slaptažodį",
-    "deleteAccount": "Ištrinti paskyrą"
+    "deleteAccount": "Ištrinti paskyrą",
+    "deleteModal": {
+      "title": "Paskyros ištrynimo patvirtinimas",
+      "description": "Po ištrynimo paskyra pašalinama iš karto, o pakartotinei registracijai su tuo pačiu el. paštu reikės IT pagalbos.",
+      "confirm": "TAIP, NORIU IŠTRINTI",
+      "cancel": "NE, AČIŪ",
+      "requiredText": "NORIU IŠTRINTI SAVO PASKYRĄ",
+      "typePrompt": "Jei tikrai norite ištrinti šią paskyrą, įrašykite „{{text}}“",
+      "finalize": "GERAI",
+      "cancelFinal": "NE, PERSIGALVOJAU",
+      "exactPrompt": "Prašome tiksliai įrašyti: {{text}}"
+    },
+    "photoValidation": {
+      "invalidType": "Leidžiami tik jpg, png arba webp vaizdai.",
+      "tooLarge": "Vaizdo dydis turi būti ne didesnis nei 2MB.",
+      "uploadCropped": "Įkelti apkirptą nuotrauką",
+      "processFailed": "Nepavyko apdoroti vaizdo.",
+      "uploadFailed": "Įkėlimas nepavyko. Bandykite dar kartą."
+    }
   },
   "about": {
     "title": "Apie sistemą",
@@ -212,7 +315,8 @@
     "required": "Visi laukai yra privalomi.",
     "sent": "Žinutė sėkmingai išsiųsta.",
     "invalidEmail": "Įveskite galiojantį el. pašto adresą.",
-    "failed": "Šiuo metu nepavyko išsiųsti žinutės."
+    "failed": "Šiuo metu nepavyko išsiųsti žinutės.",
+    "id": "ID"
   },
   "students": {
     "title": "Studentų valdymas",
@@ -256,5 +360,1450 @@
     "unlockDeletedEmailLockedAt": "Užrakinta",
     "unlockDeletedEmailConfirm": "Ar tikrai norite atrakinti šį el. paštą registracijai?",
     "unlockDeletedEmailEmpty": "Nerasta ištrintų paskyrų el. pašto užraktų."
+  },
+  "adjustmentPage": {
+    "title": "Adjustment of Studies",
+    "badge": "Study Changes",
+    "description": "Guidance for changing modules, repeating courses, and aligning an individual study plan.",
+    "cards": [
+      {
+        "icon": "fa-solid fa-rotate",
+        "color": "#67e8f9",
+        "title": "Module Changes",
+        "description": "Students can request elective or module adjustments during the published add/drop period."
+      },
+      {
+        "icon": "fa-solid fa-file-signature",
+        "color": "#a5b4fc",
+        "title": "Required Approval",
+        "description": "Requests must be approved by the programme coordinator and faculty study office."
+      },
+      {
+        "icon": "fa-solid fa-clock",
+        "color": "#6ee7b7",
+        "title": "Deadlines",
+        "description": "Late requests are reviewed only in exceptional cases supported by formal justification."
+      }
+    ]
+  },
+  "careerHomePage": {
+    "title": "My Career",
+    "badge": "Career Centre",
+    "description": "Career services, events, consultations, and opportunities for internships or first jobs.",
+    "stats": [
+      {
+        "value": "42",
+        "label": "Open roles"
+      },
+      {
+        "value": "28",
+        "label": "Internships"
+      },
+      {
+        "value": "6",
+        "label": "Career events"
+      },
+      {
+        "value": "1:1",
+        "label": "Consultations"
+      }
+    ],
+    "links": [
+      {
+        "href": "/career/advice",
+        "icon": "fa-solid fa-comments",
+        "color": "#67e8f9",
+        "title": "Career planning advice",
+        "description": "Meet a consultant and prepare your next step."
+      },
+      {
+        "href": "/career/internship-consultation",
+        "icon": "fa-solid fa-user-tie",
+        "color": "#6ee7b7",
+        "title": "Internship consultation",
+        "description": "Register academic internships correctly."
+      },
+      {
+        "href": "/career/days",
+        "icon": "fa-solid fa-calendar-star",
+        "color": "#fcd34d",
+        "title": "Career days",
+        "description": "Recruiter events and company meetings."
+      },
+      {
+        "href": "/career/jobs",
+        "icon": "fa-solid fa-briefcase",
+        "color": "#d8b4fe",
+        "title": "Job offers",
+        "description": "Part-time and full-time positions."
+      }
+    ]
+  },
+  "careerAdvicePage": {
+    "title": "Career Planning Advice",
+    "badge": "Consultation",
+    "description": "Personalized support for CV review, motivation letters, interviews, and career direction.",
+    "cards": [
+      {
+        "icon": "fa-solid fa-file-lines",
+        "color": "#67e8f9",
+        "title": "CV Review",
+        "description": "Get practical feedback on structure, clarity, and relevance to your target role."
+      },
+      {
+        "icon": "fa-solid fa-user-check",
+        "color": "#6ee7b7",
+        "title": "Interview Practice",
+        "description": "Prepare for technical and HR interviews with sample questions and feedback."
+      },
+      {
+        "icon": "fa-solid fa-route",
+        "color": "#fcd34d",
+        "title": "Career Mapping",
+        "description": "Compare internship, junior, research, and exchange paths that fit your profile."
+      }
+    ],
+    "bookingTitle": "Book a Session",
+    "bookingDescription": "Career consultations are available on campus and online during working days.",
+    "bookingContactLabel": "Email:",
+    "bookingPhoneLabel": "Phone:"
+  },
+  "certificatesPage": {
+    "title": "Certificates",
+    "badge": "Documents",
+    "description": "Request and download standard student certificates and confirmation letters.",
+    "items": [
+      {
+        "title": "Study Certificate",
+        "description": "Confirms active student status for banks, employers, and institutions.",
+        "button": "Download",
+        "alert": "Study certificate generation will be connected to the document service.",
+        "locked": false
+      },
+      {
+        "title": "Scholarship Confirmation",
+        "description": "Shows current scholarship eligibility or awarded support.",
+        "button": "Download",
+        "alert": "Scholarship confirmation will be connected to the document service.",
+        "locked": false
+      },
+      {
+        "title": "Dormitory Priority Letter",
+        "description": "Available only after approved accommodation application.",
+        "button": "Locked",
+        "alert": "",
+        "locked": true
+      }
+    ]
+  },
+  "documentRequestsPage": {
+    "title": "Requests",
+    "badge": "Self Service",
+    "description": "Submit new requests for official documents and track previously created ones.",
+    "form": {
+      "documentType": "Document type",
+      "documentOptions": [
+        "Study Certificate",
+        "Transcript Extract",
+        "Scholarship Confirmation"
+      ],
+      "purpose": "Purpose",
+      "purposePlaceholder": "Explain where this document will be used",
+      "language": "Language",
+      "languageOptions": [
+        "English",
+        "Lithuanian",
+        "Turkish",
+        "Russian"
+      ],
+      "copies": "Copies",
+      "submit": "Create request",
+      "submitAlert": "Request creation will be connected to the document workflow."
+    },
+    "previousTitle": "Previous requests",
+    "table": {
+      "document": "Document",
+      "requested": "Requested",
+      "ready": "Ready by",
+      "status": "Status"
+    },
+    "rows": [
+      {
+        "document": "Study Certificate",
+        "requested": "2026-03-03",
+        "ready": "2026-03-05",
+        "status": "Ready"
+      },
+      {
+        "document": "Transcript Extract",
+        "requested": "2026-02-20",
+        "ready": "2026-02-24",
+        "status": "Ready"
+      }
+    ]
+  },
+  "examsPage": {
+    "title": "Exams Timetable",
+    "badge": "Spring 2026",
+    "descriptionPrefix": "Final exams are scheduled for",
+    "sessionDates": "May 26 to June 14, 2026",
+    "descriptionSuffix": "Check room, type, and registration status below.",
+    "table": {
+      "subject": "Subject",
+      "date": "Date",
+      "time": "Time",
+      "room": "Room",
+      "type": "Type",
+      "status": "Status"
+    },
+    "rows": [
+      {
+        "subject": "Cloud Computing",
+        "date": "2026-05-28",
+        "time": "10:00",
+        "room": "403",
+        "type": "Written",
+        "typeBackground": "rgba(99,102,241,.15)",
+        "typeColor": "#a5b4fc",
+        "typeBorder": "rgba(99,102,241,.3)",
+        "status": "Registered",
+        "statusBackground": "rgba(16,185,129,.15)",
+        "statusColor": "#6ee7b7",
+        "statusBorder": "rgba(16,185,129,.3)"
+      },
+      {
+        "subject": "Internet Technologies",
+        "date": "2026-06-02",
+        "time": "14:00",
+        "room": "Lab 305",
+        "type": "Practical",
+        "typeBackground": "rgba(6,192,220,.15)",
+        "typeColor": "#67e8f9",
+        "typeBorder": "rgba(6,192,220,.3)",
+        "status": "Open",
+        "statusBackground": "rgba(245,158,11,.15)",
+        "statusColor": "#fcd34d",
+        "statusBorder": "rgba(245,158,11,.3)"
+      }
+    ]
+  },
+  "gradingPage": {
+    "title": "Grading System",
+    "badge": "Assessment",
+    "description": "The 10-point grading scale is used across study programmes together with ECTS interpretation.",
+    "table": {
+      "grade": "Grade",
+      "description": "Description",
+      "ects": "ECTS",
+      "percentage": "Percentage"
+    },
+    "rows": [
+      {
+        "grade": "10",
+        "description": "Excellent",
+        "ects": "A",
+        "percentage": "95-100%",
+        "gradeColor": "#6ee7b7",
+        "badgeBackground": "rgba(16,185,129,.15)",
+        "badgeColor": "#6ee7b7",
+        "badgeBorder": "rgba(16,185,129,.3)"
+      },
+      {
+        "grade": "8-9",
+        "description": "Very good / Good",
+        "ects": "B-C",
+        "percentage": "75-94%",
+        "gradeColor": "#67e8f9",
+        "badgeBackground": "rgba(6,192,220,.15)",
+        "badgeColor": "#67e8f9",
+        "badgeBorder": "rgba(6,192,220,.3)"
+      },
+      {
+        "grade": "6-7",
+        "description": "Satisfactory",
+        "ects": "D-E",
+        "percentage": "50-74%",
+        "gradeColor": "#fcd34d",
+        "badgeBackground": "rgba(245,158,11,.15)",
+        "badgeColor": "#fcd34d",
+        "badgeBorder": "rgba(245,158,11,.3)"
+      },
+      {
+        "grade": "1-5",
+        "description": "Insufficient",
+        "ects": "FX-F",
+        "percentage": "0-49%",
+        "gradeColor": "#fca5a5",
+        "badgeBackground": "rgba(239,68,68,.15)",
+        "badgeColor": "#fca5a5",
+        "badgeBorder": "rgba(239,68,68,.3)"
+      }
+    ],
+    "note": "Final grade composition is always described in the course sheet and may include midterms, assignments, labs, and exam work."
+  },
+  "internationalPage": {
+    "title": "International Opportunities",
+    "badge": "Mobility",
+    "stats": [
+      {
+        "value": "200+",
+        "label": "Partner universities"
+      },
+      {
+        "value": "35",
+        "label": "Countries"
+      },
+      {
+        "value": "€300-500",
+        "label": "Monthly grant"
+      },
+      {
+        "value": "2",
+        "label": "Main calls yearly"
+      }
+    ],
+    "studyExchange": {
+      "title": "Study Exchange",
+      "deadline": "Apply now",
+      "description": "Semester or full-year mobility through Erasmus+ and bilateral partner agreements.",
+      "table": {
+        "countryCategory": "Country group",
+        "monthlyGrant": "Monthly grant",
+        "popularDestinations": "Popular destinations",
+        "rows": [
+          {
+            "category": "Higher cost",
+            "grant": "€500",
+            "destinations": "Denmark, Finland, Netherlands"
+          },
+          {
+            "category": "Medium cost",
+            "grant": "€400",
+            "destinations": "Germany, Spain, Italy"
+          },
+          {
+            "category": "Lower cost",
+            "grant": "€300",
+            "destinations": "Poland, Latvia, Czechia"
+          }
+        ]
+      }
+    },
+    "traineeship": {
+      "title": "International Traineeship",
+      "description": "Complete an internship abroad and combine practical experience with grant support."
+    },
+    "bilateral": {
+      "title": "Partner Agreements",
+      "description": "Faculty agreements may open additional places outside the Erasmus+ framework."
+    },
+    "contactPrefix": "For application support contact",
+    "contactLocation": "Student Services Centre",
+    "contactHours": "Mon-Fri 09:00-16:00"
+  },
+  "itServicesPage": {
+    "title": "IT Services",
+    "badge": "Infrastructure",
+    "description": "Current state of student-facing digital services. Contact",
+    "supportSuffix": "or call",
+    "services": [
+      {
+        "icon": "fa-solid fa-envelope",
+        "color": "#67e8f9",
+        "title": "Student Email",
+        "description": "Access institutional mailbox and forwarding settings.",
+        "meta": "Available 24/7",
+        "statusColor": "#6ee7b7"
+      },
+      {
+        "icon": "fa-solid fa-wifi",
+        "color": "#a5b4fc",
+        "title": "Campus Wi-Fi",
+        "description": "Secure wireless access in study buildings and dormitories.",
+        "meta": "eduroam / VGTU-Secure",
+        "statusColor": "#6ee7b7"
+      },
+      {
+        "icon": "fa-solid fa-hard-drive",
+        "color": "#fcd34d",
+        "title": "Storage & Labs",
+        "description": "Remote lab access and shared storage for coursework.",
+        "meta": "Maintenance windows announced",
+        "statusColor": "#fcd34d"
+      }
+    ]
+  },
+  "libraryPage": {
+    "title": "Library",
+    "badge": "Resources",
+    "description": "Search holdings, check borrowed items, and explore digital resources.",
+    "searchLabel": "Search catalogue",
+    "searchPlaceholder": "Title, author, keyword, or ISBN",
+    "searchButton": "Search",
+    "searchComingSoon": "Catalogue search will be connected to the library service.",
+    "borrowedTitle": "Borrowed Items",
+    "borrowedBadge": "0 active",
+    "noBorrowedBooks": "You currently have no borrowed items.",
+    "resourcesTitle": "Digital Resources",
+    "resourcesBadge": "Access",
+    "resources": [
+      {
+        "name": "IEEE Xplore",
+        "description": "Engineering and computer science journals.",
+        "access": "Campus/VPN",
+        "badgeBackground": "rgba(16,185,129,.15)",
+        "badgeColor": "#6ee7b7",
+        "badgeBorder": "rgba(16,185,129,.3)"
+      },
+      {
+        "name": "ScienceDirect",
+        "description": "Research papers and reference works.",
+        "access": "Campus/VPN",
+        "badgeBackground": "rgba(16,185,129,.15)",
+        "badgeColor": "#6ee7b7",
+        "badgeBorder": "rgba(16,185,129,.3)"
+      },
+      {
+        "name": "eBooks Collection",
+        "description": "General academic and technical titles.",
+        "access": "Login required",
+        "badgeBackground": "rgba(6,192,220,.15)",
+        "badgeColor": "#67e8f9",
+        "badgeBorder": "rgba(6,192,220,.3)"
+      }
+    ]
+  },
+  "lifePage": {
+    "title": "Life in VILNIUS TECH",
+    "badge": "Campus Services",
+    "description": "Student life beyond the classroom, including housing, clubs, sport, and support services.",
+    "stats": [
+      {
+        "value": "6",
+        "label": "Dormitories"
+      },
+      {
+        "value": "30+",
+        "label": "Clubs"
+      },
+      {
+        "value": "2",
+        "label": "Sports halls"
+      },
+      {
+        "value": "24/7",
+        "label": "Support line"
+      }
+    ],
+    "cards": [
+      {
+        "icon": "fa-solid fa-bed",
+        "color": "#67e8f9",
+        "title": "Accommodation",
+        "description": "Dormitory applications and housing support for local and international students.",
+        "meta": "dormitory@vilniustech.lt"
+      },
+      {
+        "icon": "fa-solid fa-utensils",
+        "color": "#fcd34d",
+        "title": "Food & Cafeterias",
+        "description": "Student cafeterias with daily meals and affordable menus on campus.",
+        "meta": "Peak hours 12:00-13:30"
+      },
+      {
+        "icon": "fa-solid fa-dumbbell",
+        "color": "#6ee7b7",
+        "title": "Sports & Wellness",
+        "description": "Gym, halls, and organised sports with student pricing.",
+        "meta": "Mon-Fri 07:00-21:00"
+      }
+    ],
+    "supportTitle": "Student Support",
+    "supportBadge": "Wellbeing",
+    "supportItems": [
+      {
+        "title": "Counselling services",
+        "description": "Confidential consultations for academic, emotional, and personal issues."
+      },
+      {
+        "title": "Accessibility support",
+        "description": "Adjustments and support plans for students with long-term health or accessibility needs."
+      },
+      {
+        "title": "Emergency contacts",
+        "description": "Security, mentors, and support channels available across campus."
+      }
+    ]
+  },
+  "programsPage": {
+    "title": "Study Programme",
+    "badge": "Current Track",
+    "description": "Overview of programmes and the currently highlighted track for the logged-in student.",
+    "programs": [
+      {
+        "name": "Informatics Engineering",
+        "details": "Bachelor · 240 ECTS · Full-time",
+        "badge": "Current",
+        "highlighted": true
+      },
+      {
+        "name": "Computer Science",
+        "details": "Bachelor · 240 ECTS · Full-time",
+        "badge": "Available",
+        "highlighted": false
+      },
+      {
+        "name": "Software Systems",
+        "details": "Master · 120 ECTS · Full-time",
+        "badge": "Available",
+        "highlighted": false
+      }
+    ]
+  },
+  "resultsPage": {
+    "title": "My Results",
+    "badge": "Grades",
+    "stats": [
+      {
+        "value": "8.4",
+        "label": "Average grade"
+      },
+      {
+        "value": "60",
+        "label": "ECTS earned"
+      },
+      {
+        "value": "0",
+        "label": "Academic debts"
+      },
+      {
+        "value": "A",
+        "label": "Current standing"
+      }
+    ],
+    "table": {
+      "subject": "Subject",
+      "ects": "ECTS",
+      "midterm": "Midterm",
+      "exam": "Exam",
+      "final": "Final",
+      "status": "Status"
+    },
+    "semesters": [
+      {
+        "title": "Spring 2026",
+        "rows": [
+          {
+            "subject": "Cloud Computing",
+            "ects": "6",
+            "midterm": "9",
+            "exam": "8",
+            "final": "9",
+            "status": "Passed",
+            "statusBackground": "rgba(16,185,129,.15)",
+            "statusColor": "#6ee7b7",
+            "statusBorder": "rgba(16,185,129,.3)"
+          },
+          {
+            "subject": "Internet Technologies",
+            "ects": "6",
+            "midterm": "8",
+            "exam": "9",
+            "final": "9",
+            "status": "Passed",
+            "statusBackground": "rgba(16,185,129,.15)",
+            "statusColor": "#6ee7b7",
+            "statusBorder": "rgba(16,185,129,.3)"
+          }
+        ]
+      }
+    ]
+  },
+  "safetyPage": {
+    "title": "Safety at VILNIUS TECH",
+    "badge": "Campus Safety",
+    "description": "Emergency contacts, preventative guidance, and reporting channels for incidents or hazards.",
+    "stats": [
+      {
+        "value": "112",
+        "label": "Emergency number"
+      },
+      {
+        "value": "24/7",
+        "label": "Campus security"
+      },
+      {
+        "value": "4 min",
+        "label": "Response target"
+      },
+      {
+        "value": "B1",
+        "label": "First aid hub"
+      }
+    ],
+    "cards": [
+      {
+        "icon": "fa-solid fa-phone-volume",
+        "color": "#fca5a5",
+        "title": "Emergency numbers",
+        "description": "General emergency, campus security, and dormitory contacts."
+      },
+      {
+        "icon": "fa-solid fa-fire-extinguisher",
+        "color": "#fcd34d",
+        "title": "Fire safety",
+        "description": "Follow evacuation maps, assembly points, and building instructions."
+      },
+      {
+        "icon": "fa-solid fa-user-shield",
+        "color": "#67e8f9",
+        "title": "Personal safety",
+        "description": "Use access cards responsibly and report suspicious activity immediately."
+      }
+    ],
+    "incidentTitle": "Incident Reporting",
+    "incidentBadge": "Prevention",
+    "incidentTable": {
+      "issueType": "Issue type",
+      "reportTo": "Report to",
+      "expectedAction": "Expected action",
+      "rows": [
+        {
+          "issue": "Lost student ID",
+          "reportTo": "Student Services Centre",
+          "action": "Card blocked same day"
+        },
+        {
+          "issue": "Unsafe equipment",
+          "reportTo": "Faculty administrator",
+          "action": "Inspection assigned"
+        }
+      ]
+    }
+  },
+  "semesterPage": {
+    "title": "This Semester",
+    "badge": "30 ECTS",
+    "descriptionPrefix": "Current semester modules and study load overview.",
+    "overviewTitle": "Programme Overview",
+    "overviewDescription": "Review active modules, credits, and quick anchors for subjects in the current term.",
+    "quickLinks": [
+      {
+        "href": "#cloud-computing",
+        "label": "Cloud Computing"
+      },
+      {
+        "href": "#decision-making",
+        "label": "Decision Making"
+      },
+      {
+        "href": "#internet-technologies",
+        "label": "Internet Technologies"
+      }
+    ],
+    "cards": [
+      {
+        "id": "cloud-computing",
+        "title": "Cloud Computing",
+        "ects": "6 ECTS",
+        "badge": "Active",
+        "badgeBackground": "rgba(16,185,129,.15)",
+        "badgeColor": "#6ee7b7",
+        "badgeBorder": "rgba(16,185,129,.3)",
+        "lines": [
+          {
+            "icon": "fa-solid fa-user",
+            "text": "Lecturer: Assoc. Prof. A. Kazanavičius"
+          },
+          {
+            "icon": "fa-solid fa-calendar",
+            "text": "Weeks: 1-16"
+          },
+          {
+            "icon": "fa-solid fa-door-open",
+            "text": "Room: 403"
+          }
+        ]
+      },
+      {
+        "id": "decision-making",
+        "title": "Decision Making",
+        "ects": "6 ECTS",
+        "badge": "Active",
+        "badgeBackground": "rgba(16,185,129,.15)",
+        "badgeColor": "#6ee7b7",
+        "badgeBorder": "rgba(16,185,129,.3)",
+        "lines": [
+          {
+            "icon": "fa-solid fa-user",
+            "text": "Lecturer: Prof. R. Ginevičius"
+          },
+          {
+            "icon": "fa-solid fa-calendar",
+            "text": "Weeks: 1-16"
+          },
+          {
+            "icon": "fa-solid fa-door-open",
+            "text": "Room: 201"
+          }
+        ]
+      }
+    ]
+  },
+  "surveysPage": {
+    "title": "Surveys",
+    "badge": "Feedback Portal",
+    "description": "Help improve study quality and student services by completing open surveys.",
+    "highlights": [
+      {
+        "title": "End-of-course evaluation",
+        "description": "Open until March 22, 2026.",
+        "status": "Open",
+        "badgeBackground": "rgba(245,158,11,.15)",
+        "badgeColor": "#fcd34d",
+        "badgeBorder": "rgba(245,158,11,.3)"
+      },
+      {
+        "title": "Library services satisfaction",
+        "description": "Feedback on spaces, holdings, and digital access.",
+        "status": "Available",
+        "badgeBackground": "rgba(16,185,129,.15)",
+        "badgeColor": "#6ee7b7",
+        "badgeBorder": "rgba(16,185,129,.3)"
+      }
+    ],
+    "table": {
+      "survey": "Survey",
+      "audience": "Audience",
+      "deadline": "Deadline",
+      "reward": "Reward",
+      "rows": [
+        {
+          "survey": "Mobility Experience Survey",
+          "audience": "Exchange students",
+          "deadline": "2026-04-05",
+          "reward": "Certificate points"
+        },
+        {
+          "survey": "Career Services Evaluation",
+          "audience": "All students",
+          "deadline": "2026-04-12",
+          "reward": "Workshop priority"
+        }
+      ]
+    }
+  },
+  "testsPage": {
+    "title": "Middle Tests and Coursework",
+    "badge": "Continuous Assessment",
+    "description": "Monitor internal assessments, their weight in the final grade, and completion status.",
+    "table": {
+      "subject": "Subject",
+      "assessment": "Assessment",
+      "weight": "Weight",
+      "deadline": "Deadline",
+      "status": "Status"
+    },
+    "rows": [
+      {
+        "subject": "Cloud Computing",
+        "assessment": "Lab report",
+        "weight": "20%",
+        "deadline": "2026-03-18",
+        "status": "Open",
+        "statusBackground": "rgba(245,158,11,.15)",
+        "statusColor": "#fcd34d",
+        "statusBorder": "rgba(245,158,11,.3)"
+      },
+      {
+        "subject": "Internet Technologies",
+        "assessment": "Project milestone",
+        "weight": "30%",
+        "deadline": "2026-03-24",
+        "status": "Submitted",
+        "statusBackground": "rgba(16,185,129,.15)",
+        "statusColor": "#6ee7b7",
+        "statusBorder": "rgba(16,185,129,.3)"
+      }
+    ],
+    "note": "Assessment weight and deadlines are defined by the lecturer in the course plan."
+  },
+  "jobsPage": {
+    "title": "Job Offers",
+    "badge": "42 Active",
+    "description": "Part-time and full-time positions suitable for students and recent graduates in the IT field.",
+    "table": {
+      "company": "Company",
+      "position": "Position",
+      "type": "Type",
+      "location": "Location",
+      "salary": "Salary",
+      "deadline": "Deadline"
+    },
+    "rows": [
+      {
+        "company": "Devbridge Group",
+        "position": "Junior .NET Developer",
+        "type": "Part-time",
+        "location": "Vilnius (Hybrid)",
+        "salary": "€800-1200/mo",
+        "deadline": "Apr 10, 2026",
+        "badgeBackground": "rgba(6,192,220,.15)",
+        "badgeColor": "#67e8f9",
+        "badgeBorder": "rgba(6,192,220,.3)"
+      },
+      {
+        "company": "Tesonet",
+        "position": "Frontend Developer",
+        "type": "Full-time",
+        "location": "Vilnius",
+        "salary": "€2000-2800/mo",
+        "deadline": "Apr 15, 2026",
+        "badgeBackground": "rgba(16,185,129,.15)",
+        "badgeColor": "#6ee7b7",
+        "badgeBorder": "rgba(16,185,129,.3)"
+      },
+      {
+        "company": "Vinted",
+        "position": "Data Engineer (Entry)",
+        "type": "Full-time",
+        "location": "Vilnius",
+        "salary": "€2200-3000/mo",
+        "deadline": "Apr 20, 2026",
+        "badgeBackground": "rgba(16,185,129,.15)",
+        "badgeColor": "#6ee7b7",
+        "badgeBorder": "rgba(16,185,129,.3)"
+      }
+    ]
+  },
+  "internshipOffersPage": {
+    "title": "Internship Offers",
+    "badge": "28 Active",
+    "description": "Paid and unpaid internship positions available for students. All can be registered for academic credit.",
+    "table": {
+      "company": "Company",
+      "role": "Role",
+      "duration": "Duration",
+      "paid": "Paid",
+      "location": "Location",
+      "deadline": "Deadline"
+    },
+    "rows": [
+      {
+        "company": "Devbridge Group",
+        "role": "Software Developer Intern",
+        "duration": "3-6 months",
+        "paid": "Yes",
+        "location": "Vilnius (Hybrid)",
+        "deadline": "Apr 1, 2026",
+        "badgeBackground": "rgba(16,185,129,.15)",
+        "badgeColor": "#6ee7b7",
+        "badgeBorder": "rgba(16,185,129,.3)"
+      },
+      {
+        "company": "NFQ Technologies",
+        "role": "Java Developer Intern",
+        "duration": "3 months",
+        "paid": "Yes",
+        "location": "Vilnius",
+        "deadline": "Mar 20, 2026",
+        "badgeBackground": "rgba(16,185,129,.15)",
+        "badgeColor": "#6ee7b7",
+        "badgeBorder": "rgba(16,185,129,.3)"
+      },
+      {
+        "company": "ERGO Insurance",
+        "role": "Data Analyst Intern",
+        "duration": "3 months",
+        "paid": "Partial",
+        "location": "Vilnius",
+        "deadline": "Apr 10, 2026",
+        "badgeBackground": "rgba(245,158,11,.15)",
+        "badgeColor": "#fcd34d",
+        "badgeBorder": "rgba(245,158,11,.3)"
+      }
+    ]
+  },
+  "careerDaysPage": {
+    "title": "Career Days",
+    "badge": "Spring 2026",
+    "description": "Meet recruiters from top Lithuanian and international companies and prepare for on-the-spot interviews.",
+    "sectionTitle": "Upcoming Events",
+    "events": [
+      {
+        "day": "15",
+        "month": "APR",
+        "title": "IT Career Fair 2026",
+        "meta": "10:00-16:00 · SCC Building · 35+ companies",
+        "description": "Large-scale recruitment fair focused on software, cybersecurity, AI, and cloud roles.",
+        "accentBackground": "rgba(6,192,220,.15)",
+        "accentBorder": "rgba(6,192,220,.3)",
+        "accentColor": "#67e8f9"
+      },
+      {
+        "day": "29",
+        "month": "APR",
+        "title": "Startup Pitch Night",
+        "meta": "18:00-21:00 · Aula Magna · 10 startups",
+        "description": "Networking event with founders, startup teams, and student innovation projects.",
+        "accentBackground": "rgba(168,85,247,.15)",
+        "accentBorder": "rgba(168,85,247,.3)",
+        "accentColor": "#d8b4fe"
+      },
+      {
+        "day": "08",
+        "month": "MAY",
+        "title": "Engineering Recruiting Day",
+        "meta": "10:00-15:00 · Building 2 Atrium · 18 companies",
+        "description": "Focused on robotics, embedded systems, IoT, and industrial technology profiles.",
+        "accentBackground": "rgba(16,185,129,.15)",
+        "accentBorder": "rgba(16,185,129,.3)",
+        "accentColor": "#6ee7b7"
+      }
+    ]
+  },
+  "internshipConsultationPage": {
+    "title": "Internship Consultation",
+    "badge": "15 ECTS",
+    "description": "Learn how to register your professional internship for academic credit and fulfill study plan requirements.",
+    "processTitle": "Registration Process",
+    "process": [
+      "Find a company offering an internship in a relevant field.",
+      "Submit a request to the internship coordinator before the start date.",
+      "Sign the internship agreement with the company and university.",
+      "Complete the internship and collect supervisor evaluation.",
+      "Submit the internship report and defend it if required."
+    ],
+    "requirementsTitle": "Requirements",
+    "requirements": [
+      "Minimum 3 calendar months or equivalent workload",
+      "The internship must match your study programme area",
+      "Company supervisor and university coordinator must be assigned",
+      "Prior academic debts should be cleared before registration"
+    ],
+    "contactLine": "Contact: internship@vilniustech.lt | Office: Building 1, Room 108"
+  },
+  "approvalPage": {
+    "title": "Documents for Approval",
+    "badge": "Workflow Status",
+    "description": "Monitor documents that require faculty or university approval, including internship agreements and study plan changes.",
+    "items": [
+      {
+        "title": "Internship agreement",
+        "description": "Submitted to the faculty coordinator with employer signatures attached.",
+        "status": "Under review",
+        "badgeBackground": "rgba(245,158,11,.15)",
+        "badgeColor": "#fcd34d",
+        "badgeBorder": "rgba(245,158,11,.3)"
+      },
+      {
+        "title": "Learning agreement amendment",
+        "description": "Exchange semester course replacement request.",
+        "status": "Approved",
+        "badgeBackground": "rgba(16,185,129,.15)",
+        "badgeColor": "#6ee7b7",
+        "badgeBorder": "rgba(16,185,129,.3)"
+      },
+      {
+        "title": "Individual study plan request",
+        "description": "Requested due to overlapping internship schedule.",
+        "status": "Needs revision",
+        "badgeBackground": "rgba(239,68,68,.15)",
+        "badgeColor": "#fca5a5",
+        "badgeBorder": "rgba(239,68,68,.3)"
+      }
+    ],
+    "table": {
+      "approver": "Approver",
+      "documentType": "Document Type",
+      "sla": "SLA",
+      "contact": "Contact"
+    },
+    "rows": [
+      {
+        "approver": "Faculty coordinator",
+        "documentType": "Internship / study plan",
+        "sla": "3 business days",
+        "contact": "faculty@vilniustech.lt"
+      },
+      {
+        "approver": "International office",
+        "documentType": "Mobility forms",
+        "sla": "5 business days",
+        "contact": "international@vilniustech.lt"
+      }
+    ]
+  },
+  "feesPage": {
+    "title": "Fees for Studies",
+    "badge": "2025-2026",
+    "stats": [
+      {
+        "value": "State-Funded",
+        "label": "Your Funding Type",
+        "highlight": true
+      },
+      {
+        "value": "€0",
+        "label": "Tuition This Semester"
+      },
+      {
+        "value": "€25",
+        "label": "Student Council Fee"
+      },
+      {
+        "value": "Mar 31",
+        "label": "Fee Due Date"
+      }
+    ],
+    "notice": "You are on a state-funded study place. No tuition fee is required this semester. Maintain the required academic standing to keep funding.",
+    "tableTitle": "Tuition Fee Schedule (Self-Funded)",
+    "table": {
+      "program": "Program",
+      "semester": "Per Semester",
+      "year": "Per Year"
+    },
+    "rows": [
+      {
+        "program": "Informatics Engineering (Bachelor)",
+        "semester": "€1,450",
+        "year": "€2,900"
+      },
+      {
+        "program": "Computer Science (Bachelor)",
+        "semester": "€1,500",
+        "year": "€3,000"
+      },
+      {
+        "program": "Data Science & AI (Master)",
+        "semester": "€1,900",
+        "year": "€3,800"
+      }
+    ],
+    "paymentNote": "Payments are accepted by bank transfer or the university online payment portal. Contact finance@vilniustech.lt for arrangements."
+  },
+  "reportSlipPage": {
+    "title": "Final Report Slip",
+    "badge": "Graduation Checklist",
+    "description": "Track the units that must confirm you have no outstanding obligations before graduation or withdrawal.",
+    "table": {
+      "unit": "Unit",
+      "status": "Status",
+      "confirmedBy": "Confirmed By",
+      "lastUpdate": "Last Update"
+    },
+    "rows": [
+      {
+        "unit": "Library",
+        "status": "Cleared",
+        "confirmedBy": "Library Services",
+        "lastUpdate": "Mar 02, 2026",
+        "badgeBackground": "rgba(16,185,129,.15)",
+        "badgeColor": "#6ee7b7",
+        "badgeBorder": "rgba(16,185,129,.3)"
+      },
+      {
+        "unit": "Finance Office",
+        "status": "Cleared",
+        "confirmedBy": "Finance Office",
+        "lastUpdate": "Mar 03, 2026",
+        "badgeBackground": "rgba(16,185,129,.15)",
+        "badgeColor": "#6ee7b7",
+        "badgeBorder": "rgba(16,185,129,.3)"
+      },
+      {
+        "unit": "Dormitory",
+        "status": "Pending",
+        "confirmedBy": "Accommodation Office",
+        "lastUpdate": "Awaiting checkout",
+        "badgeBackground": "rgba(245,158,11,.15)",
+        "badgeColor": "#fcd34d",
+        "badgeBorder": "rgba(245,158,11,.3)"
+      }
+    ],
+    "note": "Your final slip can be exported only after all units are marked as cleared."
+  },
+  "ethicsPage": {
+    "title": "Academic Ethics",
+    "badge": "Policy",
+    "description": "Students are expected to uphold academic integrity and comply with the university ethics code.",
+    "principlesTitle": "Core Principles",
+    "principles": [
+      "Honesty",
+      "Trust",
+      "Fairness",
+      "Respect",
+      "Responsibility"
+    ],
+    "violationsTitle": "Violations",
+    "table": {
+      "type": "Type",
+      "description": "Description",
+      "consequence": "Consequence"
+    },
+    "rows": [
+      {
+        "type": "Plagiarism",
+        "description": "Using others’ work without attribution",
+        "consequence": "Grade 0 or disciplinary action"
+      },
+      {
+        "type": "Cheating",
+        "description": "Unauthorized materials during exams",
+        "consequence": "Exam invalidation"
+      },
+      {
+        "type": "Fabrication",
+        "description": "Invented or falsified data",
+        "consequence": "Course failure"
+      }
+    ],
+    "reportTitle": "Reporting a Violation",
+    "reportDescription": "Contact ethics@vilniustech.lt or use the anonymous reporting form. All reports are handled confidentially."
+  },
+  "examSessionPage": {
+    "title": "Exam Session",
+    "badge": "Spring 2026",
+    "stats": [
+      {
+        "value": "May 26",
+        "label": "Session Start"
+      },
+      {
+        "value": "June 14",
+        "label": "Session End"
+      },
+      {
+        "value": "6",
+        "label": "Exams Scheduled"
+      },
+      {
+        "value": "Aug 25-Sep 4",
+        "label": "Resit Period"
+      }
+    ],
+    "registrationTitle": "Exam Registration",
+    "registrationDescription": "Register through this portal no later than 3 days before the exam date.",
+    "registrationLinkLabel": "Exams Timetable",
+    "rulesTitle": "Rules & Conduct",
+    "rules": [
+      "Arrive 10 minutes before the exam",
+      "Bring your student ID card",
+      "No unauthorized materials or devices",
+      "Phones must be turned off and stored away"
+    ]
+  },
+  "finalWorksPage": {
+    "title": "Final Works",
+    "badge": "Graduation",
+    "description": "Requirements, submission procedures, and defense milestones for the final thesis.",
+    "formattingTitle": "Formatting Requirements",
+    "formatting": [
+      "Minimum 50 pages excluding appendices",
+      "Use official thesis template",
+      "Abstract in Lithuanian and English",
+      "Reference list according to faculty rules"
+    ],
+    "timelineTitle": "Submission Timeline",
+    "table": {
+      "milestone": "Milestone",
+      "deadline": "Deadline"
+    },
+    "rows": [
+      {
+        "milestone": "Topic registration",
+        "deadline": "March 31, 2026"
+      },
+      {
+        "milestone": "Outline approval",
+        "deadline": "April 1, 2026"
+      },
+      {
+        "milestone": "Final thesis upload",
+        "deadline": "May 30, 2026"
+      },
+      {
+        "milestone": "Defense period",
+        "deadline": "June 10-20, 2026"
+      }
+    ]
+  },
+  "scholarshipsPage": {
+    "title": "Scholarships",
+    "badge": "2025-2026",
+    "items": [
+      {
+        "title": "Merit Scholarship",
+        "status": "Active",
+        "description": "Awarded to students with strong GPA and no academic debts.",
+        "note": "Application opens each semester.",
+        "badgeBackground": "rgba(16,185,129,.15)",
+        "badgeColor": "#6ee7b7",
+        "badgeBorder": "rgba(16,185,129,.3)"
+      },
+      {
+        "title": "Social Scholarship",
+        "status": "Active",
+        "description": "Support for students from low-income households.",
+        "note": "Income declaration required.",
+        "badgeBackground": "rgba(16,185,129,.15)",
+        "badgeColor": "#6ee7b7",
+        "badgeBorder": "rgba(16,185,129,.3)"
+      },
+      {
+        "title": "Erasmus+ Scholarship",
+        "status": "Apply Now",
+        "description": "Monthly grant for exchange or traineeship mobility.",
+        "note": "Deadline: March 15, 2026",
+        "badgeBackground": "rgba(245,158,11,.15)",
+        "badgeColor": "#fcd34d",
+        "badgeBorder": "rgba(245,158,11,.3)"
+      }
+    ]
+  },
+  "timetablePage": {
+    "title": "Time of Lectures",
+    "badge": "Standard Schedule",
+    "description": "Official lecture slots used for academic activities across the university.",
+    "table": {
+      "slot": "Slot",
+      "start": "Start",
+      "end": "End",
+      "duration": "Duration",
+      "breakAfter": "Break after"
+    },
+    "rows": [
+      {
+        "slot": "1st Lecture",
+        "start": "08:30",
+        "end": "10:05",
+        "duration": "95 min",
+        "breakAfter": "15 min"
+      },
+      {
+        "slot": "2nd Lecture",
+        "start": "10:20",
+        "end": "11:55",
+        "duration": "95 min",
+        "breakAfter": "15 min"
+      },
+      {
+        "slot": "3rd Lecture",
+        "start": "12:10",
+        "end": "13:45",
+        "duration": "95 min",
+        "breakAfter": "45 min (Lunch)"
+      },
+      {
+        "slot": "4th Lecture",
+        "start": "14:30",
+        "end": "16:05",
+        "duration": "95 min",
+        "breakAfter": "15 min"
+      }
+    ],
+    "note": "Academic year schedules may differ for part-time or evening programmes."
+  },
+  "auditoriumPage": {
+    "title": "Auditorium Occupancy",
+    "badge": "Today",
+    "description": "Real-time room availability for the day. Green means free, amber means occupied soon, and red means occupied.",
+    "rooms": [
+      {
+        "room": "Room 201",
+        "meta": "Capacity: 40 · Free until 14:30",
+        "dot": "#6ee7b7"
+      },
+      {
+        "room": "Room 308",
+        "meta": "Capacity: 30 · Occupied until 13:45",
+        "dot": "#f87171"
+      },
+      {
+        "room": "Room 403",
+        "meta": "Capacity: 60 · Occupied in 30 min",
+        "dot": "#fcd34d"
+      },
+      {
+        "room": "Lecture Hall A",
+        "meta": "Capacity: 200 · Free until 18:10",
+        "dot": "#6ee7b7"
+      }
+    ]
+  },
+  "consultationsPage": {
+    "title": "Lecturer Consultation Hours",
+    "badge": "Spring 2026",
+    "description": "Consultation hours for lecturers in the current semester, including room or online location.",
+    "table": {
+      "lecturer": "Lecturer",
+      "subject": "Subject",
+      "day": "Day",
+      "time": "Time",
+      "room": "Room / Link"
+    },
+    "rows": [
+      {
+        "lecturer": "Assoc. Prof. Dr. A. Kazanavičius",
+        "subject": "Cloud Computing",
+        "day": "Monday",
+        "time": "13:00-14:30",
+        "room": "Room 412"
+      },
+      {
+        "lecturer": "Prof. Dr. R. Ginevičius",
+        "subject": "Decision Making",
+        "day": "Wednesday",
+        "time": "10:00-11:30",
+        "room": "Room 215 / Teams"
+      },
+      {
+        "lecturer": "Lect. Dr. V. Štuikys",
+        "subject": "Internet Technologies",
+        "day": "Thursday",
+        "time": "11:00-12:30",
+        "room": "Room 510"
+      }
+    ]
+  },
+  "internshipsPage": {
+    "title": "Internships",
+    "badge": "Spring 2026",
+    "stats": [
+      {
+        "value": "Not Started",
+        "label": "Your Status",
+        "highlight": true
+      },
+      {
+        "value": "15 ECTS",
+        "label": "Internship Credits"
+      },
+      {
+        "value": "3 months",
+        "label": "Minimum Duration"
+      }
+    ],
+    "howToTitle": "How to register your internship",
+    "steps": [
+      "Find an internship position",
+      "Get approval from your coordinator",
+      "Submit an internship agreement",
+      "Complete the internship",
+      "Submit report and evaluation"
+    ],
+    "availableTitle": "Available Internship Positions",
+    "table": {
+      "company": "Company",
+      "position": "Position",
+      "duration": "Duration",
+      "location": "Location",
+      "deadline": "Deadline"
+    },
+    "rows": [
+      {
+        "company": "Devbridge Group",
+        "position": "Software Developer Intern",
+        "duration": "3-6 months",
+        "location": "Vilnius (Hybrid)",
+        "deadline": "Apr 1, 2026"
+      },
+      {
+        "company": "Tesonet",
+        "position": "DevOps Intern",
+        "duration": "4 months",
+        "location": "Vilnius (Hybrid)",
+        "deadline": "Apr 15, 2026"
+      }
+    ]
+  },
+  "lectureSchedulePage": {
+    "title": "Lecture Schedule",
+    "badge": "Spring 2026",
+    "description": "Weekly timetable for the current semester with odd and even week patterns.",
+    "table": {
+      "day": "Day",
+      "slot": "Slot",
+      "time": "Time",
+      "subject": "Subject",
+      "room": "Room",
+      "type": "Type",
+      "week": "Week"
+    },
+    "rows": [
+      {
+        "day": "Monday",
+        "slot": "1st",
+        "time": "08:30-10:05",
+        "subject": "Cloud Computing",
+        "room": "403",
+        "type": "Lecture",
+        "week": "All",
+        "badgeBackground": "rgba(99,102,241,.15)",
+        "badgeColor": "#a5b4fc",
+        "badgeBorder": "rgba(99,102,241,.3)"
+      },
+      {
+        "day": "Wednesday",
+        "slot": "4th",
+        "time": "14:30-16:05",
+        "subject": "Internet Technologies",
+        "room": "Lab 305",
+        "type": "Lab",
+        "week": "Week 2",
+        "badgeBackground": "rgba(16,185,129,.15)",
+        "badgeColor": "#6ee7b7",
+        "badgeBorder": "rgba(16,185,129,.3)"
+      }
+    ]
+  },
+  "thesisPage": {
+    "title": "Thesis Subject",
+    "badge": "Final Year",
+    "stats": [
+      {
+        "value": "Not Registered",
+        "label": "Topic Status",
+        "highlight": true
+      },
+      {
+        "value": "15 ECTS",
+        "label": "Credits for Thesis"
+      },
+      {
+        "value": "May 30, 2026",
+        "label": "Submission Deadline"
+      }
+    ],
+    "alertTitle": "Topic Registration Required",
+    "alertDescription": "You have not yet registered a thesis topic. Contact your department coordinator to select a topic and confirm your supervisor.",
+    "requirementsTitle": "Requirements",
+    "requirements": [
+      "Register thesis topic",
+      "Confirm supervisor agreement",
+      "Submit thesis outline",
+      "Upload final thesis",
+      "Pass plagiarism check",
+      "Defend before committee"
+    ],
+    "datesTitle": "Key Dates",
+    "table": {
+      "event": "Event",
+      "date": "Date"
+    },
+    "rows": [
+      {
+        "event": "Topic registration opens",
+        "date": "March 15, 2026"
+      },
+      {
+        "event": "Topic registration closes",
+        "date": "March 31, 2026"
+      },
+      {
+        "event": "Final thesis upload deadline",
+        "date": "May 30, 2026"
+      }
+    ]
   }
 }

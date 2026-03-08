@@ -2,26 +2,39 @@
 // This file contains common functionality used across all login forms
 
 class FormUtils {
+    static getI18n() {
+        if (!window.__formI18nCache) {
+            const source = document.getElementById('formI18n');
+            window.__formI18nCache = source ? JSON.parse(source.textContent) : {};
+        }
+        return window.__formI18nCache;
+    }
+
+    static translate(key, fallback) {
+        const value = FormUtils.getI18n()[key];
+        return value || fallback;
+    }
+
     static validateEmail(value) {
         if (!value) {
-            return { isValid: false, message: 'Email address is required' };
+            return { isValid: false, message: FormUtils.translate('emailRequired', 'Email address is required') };
         }
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value)) {
-            return { isValid: false, message: 'Please enter a valid email address' };
+            return { isValid: false, message: FormUtils.translate('invalidEmail', 'Please enter a valid email address') };
         }
         return { isValid: true };
     }
     
     static validatePassword(value) {
         if (!value) {
-            return { isValid: false, message: 'Password is required' };
+            return { isValid: false, message: FormUtils.translate('passwordRequired', 'Password is required') };
         }
         if (value.length < 8) {
-            return { isValid: false, message: 'Password must be at least 8 characters long' };
+            return { isValid: false, message: FormUtils.translate('passwordMin', 'Password must be at least 8 characters long') };
         }
         if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(value)) {
-            return { isValid: false, message: 'Password must contain uppercase, lowercase, and number' };
+            return { isValid: false, message: FormUtils.translate('passwordStrength', 'Password must contain uppercase, lowercase, and number') };
         }
         return { isValid: true };
     }
@@ -78,7 +91,7 @@ class FormUtils {
             setTimeout(() => {
                 // Demo: reject if email is 'admin@demo.com' and password is 'wrongpassword'
                 if (email === 'admin@demo.com' && password === 'wrongpassword') {
-                    reject(new Error('Invalid email or password'));
+                    reject(new Error(FormUtils.translate('loginFailed', 'Invalid email or password')));
                 } else {
                     resolve({ success: true, user: { email } });
                 }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('semesterPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <p class="muted" style="margin-bottom:20px;"><%= page.descriptionPrefix %> <strong>30 ECTS</strong></p>
+          <div class="list-item" style="padding:14px 16px;margin-bottom:20px;">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;">
+              <div>
+                <strong style="display:block;margin-bottom:6px;"><%= page.overviewTitle %></strong>
+                <p class="muted" style="font-size:12px;max-width:620px;"><%= page.overviewDescription %></p>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                <% page.quickLinks.forEach((link) => { %>
+                  <a class="badge" href="<%= link.href %>" style="text-decoration:none;"><%= link.label %></a>
+                <% }) %>
+              </div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;">
+            <% page.cards.forEach((card) => { %>
+              <div class="list-item" id="<%= card.id %>" style="display:flex;flex-direction:column;gap:6px;padding:14px 16px;scroll-margin-top:88px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <strong style="font-size:14px;"><%= card.title %></strong>
+                  <span class="badge"><%= card.ects %></span>
+                </div>
+                <% card.lines.forEach((line) => { %>
+                  <span class="muted" style="font-size:12px;"><i class="<%= line.icon %>" style="width:14px;<%= line.iconColor ? `color:${line.iconColor};` : '' %>"></i> <%= line.text %></span>
+                <% }) %>
+                <span class="badge" style="width:fit-content;background:<%= card.badgeBackground %>;color:<%= card.badgeColor %>;border-color:<%= card.badgeBorder %>;"><%= card.badge %></span>
+              </div>
+            <% }) %>
+          </div>
+        </article>
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

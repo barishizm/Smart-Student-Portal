@@ -20,15 +20,11 @@
           </div>
 
           <% if(success_msg && success_msg.length > 0){ %>
-            <div style="background:#d4edda; color:#155724; padding:10px; margin-bottom:15px; border-radius:10px;">
-              <%= success_msg %>
-            </div>
+            <div class="alert alert-success"><%= success_msg %></div>
           <% } %>
 
           <% if(error_msg && error_msg.length > 0){ %>
-            <div style="background:#f8d7da; color:#721c24; padding:10px; margin-bottom:15px; border-radius:10px;">
-              <%= error_msg %>
-            </div>
+            <div class="alert alert-danger"><%= error_msg %></div>
           <% } %>
 
           <div class="profile-photo-panel">
@@ -131,25 +127,35 @@
 
   <div id="deleteAccountConfirmBackdrop" class="delete-account-confirm-backdrop" hidden></div>
   <div id="deleteAccountConfirmCard" class="delete-account-confirm-card" hidden role="dialog" aria-modal="true" aria-labelledby="deleteAccountConfirmTitle">
-    <h3 id="deleteAccountConfirmTitle" class="profile-change-title">Delete Account Confirmation</h3>
-    <p class="delete-account-confirm-text">After deletion, your account is removed immediately and re-registering with the same email requires contacting IT support.</p>
+    <h3 id="deleteAccountConfirmTitle" class="profile-change-title"><%= t('profile.deleteModal.title') %></h3>
+    <p class="delete-account-confirm-text"><%= t('profile.deleteModal.description') %></p>
     <div class="delete-account-confirm-actions">
-      <button type="button" id="confirmDeleteAccountBtn" class="btn danger">YES, I WANT TO DELETE</button>
-      <button type="button" id="cancelDeleteAccountBtn" class="btn ghost">NO, THANKS</button>
+      <button type="button" id="confirmDeleteAccountBtn" class="btn danger"><%= t('profile.deleteModal.confirm') %></button>
+      <button type="button" id="cancelDeleteAccountBtn" class="btn ghost"><%= t('profile.deleteModal.cancel') %></button>
     </div>
   </div>
 
   <div id="deleteAccountFinalCard" class="delete-account-confirm-card" hidden role="dialog" aria-modal="true" aria-labelledby="deleteAccountFinalTitle">
-    <h3 id="deleteAccountFinalTitle" class="profile-change-title">Delete Account Confirmation</h3>
-    <p class="delete-account-confirm-text">If you really want to delete this account please write 'I WANT TO DELETE MY ACCOUNT'</p>
+    <h3 id="deleteAccountFinalTitle" class="profile-change-title"><%= t('profile.deleteModal.title') %></h3>
+    <p class="delete-account-confirm-text"><%= t('profile.deleteModal.typePrompt', { text: t('profile.deleteModal.requiredText') }) %></p>
     <input type="text" id="deleteAccountVerifyInput" class="profile-change-input" autocomplete="off">
     <div class="delete-account-confirm-actions delete-account-final-actions">
-      <button type="button" id="finalizeDeleteAccountBtn" class="btn danger">OK</button>
-      <button type="button" id="cancelFinalDeleteAccountBtn" class="btn ghost">NO, I CHANGED MY MIND</button>
+      <button type="button" id="finalizeDeleteAccountBtn" class="btn danger"><%= t('profile.deleteModal.finalize') %></button>
+      <button type="button" id="cancelFinalDeleteAccountBtn" class="btn ghost"><%= t('profile.deleteModal.cancelFinal') %></button>
     </div>
   </div>
 
   <script src="https://unpkg.com/cropperjs@1.6.2/dist/cropper.min.js"></script>
+  <script type="application/json" id="profilePhotoI18n">
+    {
+      "invalidType": "<%= t('profile.photoValidation.invalidType') %>",
+      "tooLarge": "<%= t('profile.photoValidation.tooLarge') %>",
+      "uploadPhoto": "<%= t('profile.uploadPhoto') %>",
+      "uploadCroppedPhoto": "<%= t('profile.photoValidation.uploadCropped') %>",
+      "processFailed": "<%= t('profile.photoValidation.processFailed') %>",
+      "uploadFailed": "<%= t('profile.photoValidation.uploadFailed') %>"
+    }
+  </script>
   <script src="/js/profile-photo.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -166,7 +172,7 @@
       if (!form || !backdrop || !card || !finalCard || !confirmBtn || !cancelBtn || !verifyInput || !finalizeBtn || !cancelFinalBtn || !confirmationField) return;
 
       let confirmedDelete = false;
-      const requiredText = 'I WANT TO DELETE MY ACCOUNT';
+      const requiredText = '<%= t('profile.deleteModal.requiredText') %>';
 
       const openConfirmCard = () => {
         backdrop.hidden = false;
@@ -204,7 +210,7 @@
 
       finalizeBtn.addEventListener('click', () => {
         if (String(verifyInput.value || '') !== requiredText) {
-          window.alert('Please write exactly: I WANT TO DELETE MY ACCOUNT');
+          window.alert('<%= t('profile.deleteModal.exactPrompt', { text: t('profile.deleteModal.requiredText') }) %>');
           verifyInput.focus();
           return;
         }

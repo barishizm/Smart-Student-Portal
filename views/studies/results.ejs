@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('resultsPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+
+          <div class="stats" style="margin-bottom:24px;">
+            <% page.stats.forEach((stat) => { %>
+              <div class="stat"><strong><%= stat.value %></strong><small><%= stat.label %></small></div>
+            <% }) %>
+          </div>
+
+          <% page.semesters.forEach((semester, index) => { %>
+            <h3 style="font-size:14px;font-weight:600;margin-bottom:12px;color:rgba(255,255,255,.7);"><%= semester.title %></h3>
+            <div class="table-wrap" style="<%= index < page.semesters.length - 1 ? 'margin-bottom:24px;' : '' %>">
+              <table class="table">
+                <thead><tr><th><%= page.table.subject %></th><th><%= page.table.ects %></th><th><%= page.table.midterm %></th><th><%= page.table.exam %></th><th><%= page.table.final %></th><th><%= page.table.status %></th></tr></thead>
+                <tbody>
+                  <% semester.rows.forEach((row) => { %>
+                    <tr><td><%= row.subject %></td><td><%= row.ects %></td><td><%= row.midterm %></td><td><%= row.exam %></td><td><strong><%= row.final %></strong></td><td><span class="badge" style="background:<%= row.statusBackground %>;color:<%= row.statusColor %>;border-color:<%= row.statusBorder %>;"><%= row.status %></span></td></tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          <% }) %>
+        </article>
+
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

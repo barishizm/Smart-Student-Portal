@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('examSessionPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <div class="stats" style="margin-bottom:20px;">
+            <% page.stats.forEach((stat) => { %>
+              <div class="stat"><strong><%= stat.value %></strong><small><%= stat.label %></small></div>
+            <% }) %>
+          </div>
+          <div style="display:grid;gap:14px;">
+            <div class="list-item" style="padding:16px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><i class="fa-solid fa-file-pen" style="color:#67e8f9;font-size:16px;"></i><strong><%= page.registrationTitle %></strong></div>
+              <p style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.6;"><%= page.registrationDescription %> <a href="/studies/exams" style="color:#67e8f9;text-decoration:none;"><%= page.registrationLinkLabel %></a></p>
+            </div>
+            <div class="list-item" style="padding:16px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><i class="fa-solid fa-clipboard-list" style="color:#a5b4fc;font-size:16px;"></i><strong><%= page.rulesTitle %></strong></div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
+                <% page.rules.forEach((rule) => { %>
+                  <li style="font-size:13px;color:rgba(255,255,255,.8);"><i class="fa-solid fa-check" style="color:#6ee7b7;margin-right:8px;width:14px;"></i><%= rule %></li>
+                <% }) %>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('programsPage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <p class="muted" style="margin-bottom:20px;"><%= page.description %></p>
+
+          <div style="display:grid;gap:10px;">
+            <% page.programs.forEach((program) => { %>
+              <div class="list-item" style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center;<%= program.highlighted ? 'background:rgba(6,192,220,.10);border-color:rgba(6,192,220,.3);' : '' %>">
+                <div>
+                  <strong style="font-size:14px;"><%= program.name %></strong>
+                  <p class="muted" style="font-size:12px;margin-top:2px;"><%= program.details %></p>
+                </div>
+                <span class="badge" style="<%= program.highlighted ? 'background:rgba(6,192,220,.2);color:#67e8f9;border-color:rgba(6,192,220,.4);' : '' %>"><%= program.badge %></span>
+              </div>
+            <% }) %>
+          </div>
+        </article>
+
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+  <%- include('../partials/head') %>
+  <% const page = t('careerAdvicePage'); %>
+  <title>VILNIUS TECH | <%= page.title %></title>
+</head>
+<body>
+  <div class="dash">
+    <%- include('../partials/sidebar') %>
+    <main class="main">
+      <%- include('../partials/header') %>
+      <section class="content">
+        <article class="card">
+          <div class="card-head">
+            <h2><%= page.title %></h2>
+            <span class="badge"><%= page.badge %></span>
+          </div>
+          <p class="muted" style="margin-bottom:20px;"><%= page.description %></p>
+          <div style="display:grid;gap:14px;margin-bottom:20px;">
+            <% page.cards.forEach((card) => { %>
+              <div class="list-item" style="padding:16px;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><i class="<%= card.icon %>" style="color:<%= card.color %>;font-size:16px;"></i><strong><%= card.title %></strong></div>
+                <p style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.6;"><%= card.description %></p>
+              </div>
+            <% }) %>
+          </div>
+          <div class="list-item" style="padding:16px;background:rgba(6,192,220,.08);border-color:rgba(6,192,220,.25);">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><i class="fa-solid fa-calendar-check" style="color:#67e8f9;font-size:16px;"></i><strong><%= page.bookingTitle %></strong></div>
+            <p style="font-size:13px;color:rgba(255,255,255,.8);margin-bottom:12px;"><%= page.bookingDescription %></p>
+            <p style="font-size:13px;color:rgba(255,255,255,.8);"><%= page.bookingContactLabel %> <strong>career@vilniustech.lt</strong> | <%= page.bookingPhoneLabel %> +370 5 274 4956</p>
+          </div>
+        </article>
+      </section>
+      <%- include('../partials/footer') %>
+    </main>
+  </div>
+</body>
+</html>
