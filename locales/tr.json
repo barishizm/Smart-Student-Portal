@@ -366,50 +366,50 @@
     "unlockDeletedEmailEmpty": "Silinen hesap için kilitli e-posta bulunamadı."
   },
   "adjustmentPage": {
-    "title": "Adjustment of Studies",
-    "badge": "Study Changes",
-    "description": "Guidance for changing modules, repeating courses, and aligning an individual study plan.",
+    "title": "Öğrenim Düzenlemeleri",
+    "badge": "Öğrenim Değişiklikleri",
+    "description": "Modül değişiklikleri, tekrar edilen dersler ve bireysel ders planının uyumlandırılması için rehber.",
     "cards": [
       {
         "icon": "fa-solid fa-rotate",
         "color": "#67e8f9",
-        "title": "Module Changes",
-        "description": "Students can request elective or module adjustments during the published add/drop period."
+        "title": "Modül Değişiklikleri",
+        "description": "Öğrenciler, ilan edilen ekle-bırak döneminde seçmeli ders veya modül düzenlemesi talep edebilir."
       },
       {
         "icon": "fa-solid fa-file-signature",
         "color": "#a5b4fc",
-        "title": "Required Approval",
-        "description": "Requests must be approved by the programme coordinator and faculty study office."
+        "title": "Gerekli Onay",
+        "description": "Talepler program koordinatörü ve fakülte öğrenci işleri tarafından onaylanmalıdır."
       },
       {
         "icon": "fa-solid fa-clock",
         "color": "#6ee7b7",
-        "title": "Deadlines",
-        "description": "Late requests are reviewed only in exceptional cases supported by formal justification."
+        "title": "Son Tarihler",
+        "description": "Geç başvurular yalnızca resmî gerekçeyle desteklenen istisnai durumlarda incelenir."
       }
     ]
   },
   "careerHomePage": {
-    "title": "My Career",
-    "badge": "Career Centre",
-    "description": "Career services, events, consultations, and opportunities for internships or first jobs.",
+    "title": "Kariyerim",
+    "badge": "Kariyer Merkezi",
+    "description": "Kariyer hizmetleri, etkinlikler, danışmanlıklar ve staj ya da ilk iş fırsatları.",
     "stats": [
       {
         "value": "42",
-        "label": "Open roles"
+        "label": "Açık pozisyon"
       },
       {
         "value": "28",
-        "label": "Internships"
+        "label": "Staj"
       },
       {
         "value": "6",
-        "label": "Career events"
+        "label": "Kariyer etkinliği"
       },
       {
         "value": "1:1",
-        "label": "Consultations"
+        "label": "Danışmanlık"
       }
     ],
     "links": [
@@ -417,148 +417,148 @@
         "href": "/career/advice",
         "icon": "fa-solid fa-comments",
         "color": "#67e8f9",
-        "title": "Career planning advice",
-        "description": "Meet a consultant and prepare your next step."
+        "title": "Kariyer planlama danışmanlığı",
+        "description": "Bir danışmanla görüşüp sonraki adımını planla."
       },
       {
         "href": "/career/internship-consultation",
         "icon": "fa-solid fa-user-tie",
         "color": "#6ee7b7",
-        "title": "Internship consultation",
-        "description": "Register academic internships correctly."
+        "title": "Staj danışmanlığı",
+        "description": "Akademik stajını doğru şekilde kaydet."
       },
       {
         "href": "/career/days",
         "icon": "fa-solid fa-calendar-star",
         "color": "#fcd34d",
-        "title": "Career days",
-        "description": "Recruiter events and company meetings."
+        "title": "Kariyer günleri",
+        "description": "İşveren etkinlikleri ve şirket buluşmaları."
       },
       {
         "href": "/career/jobs",
         "icon": "fa-solid fa-briefcase",
         "color": "#d8b4fe",
-        "title": "Job offers",
-        "description": "Part-time and full-time positions."
+        "title": "İş ilanları",
+        "description": "Yarı zamanlı ve tam zamanlı pozisyonlar."
       }
     ]
   },
   "careerAdvicePage": {
-    "title": "Career Planning Advice",
-    "badge": "Consultation",
-    "description": "Personalized support for CV review, motivation letters, interviews, and career direction.",
+    "title": "Kariyer Planlama Danışmanlığı",
+    "badge": "Danışmanlık",
+    "description": "CV incelemesi, motivasyon mektubu, mülakat hazırlığı ve kariyer yönü için kişiselleştirilmiş destek.",
     "cards": [
       {
         "icon": "fa-solid fa-file-lines",
         "color": "#67e8f9",
-        "title": "CV Review",
-        "description": "Get practical feedback on structure, clarity, and relevance to your target role."
+        "title": "CV İncelemesi",
+        "description": "Hedeflediğiniz rol için yapı, netlik ve uygunluk konusunda uygulanabilir geri bildirim alın."
       },
       {
         "icon": "fa-solid fa-user-check",
         "color": "#6ee7b7",
-        "title": "Interview Practice",
-        "description": "Prepare for technical and HR interviews with sample questions and feedback."
+        "title": "Mülakat Pratiği",
+        "description": "Teknik ve İK mülakatları için örnek sorular ve geri bildirimle hazırlanın."
       },
       {
         "icon": "fa-solid fa-route",
         "color": "#fcd34d",
-        "title": "Career Mapping",
-        "description": "Compare internship, junior, research, and exchange paths that fit your profile."
+        "title": "Kariyer Haritalama",
+        "description": "Profilinize uygun staj, başlangıç seviyesi pozisyon, araştırma ve değişim yollarını karşılaştırın."
       }
     ],
-    "bookingTitle": "Book a Session",
-    "bookingDescription": "Career consultations are available on campus and online during working days.",
-    "bookingContactLabel": "Email:",
-    "bookingPhoneLabel": "Phone:"
+    "bookingTitle": "Görüşme Planla",
+    "bookingDescription": "Kariyer danışmanlığı hafta içi kampüste ve çevrim içi olarak sunulur.",
+    "bookingContactLabel": "E-posta:",
+    "bookingPhoneLabel": "Telefon:"
   },
   "certificatesPage": {
-    "title": "Certificates",
-    "badge": "Documents",
-    "description": "Request and download standard student certificates and confirmation letters.",
+    "title": "Belgeler",
+    "badge": "Dokümanlar",
+    "description": "Standart öğrenci belgelerini ve onay yazılarını talep edin veya indirin.",
     "items": [
       {
-        "title": "Study Certificate",
-        "description": "Confirms active student status for banks, employers, and institutions.",
-        "button": "Download",
-        "alert": "Study certificate generation will be connected to the document service.",
+        "title": "Öğrenci Belgesi",
+        "description": "Bankalar, işverenler ve kurumlar için aktif öğrenci durumunu doğrular.",
+        "button": "İndir",
+        "alert": "Öğrenci belgesi üretimi belge servisine bağlanacak.",
         "locked": false
       },
       {
-        "title": "Scholarship Confirmation",
-        "description": "Shows current scholarship eligibility or awarded support.",
-        "button": "Download",
-        "alert": "Scholarship confirmation will be connected to the document service.",
+        "title": "Burs Onay Belgesi",
+        "description": "Güncel burs uygunluğunu veya tanımlanan desteği gösterir.",
+        "button": "İndir",
+        "alert": "Burs onayı belge servisine bağlanacak.",
         "locked": false
       },
       {
-        "title": "Dormitory Priority Letter",
-        "description": "Available only after approved accommodation application.",
-        "button": "Locked",
+        "title": "Yurt Öncelik Yazısı",
+        "description": "Yalnızca onaylı konaklama başvurusundan sonra kullanılabilir.",
+        "button": "Kilitli",
         "alert": "",
         "locked": true
       }
     ]
   },
   "documentRequestsPage": {
-    "title": "Requests",
-    "badge": "Self Service",
-    "description": "Submit new requests for official documents and track previously created ones.",
+    "title": "Talepler",
+    "badge": "Self servis",
+    "description": "Resmî belgeler için yeni talep oluşturun ve önceki taleplerinizi takip edin.",
     "form": {
-      "documentType": "Document type",
+      "documentType": "Belge türü",
       "documentOptions": [
-        "Study Certificate",
-        "Transcript Extract",
-        "Scholarship Confirmation"
+        "Öğrenci Belgesi",
+        "Transkript Özeti",
+        "Burs Onay Belgesi"
       ],
-      "purpose": "Purpose",
-      "purposePlaceholder": "Explain where this document will be used",
-      "language": "Language",
+      "purpose": "Amaç",
+      "purposePlaceholder": "Belgenin nerede kullanılacağını açıklayın",
+      "language": "Dil",
       "languageOptions": [
-        "English",
-        "Lithuanian",
-        "Turkish",
-        "Russian"
+        "İngilizce",
+        "Litvanca",
+        "Türkçe",
+        "Rusça"
       ],
-      "copies": "Copies",
-      "submit": "Create request",
-      "submitAlert": "Request creation will be connected to the document workflow."
+      "copies": "Kopya sayısı",
+      "submit": "Talep oluştur",
+      "submitAlert": "Talep oluşturma işlemi belge iş akışına bağlanacak."
     },
-    "previousTitle": "Previous requests",
+    "previousTitle": "Önceki talepler",
     "table": {
-      "document": "Document",
-      "requested": "Requested",
-      "ready": "Ready by",
-      "status": "Status"
+      "document": "Belge",
+      "requested": "Talep tarihi",
+      "ready": "Hazır olacağı tarih",
+      "status": "Durum"
     },
     "rows": [
       {
-        "document": "Study Certificate",
+        "document": "Öğrenci Belgesi",
         "requested": "2026-03-03",
         "ready": "2026-03-05",
-        "status": "Ready"
+        "status": "Hazır"
       },
       {
-        "document": "Transcript Extract",
+        "document": "Transkript Özeti",
         "requested": "2026-02-20",
         "ready": "2026-02-24",
-        "status": "Ready"
+        "status": "Hazır"
       }
     ]
   },
   "examsPage": {
-    "title": "Exams Timetable",
-    "badge": "Spring 2026",
-    "descriptionPrefix": "Final exams are scheduled for",
-    "sessionDates": "May 26 to June 14, 2026",
-    "descriptionSuffix": "Check room, type, and registration status below.",
+    "title": "Sınav Takvimi",
+    "badge": "2026 Bahar",
+    "descriptionPrefix": "Final sınavları",
+    "sessionDates": "26 Mayıs - 14 Haziran 2026",
+    "descriptionSuffix": "için planlandı. Aşağıda salon, tür ve kayıt durumunu kontrol edin.",
     "table": {
-      "subject": "Subject",
-      "date": "Date",
-      "time": "Time",
-      "room": "Room",
-      "type": "Type",
-      "status": "Status"
+      "subject": "Ders",
+      "date": "Tarih",
+      "time": "Saat",
+      "room": "Salon",
+      "type": "Tür",
+      "status": "Durum"
     },
     "rows": [
       {
@@ -566,11 +566,11 @@
         "date": "2026-05-28",
         "time": "10:00",
         "room": "403",
-        "type": "Written",
+        "type": "Yazılı",
         "typeBackground": "rgba(99,102,241,.15)",
         "typeColor": "#a5b4fc",
         "typeBorder": "rgba(99,102,241,.3)",
-        "status": "Registered",
+        "status": "Kayıtlı",
         "statusBackground": "rgba(16,185,129,.15)",
         "statusColor": "#6ee7b7",
         "statusBorder": "rgba(16,185,129,.3)"
@@ -580,11 +580,11 @@
         "date": "2026-06-02",
         "time": "14:00",
         "room": "Lab 305",
-        "type": "Practical",
+        "type": "Uygulamalı",
         "typeBackground": "rgba(6,192,220,.15)",
         "typeColor": "#67e8f9",
         "typeBorder": "rgba(6,192,220,.3)",
-        "status": "Open",
+        "status": "Açık",
         "statusBackground": "rgba(245,158,11,.15)",
         "statusColor": "#fcd34d",
         "statusBorder": "rgba(245,158,11,.3)"
@@ -592,19 +592,19 @@
     ]
   },
   "gradingPage": {
-    "title": "Grading System",
-    "badge": "Assessment",
-    "description": "The 10-point grading scale is used across study programmes together with ECTS interpretation.",
+    "title": "Notlandırma Sistemi",
+    "badge": "Değerlendirme",
+    "description": "10 puanlık not sistemi, AKTS yorumlaması ile birlikte tüm programlarda kullanılır.",
     "table": {
-      "grade": "Grade",
-      "description": "Description",
-      "ects": "ECTS",
-      "percentage": "Percentage"
+      "grade": "Not",
+      "description": "Açıklama",
+      "ects": "AKTS",
+      "percentage": "Yüzde"
     },
     "rows": [
       {
         "grade": "10",
-        "description": "Excellent",
+        "description": "Mükemmel",
         "ects": "A",
         "percentage": "95-100%",
         "gradeColor": "#6ee7b7",
@@ -614,7 +614,7 @@
       },
       {
         "grade": "8-9",
-        "description": "Very good / Good",
+        "description": "Çok iyi / İyi",
         "ects": "B-C",
         "percentage": "75-94%",
         "gradeColor": "#67e8f9",
@@ -624,7 +624,7 @@
       },
       {
         "grade": "6-7",
-        "description": "Satisfactory",
+        "description": "Yeterli",
         "ects": "D-E",
         "percentage": "50-74%",
         "gradeColor": "#fcd34d",
@@ -634,7 +634,7 @@
       },
       {
         "grade": "1-5",
-        "description": "Insufficient",
+        "description": "Yetersiz",
         "ects": "FX-F",
         "percentage": "0-49%",
         "gradeColor": "#fca5a5",
@@ -643,50 +643,50 @@
         "badgeBorder": "rgba(239,68,68,.3)"
       }
     ],
-    "note": "Final grade composition is always described in the course sheet and may include midterms, assignments, labs, and exam work."
+    "note": "Nihai notun bileşimi ders bilgi formunda açıklanır ve ara sınav, ödev, laboratuvar ve final çalışmalarını içerebilir."
   },
   "internationalPage": {
-    "title": "International Opportunities",
-    "badge": "Mobility",
+    "title": "Uluslararasi Firsatlar",
+    "badge": "Hareketlilik",
     "stats": [
       {
         "value": "200+",
-        "label": "Partner universities"
+        "label": "Partner universite"
       },
       {
         "value": "35",
-        "label": "Countries"
+        "label": "Ulke"
       },
       {
         "value": "€300-500",
-        "label": "Monthly grant"
+        "label": "Aylik hibe"
       },
       {
         "value": "2",
-        "label": "Main calls yearly"
+        "label": "Ana cagrilar"
       }
     ],
     "studyExchange": {
-      "title": "Study Exchange",
-      "deadline": "Apply now",
-      "description": "Semester or full-year mobility through Erasmus+ and bilateral partner agreements.",
+      "title": "Ogrenim Degisimi",
+      "deadline": "Simdi basvur",
+      "description": "Erasmus+ ve ikili partner anlasmalari araciligiyla bir donemlik veya tam yillik hareketlilik.",
       "table": {
-        "countryCategory": "Country group",
-        "monthlyGrant": "Monthly grant",
-        "popularDestinations": "Popular destinations",
+        "countryCategory": "Ulke grubu",
+        "monthlyGrant": "Aylik hibe",
+        "popularDestinations": "Populer destinasyonlar",
         "rows": [
           {
-            "category": "Higher cost",
+            "category": "Yuksek maliyet",
             "grant": "€500",
             "destinations": "Denmark, Finland, Netherlands"
           },
           {
-            "category": "Medium cost",
+            "category": "Orta maliyet",
             "grant": "€400",
             "destinations": "Germany, Spain, Italy"
           },
           {
-            "category": "Lower cost",
+            "category": "Dusuk maliyet",
             "grant": "€300",
             "destinations": "Poland, Latvia, Czechia"
           }
@@ -694,83 +694,83 @@
       }
     },
     "traineeship": {
-      "title": "International Traineeship",
-      "description": "Complete an internship abroad and combine practical experience with grant support."
+      "title": "Uluslararasi Staj",
+      "description": "Yurt disinda staj yapin ve pratik deneyimi hibe destegiyle birlestirin."
     },
     "bilateral": {
-      "title": "Partner Agreements",
-      "description": "Faculty agreements may open additional places outside the Erasmus+ framework."
+      "title": "Partner Anlasmalari",
+      "description": "Fakulte anlasmalari Erasmus+ disinda ek kontenjanlar acabilir."
     },
-    "contactPrefix": "For application support contact",
-    "contactLocation": "Student Services Centre",
-    "contactHours": "Mon-Fri 09:00-16:00"
+    "contactPrefix": "Basvuru destegi icin iletisime gecin",
+    "contactLocation": "Ogrenci Hizmetleri Merkezi",
+    "contactHours": "Pzt-Cum 09:00-16:00"
   },
   "itServicesPage": {
-    "title": "IT Services",
-    "badge": "Infrastructure",
-    "description": "Current state of student-facing digital services. Contact",
-    "supportSuffix": "or call",
+    "title": "BT Hizmetleri",
+    "badge": "Altyapi",
+    "description": "Ogrencilere yonelik dijital hizmetlerin guncel durumu. Iletisim",
+    "supportSuffix": "veya arayin",
     "services": [
       {
         "icon": "fa-solid fa-envelope",
         "color": "#67e8f9",
-        "title": "Student Email",
-        "description": "Access institutional mailbox and forwarding settings.",
-        "meta": "Available 24/7",
+        "title": "Ogrenci E-postasi",
+        "description": "Kurumsal posta kutusuna ve yonlendirme ayarlarina erisin.",
+        "meta": "7/24 erisilebilir",
         "statusColor": "#6ee7b7"
       },
       {
         "icon": "fa-solid fa-wifi",
         "color": "#a5b4fc",
-        "title": "Campus Wi-Fi",
-        "description": "Secure wireless access in study buildings and dormitories.",
+        "title": "Kampus Wi-Fi",
+        "description": "Dersliklerde ve yurtlarda guvenli kablosuz erisim.",
         "meta": "eduroam / VGTU-Secure",
         "statusColor": "#6ee7b7"
       },
       {
         "icon": "fa-solid fa-hard-drive",
         "color": "#fcd34d",
-        "title": "Storage & Labs",
-        "description": "Remote lab access and shared storage for coursework.",
-        "meta": "Maintenance windows announced",
+        "title": "Depolama ve Laboratuvarlar",
+        "description": "Uzaktan laboratuvar erisimi ve dersler icin paylasimli depolama.",
+        "meta": "Bakim araliklari duyurulur",
         "statusColor": "#fcd34d"
       }
     ]
   },
   "libraryPage": {
-    "title": "Library",
-    "badge": "Resources",
-    "description": "Search holdings, check borrowed items, and explore digital resources.",
-    "searchLabel": "Search catalogue",
-    "searchPlaceholder": "Title, author, keyword, or ISBN",
-    "searchButton": "Search",
-    "searchComingSoon": "Catalogue search will be connected to the library service.",
-    "borrowedTitle": "Borrowed Items",
-    "borrowedBadge": "0 active",
-    "noBorrowedBooks": "You currently have no borrowed items.",
-    "resourcesTitle": "Digital Resources",
-    "resourcesBadge": "Access",
+    "title": "Kutuphane",
+    "badge": "Kaynaklar",
+    "description": "Katalogu arayin, odunc alinmis kaynaklari kontrol edin ve dijital kaynaklari kesfedin.",
+    "searchLabel": "Katalogda ara",
+    "searchPlaceholder": "Baslik, yazar, anahtar kelime veya ISBN",
+    "searchButton": "Ara",
+    "searchComingSoon": "Katalog aramasi kutuphane hizmetine baglanacak.",
+    "borrowedTitle": "Odunc Alinanlar",
+    "borrowedBadge": "0 aktif",
+    "noBorrowedBooks": "Su anda odunc aldiginiz bir kaynak yok.",
+    "resourcesTitle": "Dijital Kaynaklar",
+    "resourcesBadge": "Erisim",
     "resources": [
       {
         "name": "IEEE Xplore",
-        "description": "Engineering and computer science journals.",
-        "access": "Campus/VPN",
+        "description": "Muhendislik ve bilgisayar bilimi dergileri.",
+        "access": "Kampus/VPN",
         "badgeBackground": "rgba(16,185,129,.15)",
         "badgeColor": "#6ee7b7",
         "badgeBorder": "rgba(16,185,129,.3)"
       },
       {
         "name": "ScienceDirect",
-        "description": "Research papers and reference works.",
-        "access": "Campus/VPN",
+        "description": "Arastirma makaleleri ve basvuru kaynaklari.",
+        "access": "Kampus/VPN",
         "badgeBackground": "rgba(16,185,129,.15)",
         "badgeColor": "#6ee7b7",
         "badgeBorder": "rgba(16,185,129,.3)"
       },
       {
         "name": "eBooks Collection",
-        "description": "General academic and technical titles.",
-        "access": "Login required",
+        "description": "Genel akademik ve teknik e-kitap koleksiyonu.",
+        "access": "Giris gerekli",
         "badgeBackground": "rgba(6,192,220,.15)",
         "badgeColor": "#67e8f9",
         "badgeBorder": "rgba(6,192,220,.3)"
@@ -778,124 +778,124 @@
     ]
   },
   "lifePage": {
-    "title": "Life in VILNIUS TECH",
-    "badge": "Campus Services",
-    "description": "Student life beyond the classroom, including housing, clubs, sport, and support services.",
+    "title": "VILNIUS TECH Yasami",
+    "badge": "Kampus Hizmetleri",
+    "description": "Sinifin otesindeki ogrenci yasami: konaklama, kulupler, spor ve destek hizmetleri.",
     "stats": [
       {
         "value": "6",
-        "label": "Dormitories"
+        "label": "Yurt"
       },
       {
         "value": "30+",
-        "label": "Clubs"
+        "label": "Kulup"
       },
       {
         "value": "2",
-        "label": "Sports halls"
+        "label": "Spor salonu"
       },
       {
         "value": "24/7",
-        "label": "Support line"
+        "label": "Destek hatti"
       }
     ],
     "cards": [
       {
         "icon": "fa-solid fa-bed",
         "color": "#67e8f9",
-        "title": "Accommodation",
-        "description": "Dormitory applications and housing support for local and international students.",
+        "title": "Konaklama",
+        "description": "Yerel ve uluslararasi ogrenciler icin yurt basvurulari ve konaklama destegi.",
         "meta": "dormitory@vilniustech.lt"
       },
       {
         "icon": "fa-solid fa-utensils",
         "color": "#fcd34d",
-        "title": "Food & Cafeterias",
-        "description": "Student cafeterias with daily meals and affordable menus on campus.",
-        "meta": "Peak hours 12:00-13:30"
+        "title": "Yemek ve Kafeteryalar",
+        "description": "Kampuste gunluk yemek ve uygun fiyatli menu sunan ogrenci yemekhaneleri.",
+        "meta": "Yogun saatler 12:00-13:30"
       },
       {
         "icon": "fa-solid fa-dumbbell",
         "color": "#6ee7b7",
-        "title": "Sports & Wellness",
-        "description": "Gym, halls, and organised sports with student pricing.",
-        "meta": "Mon-Fri 07:00-21:00"
+        "title": "Spor ve Iyi Yasam",
+        "description": "Ogrenci fiyatlariyla spor salonlari, salonlar ve organize spor etkinlikleri.",
+        "meta": "Pzt-Cum 07:00-21:00"
       }
     ],
-    "supportTitle": "Student Support",
-    "supportBadge": "Wellbeing",
+    "supportTitle": "Ogrenci Destegi",
+    "supportBadge": "Iyi Yasam",
     "supportItems": [
       {
-        "title": "Counselling services",
-        "description": "Confidential consultations for academic, emotional, and personal issues."
+        "title": "Psikolojik danismanlik",
+        "description": "Akademik, duygusal ve kisisel konular icin gizli gorusmeler."
       },
       {
-        "title": "Accessibility support",
-        "description": "Adjustments and support plans for students with long-term health or accessibility needs."
+        "title": "Erisilebilirlik destegi",
+        "description": "Uzun sureli saglik veya erisilebilirlik ihtiyaclari icin duzenlemeler ve destek planlari."
       },
       {
-        "title": "Emergency contacts",
-        "description": "Security, mentors, and support channels available across campus."
+        "title": "Acil durum iletisimleri",
+        "description": "Kampus genelinde guvenlik, mentorler ve destek kanallari."
       }
     ]
   },
   "programsPage": {
-    "title": "Study Programme",
-    "badge": "Current Track",
-    "description": "Overview of programmes and the currently highlighted track for the logged-in student.",
+    "title": "Egitim Programi",
+    "badge": "Guncel Hat",
+    "description": "Programlarin genel gorunumu ve giris yapan ogrenci icin one cikan hat.",
     "programs": [
       {
         "name": "Informatics Engineering",
-        "details": "Bachelor · 240 ECTS · Full-time",
-        "badge": "Current",
+        "details": "Lisans · 240 AKTS · Tam zamanli",
+        "badge": "Guncel",
         "highlighted": true
       },
       {
         "name": "Computer Science",
-        "details": "Bachelor · 240 ECTS · Full-time",
-        "badge": "Available",
+        "details": "Lisans · 240 AKTS · Tam zamanli",
+        "badge": "Mevcut",
         "highlighted": false
       },
       {
         "name": "Software Systems",
-        "details": "Master · 120 ECTS · Full-time",
-        "badge": "Available",
+        "details": "Yuksek lisans · 120 AKTS · Tam zamanli",
+        "badge": "Mevcut",
         "highlighted": false
       }
     ]
   },
   "resultsPage": {
-    "title": "My Results",
-    "badge": "Grades",
+    "title": "Sonuclarim",
+    "badge": "Notlar",
     "stats": [
       {
         "value": "8.4",
-        "label": "Average grade"
+        "label": "Ortalama not"
       },
       {
         "value": "60",
-        "label": "ECTS earned"
+        "label": "Kazanilan AKTS"
       },
       {
         "value": "0",
-        "label": "Academic debts"
+        "label": "Akademik borc"
       },
       {
         "value": "A",
-        "label": "Current standing"
+        "label": "Guncel durum"
       }
     ],
     "table": {
-      "subject": "Subject",
-      "ects": "ECTS",
-      "midterm": "Midterm",
-      "exam": "Exam",
+      "subject": "Ders",
+      "ects": "AKTS",
+      "midterm": "Ara sinav",
+      "exam": "Sinav",
       "final": "Final",
-      "status": "Status"
+      "status": "Durum"
     },
     "semesters": [
       {
-        "title": "Spring 2026",
+        "title": "2026 Bahar",
         "rows": [
           {
             "subject": "Cloud Computing",
@@ -903,7 +903,7 @@
             "midterm": "9",
             "exam": "8",
             "final": "9",
-            "status": "Passed",
+            "status": "Gecti",
             "statusBackground": "rgba(16,185,129,.15)",
             "statusColor": "#6ee7b7",
             "statusBorder": "rgba(16,185,129,.3)"
@@ -914,7 +914,7 @@
             "midterm": "8",
             "exam": "9",
             "final": "9",
-            "status": "Passed",
+            "status": "Gecti",
             "statusBackground": "rgba(16,185,129,.15)",
             "statusColor": "#6ee7b7",
             "statusBorder": "rgba(16,185,129,.3)"
@@ -924,73 +924,73 @@
     ]
   },
   "safetyPage": {
-    "title": "Safety at VILNIUS TECH",
-    "badge": "Campus Safety",
-    "description": "Emergency contacts, preventative guidance, and reporting channels for incidents or hazards.",
+    "title": "VILNIUS TECH Guvenligi",
+    "badge": "Kampus Guvenligi",
+    "description": "Acil durum iletisimleri, onleyici rehberlik ve olay ya da tehlike bildirim kanallari.",
     "stats": [
       {
         "value": "112",
-        "label": "Emergency number"
+        "label": "Acil numara"
       },
       {
         "value": "24/7",
-        "label": "Campus security"
+        "label": "Kampus guvenligi"
       },
       {
         "value": "4 min",
-        "label": "Response target"
+        "label": "Hedef yanit suresi"
       },
       {
         "value": "B1",
-        "label": "First aid hub"
+        "label": "Ilk yardim noktasi"
       }
     ],
     "cards": [
       {
         "icon": "fa-solid fa-phone-volume",
         "color": "#fca5a5",
-        "title": "Emergency numbers",
-        "description": "General emergency, campus security, and dormitory contacts."
+        "title": "Acil numaralar",
+        "description": "Genel acil yardim, kampus guvenligi ve yurt iletisimleri."
       },
       {
         "icon": "fa-solid fa-fire-extinguisher",
         "color": "#fcd34d",
-        "title": "Fire safety",
-        "description": "Follow evacuation maps, assembly points, and building instructions."
+        "title": "Yangin guvenligi",
+        "description": "Tahliye planlari, toplanma alanlari ve bina talimatlarini takip edin."
       },
       {
         "icon": "fa-solid fa-user-shield",
         "color": "#67e8f9",
-        "title": "Personal safety",
-        "description": "Use access cards responsibly and report suspicious activity immediately."
+        "title": "Kisisel guvenlik",
+        "description": "Giris kartlarini sorumlu bicimde kullanin ve supheli faaliyetleri hemen bildirin."
       }
     ],
-    "incidentTitle": "Incident Reporting",
-    "incidentBadge": "Prevention",
+    "incidentTitle": "Olay Bildirimi",
+    "incidentBadge": "Onleme",
     "incidentTable": {
-      "issueType": "Issue type",
-      "reportTo": "Report to",
-      "expectedAction": "Expected action",
+      "issueType": "Sorun turu",
+      "reportTo": "Bildirim yeri",
+      "expectedAction": "Beklenen islem",
       "rows": [
         {
-          "issue": "Lost student ID",
-          "reportTo": "Student Services Centre",
-          "action": "Card blocked same day"
+          "issue": "Kayip ogrenci karti",
+          "reportTo": "Ogrenci Hizmetleri Merkezi",
+          "action": "Kart ayni gun bloke edilir"
         },
         {
-          "issue": "Unsafe equipment",
-          "reportTo": "Faculty administrator",
-          "action": "Inspection assigned"
+          "issue": "Guvensiz ekipman",
+          "reportTo": "Fakulte yoneticisi",
+          "action": "Inceleme atanir"
         }
       ]
     }
   },
   "semesterPage": {
-    "title": "This Semester",
-    "badge": "30 ECTS",
-    "descriptionPrefix": "Current semester modules and study load overview.",
-    "overviewTitle": "Programme Overview",
-    "overviewDescription": "Review active modules, credits, and quick anchors for subjects in the current term.",
+    "title": "Bu Donem",
+    "badge": "30 AKTS",
+    "descriptionPrefix": "Mevcut donemin modulleri ve ders yukunun ozeti.",
+    "overviewTitle": "Program Genel Bakisi",
+    "overviewDescription": "Aktif modulleri, kredileri ve bu donemdeki dersler icin hizli baglantilari inceleyin.",
     "quickLinks": [
       {
         "href": "#cloud-computing",
@@ -1009,78 +1009,78 @@
       {
         "id": "cloud-computing",
         "title": "Cloud Computing",
-        "ects": "6 ECTS",
-        "badge": "Active",
+        "ects": "6 AKTS",
+        "badge": "Aktif",
         "badgeBackground": "rgba(16,185,129,.15)",
         "badgeColor": "#6ee7b7",
         "badgeBorder": "rgba(16,185,129,.3)",
         "lines": [
           {
             "icon": "fa-solid fa-user",
-            "text": "Lecturer: Assoc. Prof. A. Kazanavičius"
+            "text": "Ogretim uyesi: Assoc. Prof. A. Kazanavičius"
           },
           {
             "icon": "fa-solid fa-calendar",
-            "text": "Weeks: 1-16"
+            "text": "Haftalar: 1-16"
           },
           {
             "icon": "fa-solid fa-door-open",
-            "text": "Room: 403"
+            "text": "Salon: 403"
           }
         ]
       },
       {
         "id": "decision-making",
         "title": "Decision Making",
-        "ects": "6 ECTS",
-        "badge": "Active",
+        "ects": "6 AKTS",
+        "badge": "Aktif",
         "badgeBackground": "rgba(16,185,129,.15)",
         "badgeColor": "#6ee7b7",
         "badgeBorder": "rgba(16,185,129,.3)",
         "lines": [
           {
             "icon": "fa-solid fa-user",
-            "text": "Lecturer: Prof. R. Ginevičius"
+            "text": "Ogretim uyesi: Prof. R. Ginevičius"
           },
           {
             "icon": "fa-solid fa-calendar",
-            "text": "Weeks: 1-16"
+            "text": "Haftalar: 1-16"
           },
           {
             "icon": "fa-solid fa-door-open",
-            "text": "Room: 201"
+            "text": "Salon: 201"
           }
         ]
       }
     ]
   },
   "surveysPage": {
-    "title": "Surveys",
-    "badge": "Feedback Portal",
-    "description": "Help improve study quality and student services by completing open surveys.",
+    "title": "Anketler",
+    "badge": "Geri Bildirim Portali",
+    "description": "Acik anketleri doldurarak egitim kalitesinin ve ogrenci hizmetlerinin gelistirilmesine katki saglayin.",
     "highlights": [
       {
-        "title": "End-of-course evaluation",
-        "description": "Open until March 22, 2026.",
-        "status": "Open",
+        "title": "Ders sonu degerlendirmesi",
+        "description": "22 Mart 2026 tarihine kadar acik.",
+        "status": "Acik",
         "badgeBackground": "rgba(245,158,11,.15)",
         "badgeColor": "#fcd34d",
         "badgeBorder": "rgba(245,158,11,.3)"
       },
       {
-        "title": "Library services satisfaction",
-        "description": "Feedback on spaces, holdings, and digital access.",
-        "status": "Available",
+        "title": "Kutuphane hizmetleri memnuniyeti",
+        "description": "Alanlar, kaynaklar ve dijital erisim hakkinda geri bildirim.",
+        "status": "Mevcut",
         "badgeBackground": "rgba(16,185,129,.15)",
         "badgeColor": "#6ee7b7",
         "badgeBorder": "rgba(16,185,129,.3)"
       }
     ],
     "table": {
-      "survey": "Survey",
-      "audience": "Audience",
-      "deadline": "Deadline",
-      "reward": "Reward",
+      "survey": "Anket",
+      "audience": "Hedef kitle",
+      "deadline": "Son tarih",
+      "reward": "Odul",
       "rows": [
         {
           "survey": "Mobility Experience Survey",
@@ -1095,60 +1095,70 @@
           "reward": "Workshop priority"
         }
       ]
-    }
+    },
+    "rows": [
+      {
+        "audience": "Degisim ogrencileri",
+        "reward": "Sertifika puani"
+      },
+      {
+        "audience": "Tum ogrenciler",
+        "reward": "Atolye onceligi"
+      }
+    ]
   },
   "testsPage": {
-    "title": "Middle Tests and Coursework",
-    "badge": "Continuous Assessment",
-    "description": "Monitor internal assessments, their weight in the final grade, and completion status.",
+    "title": "Ara Sinavlar ve Ders Calismalari",
+    "badge": "Surekli Degerlendirme",
+    "description": "Donem ici degerlendirmeleri, nihai nota etkilerini ve tamamlama durumlarini izleyin.",
     "table": {
-      "subject": "Subject",
-      "assessment": "Assessment",
-      "weight": "Weight",
-      "deadline": "Deadline",
-      "status": "Status"
+      "subject": "Ders",
+      "assessment": "Degerlendirme",
+      "weight": "Agirlik",
+      "deadline": "Son tarih",
+      "status": "Durum"
     },
     "rows": [
       {
         "subject": "Cloud Computing",
-        "assessment": "Lab report",
+        "assessment": "Lab raporu",
         "weight": "20%",
         "deadline": "2026-03-18",
-        "status": "Open",
+        "status": "Acik",
         "statusBackground": "rgba(245,158,11,.15)",
         "statusColor": "#fcd34d",
         "statusBorder": "rgba(245,158,11,.3)"
       },
       {
         "subject": "Internet Technologies",
-        "assessment": "Project milestone",
+        "assessment": "Proje asamasi",
         "weight": "30%",
         "deadline": "2026-03-24",
-        "status": "Submitted",
+        "status": "Teslim edildi",
         "statusBackground": "rgba(16,185,129,.15)",
         "statusColor": "#6ee7b7",
         "statusBorder": "rgba(16,185,129,.3)"
       }
     ],
-    "note": "Assessment weight and deadlines are defined by the lecturer in the course plan."
+    "note": "Degerlendirme agirligi ve son tarihler ders plani kapsaminda ogretim uyesi tarafindan belirlenir."
   },
   "jobsPage": {
-    "title": "Job Offers",
-    "badge": "42 Active",
-    "description": "Part-time and full-time positions suitable for students and recent graduates in the IT field.",
+    "title": "Is Ilanlari",
+    "badge": "42 Aktif",
+    "description": "BT alaninda ogrencilere ve yeni mezunlara uygun yari zamanli ve tam zamanli pozisyonlar.",
     "table": {
-      "company": "Company",
-      "position": "Position",
-      "type": "Type",
-      "location": "Location",
-      "salary": "Salary",
-      "deadline": "Deadline"
+      "company": "Sirket",
+      "position": "Pozisyon",
+      "type": "Tur",
+      "location": "Konum",
+      "salary": "Maas",
+      "deadline": "Son tarih"
     },
     "rows": [
       {
         "company": "Devbridge Group",
         "position": "Junior .NET Developer",
-        "type": "Part-time",
+        "type": "Yari zamanli",
         "location": "Vilnius (Hybrid)",
         "salary": "€800-1200/mo",
         "deadline": "Apr 10, 2026",
@@ -1159,7 +1169,7 @@
       {
         "company": "Tesonet",
         "position": "Frontend Developer",
-        "type": "Full-time",
+        "type": "Tam zamanli",
         "location": "Vilnius",
         "salary": "€2000-2800/mo",
         "deadline": "Apr 15, 2026",
@@ -1170,7 +1180,7 @@
       {
         "company": "Vinted",
         "position": "Data Engineer (Entry)",
-        "type": "Full-time",
+        "type": "Tam zamanli",
         "location": "Vilnius",
         "salary": "€2200-3000/mo",
         "deadline": "Apr 20, 2026",
@@ -1181,23 +1191,23 @@
     ]
   },
   "internshipOffersPage": {
-    "title": "Internship Offers",
-    "badge": "28 Active",
-    "description": "Paid and unpaid internship positions available for students. All can be registered for academic credit.",
+    "title": "Staj Ilanlari",
+    "badge": "28 Aktif",
+    "description": "Ogrenciler icin ucretli ve ucretsiz staj pozisyonlari. Tamami akademik kredi icin kaydedilebilir.",
     "table": {
-      "company": "Company",
-      "role": "Role",
-      "duration": "Duration",
-      "paid": "Paid",
-      "location": "Location",
-      "deadline": "Deadline"
+      "company": "Sirket",
+      "role": "Rol",
+      "duration": "Sure",
+      "paid": "Ucretli",
+      "location": "Konum",
+      "deadline": "Son tarih"
     },
     "rows": [
       {
         "company": "Devbridge Group",
         "role": "Software Developer Intern",
-        "duration": "3-6 months",
-        "paid": "Yes",
+        "duration": "3-6 ay",
+        "paid": "Evet",
         "location": "Vilnius (Hybrid)",
         "deadline": "Apr 1, 2026",
         "badgeBackground": "rgba(16,185,129,.15)",
@@ -1207,8 +1217,8 @@
       {
         "company": "NFQ Technologies",
         "role": "Java Developer Intern",
-        "duration": "3 months",
-        "paid": "Yes",
+        "duration": "3 ay",
+        "paid": "Evet",
         "location": "Vilnius",
         "deadline": "Mar 20, 2026",
         "badgeBackground": "rgba(16,185,129,.15)",
@@ -1218,8 +1228,8 @@
       {
         "company": "ERGO Insurance",
         "role": "Data Analyst Intern",
-        "duration": "3 months",
-        "paid": "Partial",
+        "duration": "3 ay",
+        "paid": "Kismen",
         "location": "Vilnius",
         "deadline": "Apr 10, 2026",
         "badgeBackground": "rgba(245,158,11,.15)",
@@ -1229,27 +1239,27 @@
     ]
   },
   "careerDaysPage": {
-    "title": "Career Days",
-    "badge": "Spring 2026",
-    "description": "Meet recruiters from top Lithuanian and international companies and prepare for on-the-spot interviews.",
-    "sectionTitle": "Upcoming Events",
+    "title": "Kariyer Gunleri",
+    "badge": "2026 Bahar",
+    "description": "Litvanya ve uluslararasi sirketlerden ise alim uzmanlariyla bulusun ve yerinde mulakatlara hazirlanin.",
+    "sectionTitle": "Yaklasan Etkinlikler",
     "events": [
       {
         "day": "15",
-        "month": "APR",
-        "title": "IT Career Fair 2026",
+        "month": "NIS",
+        "title": "BT Kariyer Fuari 2026",
         "meta": "10:00-16:00 · SCC Building · 35+ companies",
-        "description": "Large-scale recruitment fair focused on software, cybersecurity, AI, and cloud roles.",
+        "description": "Yazilim, siber guvenlik, yapay zeka ve bulut rollerine odaklanan genis kapsamli ise alim fuari.",
         "accentBackground": "rgba(6,192,220,.15)",
         "accentBorder": "rgba(6,192,220,.3)",
         "accentColor": "#67e8f9"
       },
       {
         "day": "29",
-        "month": "APR",
-        "title": "Startup Pitch Night",
+        "month": "NIS",
+        "title": "Startup Sunum Gecesi",
         "meta": "18:00-21:00 · Aula Magna · 10 startups",
-        "description": "Networking event with founders, startup teams, and student innovation projects.",
+        "description": "Kurucular, startup ekipleri ve ogrenci inovasyon projeleriyle ag kurma etkinligi.",
         "accentBackground": "rgba(168,85,247,.15)",
         "accentBorder": "rgba(168,85,247,.3)",
         "accentColor": "#d8b4fe"
@@ -1257,9 +1267,9 @@
       {
         "day": "08",
         "month": "MAY",
-        "title": "Engineering Recruiting Day",
+        "title": "Muhendislik Ise Alim Gunu",
         "meta": "10:00-15:00 · Building 2 Atrium · 18 companies",
-        "description": "Focused on robotics, embedded systems, IoT, and industrial technology profiles.",
+        "description": "Robotik, gomulu sistemler, IoT ve endustriyel teknoloji profillerine odaklanir.",
         "accentBackground": "rgba(16,185,129,.15)",
         "accentBorder": "rgba(16,185,129,.3)",
         "accentColor": "#6ee7b7"
@@ -1267,105 +1277,105 @@
     ]
   },
   "internshipConsultationPage": {
-    "title": "Internship Consultation",
-    "badge": "15 ECTS",
-    "description": "Learn how to register your professional internship for academic credit and fulfill study plan requirements.",
-    "processTitle": "Registration Process",
+    "title": "Staj Danismanligi",
+    "badge": "15 AKTS",
+    "description": "Mesleki stajinizi akademik kredi icin nasil kaydedeceginizi ve ders plani gerekliliklerini nasil tamamlayacaginizi ogrenin.",
+    "processTitle": "Kayit Sureci",
     "process": [
-      "Find a company offering an internship in a relevant field.",
-      "Submit a request to the internship coordinator before the start date.",
-      "Sign the internship agreement with the company and university.",
-      "Complete the internship and collect supervisor evaluation.",
-      "Submit the internship report and defend it if required."
+      "Ilgili alanda staj sunan bir sirket bulun.",
+      "Baslangic tarihinden once staj koordinat orune talep iletin.",
+      "Sirket ve universite ile staj sozlesmesini imzalayin.",
+      "Staji tamamlayin ve danisman degerlendirmesini alin.",
+      "Staj raporunu teslim edin ve gerekiyorsa savunun."
     ],
-    "requirementsTitle": "Requirements",
+    "requirementsTitle": "Kosullar",
     "requirements": [
-      "Minimum 3 calendar months or equivalent workload",
-      "The internship must match your study programme area",
-      "Company supervisor and university coordinator must be assigned",
-      "Prior academic debts should be cleared before registration"
+      "En az 3 takvim ayi veya esdeger is yuku",
+      "Stajin program alaninizla uyumlu olmasi",
+      "Sirket danismani ve universite koordinat orunun atanmasi",
+      "Kayit oncesi onceki akademik borclarin kapatilmasi"
     ],
-    "contactLine": "Contact: internship@vilniustech.lt | Office: Building 1, Room 108"
+    "contactLine": "Iletisim: internship@vilniustech.lt | Ofis: Bina 1, Oda 108"
   },
   "approvalPage": {
-    "title": "Documents for Approval",
-    "badge": "Workflow Status",
-    "description": "Monitor documents that require faculty or university approval, including internship agreements and study plan changes.",
+    "title": "Onay Bekleyen Belgeler",
+    "badge": "Is Akisi Durumu",
+    "description": "Staj sozlesmeleri ve ders plani degisiklikleri dahil fakulte veya universite onayi gerektiren belgeleri izleyin.",
     "items": [
       {
-        "title": "Internship agreement",
-        "description": "Submitted to the faculty coordinator with employer signatures attached.",
-        "status": "Under review",
+        "title": "Staj sozlesmesi",
+        "description": "Isveren imzalari eklenmis halde fakulte koordinat orune sunuldu.",
+        "status": "Incelemede",
         "badgeBackground": "rgba(245,158,11,.15)",
         "badgeColor": "#fcd34d",
         "badgeBorder": "rgba(245,158,11,.3)"
       },
       {
-        "title": "Learning agreement amendment",
-        "description": "Exchange semester course replacement request.",
-        "status": "Approved",
+        "title": "Learning agreement degisikligi",
+        "description": "Degisim donemi ders esdegerligi talebi.",
+        "status": "Onaylandi",
         "badgeBackground": "rgba(16,185,129,.15)",
         "badgeColor": "#6ee7b7",
         "badgeBorder": "rgba(16,185,129,.3)"
       },
       {
-        "title": "Individual study plan request",
-        "description": "Requested due to overlapping internship schedule.",
-        "status": "Needs revision",
+        "title": "Bireysel ders plani talebi",
+        "description": "Cakisan staj takvimi nedeniyle istendi.",
+        "status": "Revizyon gerekli",
         "badgeBackground": "rgba(239,68,68,.15)",
         "badgeColor": "#fca5a5",
         "badgeBorder": "rgba(239,68,68,.3)"
       }
     ],
     "table": {
-      "approver": "Approver",
-      "documentType": "Document Type",
+      "approver": "Onaylayan",
+      "documentType": "Belge Turu",
       "sla": "SLA",
-      "contact": "Contact"
+      "contact": "Iletisim"
     },
     "rows": [
       {
-        "approver": "Faculty coordinator",
-        "documentType": "Internship / study plan",
-        "sla": "3 business days",
+        "approver": "Fakulte koordinat oru",
+        "documentType": "Staj / ders plani",
+        "sla": "3 is gunu",
         "contact": "faculty@vilniustech.lt"
       },
       {
-        "approver": "International office",
-        "documentType": "Mobility forms",
-        "sla": "5 business days",
+        "approver": "Uluslararasi ofis",
+        "documentType": "Hareketlilik formlari",
+        "sla": "5 is gunu",
         "contact": "international@vilniustech.lt"
       }
     ]
   },
   "feesPage": {
-    "title": "Fees for Studies",
+    "title": "Egitim Ucretleri",
     "badge": "2025-2026",
     "stats": [
       {
-        "value": "State-Funded",
-        "label": "Your Funding Type",
+        "value": "Devlet Destekli",
+        "label": "Finansman Turu",
         "highlight": true
       },
       {
         "value": "€0",
-        "label": "Tuition This Semester"
+        "label": "Bu donem ogrenim ucreti"
       },
       {
         "value": "€25",
-        "label": "Student Council Fee"
+        "label": "Ogrenci konseyi aidati"
       },
       {
         "value": "Mar 31",
-        "label": "Fee Due Date"
+        "label": "Odeme son tarihi"
       }
     ],
-    "notice": "You are on a state-funded study place. No tuition fee is required this semester. Maintain the required academic standing to keep funding.",
-    "tableTitle": "Tuition Fee Schedule (Self-Funded)",
+    "notice": "Devlet destekli kontenjandasiniz. Bu donem ogrenim ucreti odemeniz gerekmez. Destegi korumak icin gerekli akademik duzeyi surdurun.",
+    "tableTitle": "Ogrenim Ucreti Takvimi (Ucretli Ogrenciler)",
     "table": {
       "program": "Program",
-      "semester": "Per Semester",
-      "year": "Per Year"
+      "semester": "Donem basi",
+      "year": "Yillik"
     },
     "rows": [
       {
@@ -1384,181 +1394,181 @@
         "year": "€3,800"
       }
     ],
-    "paymentNote": "Payments are accepted by bank transfer or the university online payment portal. Contact finance@vilniustech.lt for arrangements."
+    "paymentNote": "Odemeler banka havalesi veya universitenin cevrim ici odeme portali ile kabul edilir. Duzenleme icin finance@vilniustech.lt ile iletisime gecin."
   },
   "reportSlipPage": {
-    "title": "Final Report Slip",
-    "badge": "Graduation Checklist",
-    "description": "Track the units that must confirm you have no outstanding obligations before graduation or withdrawal.",
+    "title": "Mezuniyet Cikis Formu",
+    "badge": "Mezuniyet Kontrol Listesi",
+    "description": "Mezuniyet veya kayit silme oncesinde acik yukumlulugunuz olmadigini onaylamasi gereken birimleri takip edin.",
     "table": {
-      "unit": "Unit",
-      "status": "Status",
-      "confirmedBy": "Confirmed By",
-      "lastUpdate": "Last Update"
+      "unit": "Birim",
+      "status": "Durum",
+      "confirmedBy": "Onaylayan",
+      "lastUpdate": "Son guncelleme"
     },
     "rows": [
       {
-        "unit": "Library",
-        "status": "Cleared",
-        "confirmedBy": "Library Services",
-        "lastUpdate": "Mar 02, 2026",
+        "unit": "Kutuphane",
+        "status": "Temizlendi",
+        "confirmedBy": "Kutuphane Hizmetleri",
+        "lastUpdate": "2 Mar 2026",
         "badgeBackground": "rgba(16,185,129,.15)",
         "badgeColor": "#6ee7b7",
         "badgeBorder": "rgba(16,185,129,.3)"
       },
       {
-        "unit": "Finance Office",
-        "status": "Cleared",
-        "confirmedBy": "Finance Office",
-        "lastUpdate": "Mar 03, 2026",
+        "unit": "Mali Isler Ofisi",
+        "status": "Temizlendi",
+        "confirmedBy": "Mali Isler Ofisi",
+        "lastUpdate": "3 Mar 2026",
         "badgeBackground": "rgba(16,185,129,.15)",
         "badgeColor": "#6ee7b7",
         "badgeBorder": "rgba(16,185,129,.3)"
       },
       {
-        "unit": "Dormitory",
-        "status": "Pending",
-        "confirmedBy": "Accommodation Office",
-        "lastUpdate": "Awaiting checkout",
+        "unit": "Yurt",
+        "status": "Beklemede",
+        "confirmedBy": "Konaklama Ofisi",
+        "lastUpdate": "Cikis islemi bekleniyor",
         "badgeBackground": "rgba(245,158,11,.15)",
         "badgeColor": "#fcd34d",
         "badgeBorder": "rgba(245,158,11,.3)"
       }
     ],
-    "note": "Your final slip can be exported only after all units are marked as cleared."
+    "note": "Tum birimler temizlendi olarak isaretlendikten sonra nihai cikis formu disa aktarilabilir."
   },
   "ethicsPage": {
-    "title": "Academic Ethics",
-    "badge": "Policy",
-    "description": "Students are expected to uphold academic integrity and comply with the university ethics code.",
-    "principlesTitle": "Core Principles",
+    "title": "Akademik Etik",
+    "badge": "Politika",
+    "description": "Ogrencilerden akademik durustlugu korumalari ve universite etik kurallarina uymalari beklenir.",
+    "principlesTitle": "Temel Ilkeler",
     "principles": [
-      "Honesty",
-      "Trust",
-      "Fairness",
-      "Respect",
-      "Responsibility"
+      "Durustluk",
+      "Guven",
+      "Adalet",
+      "Saygi",
+      "Sorumluluk"
     ],
-    "violationsTitle": "Violations",
+    "violationsTitle": "Ihlaller",
     "table": {
-      "type": "Type",
-      "description": "Description",
-      "consequence": "Consequence"
+      "type": "Tur",
+      "description": "Aciklama",
+      "consequence": "Sonuc"
     },
     "rows": [
       {
-        "type": "Plagiarism",
-        "description": "Using others’ work without attribution",
-        "consequence": "Grade 0 or disciplinary action"
+        "type": "Intihal",
+        "description": "Baskalarinin calismasini kaynak gostermeden kullanmak",
+        "consequence": "0 notu veya disiplin islemi"
       },
       {
-        "type": "Cheating",
-        "description": "Unauthorized materials during exams",
-        "consequence": "Exam invalidation"
+        "type": "Kopya",
+        "description": "Sinavlarda izinsiz materyal kullanmak",
+        "consequence": "Sinavin gecersiz sayilmasi"
       },
       {
-        "type": "Fabrication",
-        "description": "Invented or falsified data",
-        "consequence": "Course failure"
+        "type": "Veri uydurma",
+        "description": "Uydurulmus veya tahrif edilmis veri",
+        "consequence": "Dersi basarisiz tamamlama"
       }
     ],
-    "reportTitle": "Reporting a Violation",
-    "reportDescription": "Contact ethics@vilniustech.lt or use the anonymous reporting form. All reports are handled confidentially."
+    "reportTitle": "Ihlal Bildirimi",
+    "reportDescription": "ethics@vilniustech.lt adresi veya anonim bildirim formu uzerinden ulasabilirsiniz. Tum bildirimler gizli ele alinir."
   },
   "examSessionPage": {
-    "title": "Exam Session",
-    "badge": "Spring 2026",
+    "title": "Sinav Donemi",
+    "badge": "2026 Bahar",
     "stats": [
       {
         "value": "May 26",
-        "label": "Session Start"
+        "label": "Donem baslangici"
       },
       {
         "value": "June 14",
-        "label": "Session End"
+        "label": "Donem bitisi"
       },
       {
         "value": "6",
-        "label": "Exams Scheduled"
+        "label": "Planlanan sinav"
       },
       {
         "value": "Aug 25-Sep 4",
-        "label": "Resit Period"
+        "label": "Butunleme donemi"
       }
     ],
-    "registrationTitle": "Exam Registration",
-    "registrationDescription": "Register through this portal no later than 3 days before the exam date.",
-    "registrationLinkLabel": "Exams Timetable",
-    "rulesTitle": "Rules & Conduct",
+    "registrationTitle": "Sinav Kaydi",
+    "registrationDescription": "Sinav tarihinden en gec 3 gun once bu portal uzerinden kaydolun.",
+    "registrationLinkLabel": "Sinav Takvimi",
+    "rulesTitle": "Kurallar ve Davranis",
     "rules": [
-      "Arrive 10 minutes before the exam",
-      "Bring your student ID card",
-      "No unauthorized materials or devices",
-      "Phones must be turned off and stored away"
+      "Sinavdan 10 dakika once gelin",
+      "Ogrenci kimliginizi getirin",
+      "Izinsiz materyal veya cihaz getirmeyin",
+      "Telefonlar kapali ve kaldirilmis olmalidir"
     ]
   },
   "finalWorksPage": {
-    "title": "Final Works",
-    "badge": "Graduation",
-    "description": "Requirements, submission procedures, and defense milestones for the final thesis.",
-    "formattingTitle": "Formatting Requirements",
+    "title": "Bitirme Calismalari",
+    "badge": "Mezuniyet",
+    "description": "Bitirme tezine iliskin gereklilikler, teslim surecleri ve savunma kilometre taslari.",
+    "formattingTitle": "Bicim Kosullari",
     "formatting": [
-      "Minimum 50 pages excluding appendices",
-      "Use official thesis template",
-      "Abstract in Lithuanian and English",
-      "Reference list according to faculty rules"
+      "Ekler haric en az 50 sayfa",
+      "Resmi tez sablonunu kullanin",
+      "Litvanca ve Ingilizce ozet",
+      "Kaynakca fakulte kurallarina gore hazirlanmali"
     ],
-    "timelineTitle": "Submission Timeline",
+    "timelineTitle": "Teslim Takvimi",
     "table": {
-      "milestone": "Milestone",
-      "deadline": "Deadline"
+      "milestone": "Asama",
+      "deadline": "Son tarih"
     },
     "rows": [
       {
-        "milestone": "Topic registration",
+        "milestone": "Konu kaydi",
         "deadline": "March 31, 2026"
       },
       {
-        "milestone": "Outline approval",
+        "milestone": "Taslak onayi",
         "deadline": "April 1, 2026"
       },
       {
-        "milestone": "Final thesis upload",
+        "milestone": "Nihai tez yukleme",
         "deadline": "May 30, 2026"
       },
       {
-        "milestone": "Defense period",
+        "milestone": "Savunma donemi",
         "deadline": "June 10-20, 2026"
       }
     ]
   },
   "scholarshipsPage": {
-    "title": "Scholarships",
+    "title": "Burslar",
     "badge": "2025-2026",
     "items": [
       {
-        "title": "Merit Scholarship",
-        "status": "Active",
-        "description": "Awarded to students with strong GPA and no academic debts.",
-        "note": "Application opens each semester.",
+        "title": "Basari Bursu",
+        "status": "Aktif",
+        "description": "Yuksek not ortalamasi ve akademik borcu olmayan ogrencilere verilir.",
+        "note": "Basvuru her donem acilir.",
         "badgeBackground": "rgba(16,185,129,.15)",
         "badgeColor": "#6ee7b7",
         "badgeBorder": "rgba(16,185,129,.3)"
       },
       {
-        "title": "Social Scholarship",
-        "status": "Active",
-        "description": "Support for students from low-income households.",
-        "note": "Income declaration required.",
+        "title": "Sosyal Burs",
+        "status": "Aktif",
+        "description": "Dusuk gelirli ailelerden gelen ogrenciler icin destek.",
+        "note": "Gelir beyanı gerekir.",
         "badgeBackground": "rgba(16,185,129,.15)",
         "badgeColor": "#6ee7b7",
         "badgeBorder": "rgba(16,185,129,.3)"
       },
       {
-        "title": "Erasmus+ Scholarship",
-        "status": "Apply Now",
-        "description": "Monthly grant for exchange or traineeship mobility.",
-        "note": "Deadline: March 15, 2026",
+        "title": "Erasmus+ Bursu",
+        "status": "Simdi basvur",
+        "description": "Degisim veya staj hareketliligi icin aylik hibe.",
+        "note": "Son tarih: 15 Mart 2026",
         "badgeBackground": "rgba(245,158,11,.15)",
         "badgeColor": "#fcd34d",
         "badgeBorder": "rgba(245,158,11,.3)"
@@ -1566,195 +1576,195 @@
     ]
   },
   "timetablePage": {
-    "title": "Time of Lectures",
-    "badge": "Standard Schedule",
-    "description": "Official lecture slots used for academic activities across the university.",
+    "title": "Ders Saatleri",
+    "badge": "Standart Takvim",
+    "description": "Universite genelindeki akademik faaliyetler icin kullanilan resmi ders saatleri.",
     "table": {
-      "slot": "Slot",
-      "start": "Start",
-      "end": "End",
-      "duration": "Duration",
-      "breakAfter": "Break after"
+      "slot": "Ders",
+      "start": "Baslangic",
+      "end": "Bitis",
+      "duration": "Sure",
+      "breakAfter": "Mola"
     },
     "rows": [
       {
-        "slot": "1st Lecture",
+        "slot": "1. ders",
         "start": "08:30",
         "end": "10:05",
-        "duration": "95 min",
-        "breakAfter": "15 min"
+        "duration": "95 dk",
+        "breakAfter": "15 dk"
       },
       {
-        "slot": "2nd Lecture",
+        "slot": "2. ders",
         "start": "10:20",
         "end": "11:55",
-        "duration": "95 min",
-        "breakAfter": "15 min"
+        "duration": "95 dk",
+        "breakAfter": "15 dk"
       },
       {
-        "slot": "3rd Lecture",
+        "slot": "3. ders",
         "start": "12:10",
         "end": "13:45",
-        "duration": "95 min",
-        "breakAfter": "45 min (Lunch)"
+        "duration": "95 dk",
+        "breakAfter": "45 dk (Ogle arasi)"
       },
       {
-        "slot": "4th Lecture",
+        "slot": "4. ders",
         "start": "14:30",
         "end": "16:05",
-        "duration": "95 min",
-        "breakAfter": "15 min"
+        "duration": "95 dk",
+        "breakAfter": "15 dk"
       }
     ],
-    "note": "Academic year schedules may differ for part-time or evening programmes."
+    "note": "Akademik yil takvimi yari zamanli veya aksam programlari icin farklilik gosterebilir."
   },
   "auditoriumPage": {
-    "title": "Auditorium Occupancy",
-    "badge": "Today",
-    "description": "Real-time room availability for the day. Green means free, amber means occupied soon, and red means occupied.",
+    "title": "Sinif Dolulugu",
+    "badge": "Bugun",
+    "description": "Gunluk salon musaitligi. Yesil bos, sari yakinda dolacak, kirmizi dolu anlamina gelir.",
     "rooms": [
       {
-        "room": "Room 201",
-        "meta": "Capacity: 40 · Free until 14:30",
+        "room": "Salon 201",
+        "meta": "Kapasite: 40 · 14:30a kadar bos",
         "dot": "#6ee7b7"
       },
       {
-        "room": "Room 308",
-        "meta": "Capacity: 30 · Occupied until 13:45",
+        "room": "Salon 308",
+        "meta": "Kapasite: 30 · 13:45e kadar dolu",
         "dot": "#f87171"
       },
       {
-        "room": "Room 403",
-        "meta": "Capacity: 60 · Occupied in 30 min",
+        "room": "Salon 403",
+        "meta": "Kapasite: 60 · 30 dk sonra dolu",
         "dot": "#fcd34d"
       },
       {
-        "room": "Lecture Hall A",
-        "meta": "Capacity: 200 · Free until 18:10",
+        "room": "Amfi A",
+        "meta": "Kapasite: 200 · 18:10a kadar bos",
         "dot": "#6ee7b7"
       }
     ]
   },
   "consultationsPage": {
-    "title": "Lecturer Consultation Hours",
-    "badge": "Spring 2026",
-    "description": "Consultation hours for lecturers in the current semester, including room or online location.",
+    "title": "Ogretim Uyesi Danisma Saatleri",
+    "badge": "2026 Bahar",
+    "description": "Mevcut donemdeki ogretim uyelerinin danisma saatleri, salon veya cevrim ici baglanti bilgileriyle birlikte.",
     "table": {
-      "lecturer": "Lecturer",
-      "subject": "Subject",
-      "day": "Day",
-      "time": "Time",
-      "room": "Room / Link"
+      "lecturer": "Ogretim uyesi",
+      "subject": "Ders",
+      "day": "Gun",
+      "time": "Saat",
+      "room": "Salon / Baglanti"
     },
     "rows": [
       {
         "lecturer": "Assoc. Prof. Dr. A. Kazanavičius",
         "subject": "Cloud Computing",
-        "day": "Monday",
+        "day": "Pazartesi",
         "time": "13:00-14:30",
         "room": "Room 412"
       },
       {
         "lecturer": "Prof. Dr. R. Ginevičius",
         "subject": "Decision Making",
-        "day": "Wednesday",
+        "day": "Carsamba",
         "time": "10:00-11:30",
         "room": "Room 215 / Teams"
       },
       {
         "lecturer": "Lect. Dr. V. Štuikys",
         "subject": "Internet Technologies",
-        "day": "Thursday",
+        "day": "Persembe",
         "time": "11:00-12:30",
         "room": "Room 510"
       }
     ]
   },
   "internshipsPage": {
-    "title": "Internships",
-    "badge": "Spring 2026",
+    "title": "Stajlar",
+    "badge": "2026 Bahar",
     "stats": [
       {
-        "value": "Not Started",
-        "label": "Your Status",
+        "value": "Baslamadi",
+        "label": "Durumunuz",
         "highlight": true
       },
       {
         "value": "15 ECTS",
-        "label": "Internship Credits"
+        "label": "Staj kredileri"
       },
       {
         "value": "3 months",
-        "label": "Minimum Duration"
+        "label": "Asgari sure"
       }
     ],
-    "howToTitle": "How to register your internship",
+    "howToTitle": "Stajinizi nasil kaydedersiniz",
     "steps": [
-      "Find an internship position",
-      "Get approval from your coordinator",
-      "Submit an internship agreement",
-      "Complete the internship",
-      "Submit report and evaluation"
+      "Bir staj pozisyonu bulun",
+      "Koordinatorunuzden onay alin",
+      "Staj sozlesmesini teslim edin",
+      "Staji tamamlayin",
+      "Rapor ve degerlendirmeyi teslim edin"
     ],
-    "availableTitle": "Available Internship Positions",
+    "availableTitle": "Mevcut Staj Pozisyonlari",
     "table": {
-      "company": "Company",
-      "position": "Position",
-      "duration": "Duration",
-      "location": "Location",
-      "deadline": "Deadline"
+      "company": "Sirket",
+      "position": "Pozisyon",
+      "duration": "Sure",
+      "location": "Konum",
+      "deadline": "Son tarih"
     },
     "rows": [
       {
         "company": "Devbridge Group",
         "position": "Software Developer Intern",
-        "duration": "3-6 months",
+        "duration": "3-6 ay",
         "location": "Vilnius (Hybrid)",
         "deadline": "Apr 1, 2026"
       },
       {
         "company": "Tesonet",
         "position": "DevOps Intern",
-        "duration": "4 months",
+        "duration": "4 ay",
         "location": "Vilnius (Hybrid)",
         "deadline": "Apr 15, 2026"
       }
     ]
   },
   "lectureSchedulePage": {
-    "title": "Lecture Schedule",
-    "badge": "Spring 2026",
-    "description": "Weekly timetable for the current semester with odd and even week patterns.",
+    "title": "Ders Programi",
+    "badge": "2026 Bahar",
+    "description": "Tek ve cift hafta duzenleriyle birlikte mevcut donemin haftalik ders programi.",
     "table": {
-      "day": "Day",
-      "slot": "Slot",
-      "time": "Time",
-      "subject": "Subject",
-      "room": "Room",
-      "type": "Type",
-      "week": "Week"
+      "day": "Gun",
+      "slot": "Ders",
+      "time": "Saat",
+      "subject": "Ders",
+      "room": "Salon",
+      "type": "Tur",
+      "week": "Hafta"
     },
     "rows": [
       {
-        "day": "Monday",
-        "slot": "1st",
+        "day": "Pazartesi",
+        "slot": "1.",
         "time": "08:30-10:05",
         "subject": "Cloud Computing",
         "room": "403",
-        "type": "Lecture",
-        "week": "All",
+        "type": "Ders",
+        "week": "Tum haftalar",
         "badgeBackground": "rgba(99,102,241,.15)",
         "badgeColor": "#a5b4fc",
         "badgeBorder": "rgba(99,102,241,.3)"
       },
       {
-        "day": "Wednesday",
-        "slot": "4th",
+        "day": "Carsamba",
+        "slot": "4.",
         "time": "14:30-16:05",
         "subject": "Internet Technologies",
         "room": "Lab 305",
-        "type": "Lab",
-        "week": "Week 2",
+        "type": "Laboratuvar",
+        "week": "2. hafta",
         "badgeBackground": "rgba(16,185,129,.15)",
         "badgeColor": "#6ee7b7",
         "badgeBorder": "rgba(16,185,129,.3)"
@@ -1762,50 +1772,50 @@
     ]
   },
   "thesisPage": {
-    "title": "Thesis Subject",
-    "badge": "Final Year",
+    "title": "Tez Konusu",
+    "badge": "Son Sinif",
     "stats": [
       {
-        "value": "Not Registered",
-        "label": "Topic Status",
+        "value": "Kayitli degil",
+        "label": "Konu durumu",
         "highlight": true
       },
       {
         "value": "15 ECTS",
-        "label": "Credits for Thesis"
+        "label": "Tez kredisi"
       },
       {
         "value": "May 30, 2026",
-        "label": "Submission Deadline"
+        "label": "Teslim son tarihi"
       }
     ],
-    "alertTitle": "Topic Registration Required",
-    "alertDescription": "You have not yet registered a thesis topic. Contact your department coordinator to select a topic and confirm your supervisor.",
-    "requirementsTitle": "Requirements",
+    "alertTitle": "Konu Kaydi Gerekli",
+    "alertDescription": "Henuz bir tez konusu kaydetmediniz. Konu secimi ve danisman onayi icin bolum koordinat orunuzle iletisime gecin.",
+    "requirementsTitle": "Kosullar",
     "requirements": [
-      "Register thesis topic",
-      "Confirm supervisor agreement",
-      "Submit thesis outline",
-      "Upload final thesis",
-      "Pass plagiarism check",
-      "Defend before committee"
+      "Tez konusunu kaydet",
+      "Danisman onayini al",
+      "Tez taslagini teslim et",
+      "Nihai tezi yukle",
+      "Intihal kontrolunden gec",
+      "Juri onunde savun"
     ],
-    "datesTitle": "Key Dates",
+    "datesTitle": "Onemli Tarihler",
     "table": {
-      "event": "Event",
-      "date": "Date"
+      "event": "Etkinlik",
+      "date": "Tarih"
     },
     "rows": [
       {
-        "event": "Topic registration opens",
+        "event": "Konu kaydi acilir",
         "date": "March 15, 2026"
       },
       {
-        "event": "Topic registration closes",
+        "event": "Konu kaydi kapanir",
         "date": "March 31, 2026"
       },
       {
-        "event": "Final thesis upload deadline",
+        "event": "Nihai tez yukleme son tarihi",
         "date": "May 30, 2026"
       }
     ]

@@ -34,7 +34,15 @@ const hasKey = (source, keyPath) => {
   }, source) !== undefined;
 };
 
+const getValue = (source, keyPath) => keyPath.split('.').reduce((acc, segment) => {
+  if (acc && Object.prototype.hasOwnProperty.call(acc, segment)) {
+    return acc[segment];
+  }
+  return undefined;
+}, source);
+
 const languages = ['en', 'tr', 'lt', 'lv', 'ru'];
+const englishLocale = JSON.parse(fs.readFileSync(path.join(base, 'locales', 'en.json'), 'utf8'));
 let ok = true;
 
 for (const language of languages) {
@@ -45,6 +53,22 @@ for (const language of languages) {
   if (missing.length > 0) {
     ok = false;
     console.log(missing.join('\n'));
+  }
+
+  if (language === 'en') {
+    continue;
+  }
+
+  const identicalPages = keys.filter((key) => /Page$/.test(key)).filter((key) => {
+    const localized = getValue(locale, key);
+    const english = getValue(englishLocale, key);
+    return localized !== undefined && JSON.stringify(localized) === JSON.stringify(english);
+  });
+
+  console.log(`LANG ${language} identical page blocks: ${identicalPages.length}`);
+  if (identicalPages.length > 0) {
+    ok = false;
+    console.log(identicalPages.join('\n'));
   }
 }
 
