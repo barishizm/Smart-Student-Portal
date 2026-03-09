@@ -8,9 +8,10 @@ const authController = require('../controllers/authController');
 
 const authLimiter = rateLimit({
 	windowMs: 15 * 60 * 1000,
-	max: 100,
+	max: 15,
 	standardHeaders: true,
 	legacyHeaders: false,
+	message: 'Too many requests. Please try again later.'
 });
 
 const loginLimiter = rateLimit({
@@ -27,6 +28,14 @@ const passwordResetLimiter = rateLimit({
 	standardHeaders: true,
 	legacyHeaders: false,
 	message: 'Too many password reset requests. Please try again later.'
+});
+
+const profileChangeLimiter = rateLimit({
+	windowMs: 15 * 60 * 1000,
+	max: 10,
+	standardHeaders: true,
+	legacyHeaders: false,
+	message: 'Too many requests. Please try again later.'
 });
 
 const profileUploadDir = path.resolve(__dirname, '../public/uploads/profile');
@@ -79,16 +88,16 @@ router.get('/reset-password/:token', authController.resetPasswordPage);
 router.post('/reset-password', passwordResetLimiter, authController.resetPassword);
 
 // Change Username Handle
-router.post('/change-username', authController.changeUsername);
+router.post('/change-username', profileChangeLimiter, authController.changeUsername);
 
 // Change Password Handle
-router.post('/change-password', authController.changePassword);
+router.post('/change-password', profileChangeLimiter, authController.changePassword);
 
 // Language preference
 router.post('/language', authController.updatePreferredLanguage);
 
 // Profile Photo
-router.post('/profile-photo', requireProfileSession, (req, res) => {
+router.post('/profile-photo', profileChangeLimiter, requireProfileSession, (req, res) => {
 	upload.single('profile_photo')(req, res, (err) => {
 		if (!err) {
 			return authController.updateProfilePhoto(req, res);
@@ -103,8 +112,8 @@ router.post('/profile-photo', requireProfileSession, (req, res) => {
 		return res.redirect('/profile');
 	});
 });
-router.post('/profile-photo/delete', requireProfileSession, authController.deleteProfilePhoto);
-router.post('/delete-account', requireProfileSession, authController.deleteAccount);
+router.post('/profile-photo/delete', profileChangeLimiter, requireProfileSession, authController.deleteProfilePhoto);
+router.post('/delete-account', profileChangeLimiter, requireProfileSession, authController.deleteAccount);
 
 // Logout Handle
 router.get('/logout', authController.logout);

@@ -105,9 +105,22 @@ const db = {
 
 const run = (sql, params = []) => rawDb.prepare(sql).run(...(Array.isArray(params) ? params : [params]));
 const all = (sql, params = []) => rawDb.prepare(sql).all(...(Array.isArray(params) ? params : [params]));
-const hasColumn = (table, column) => all(`PRAGMA table_info(${table})`).some((c) => c.name === column);
+const VALID_IDENTIFIER = /^[a-zA-Z_][a-zA-Z0-9_]*$/;
+
+const assertValidIdentifier = (value, label) => {
+  if (!VALID_IDENTIFIER.test(value)) {
+    throw new Error(`Invalid ${label}: ${value}`);
+  }
+};
+
+const hasColumn = (table, column) => {
+  assertValidIdentifier(table, 'table name');
+  return all(`PRAGMA table_info(${table})`).some((c) => c.name === column);
+};
 
 const addColumnIfMissing = (table, column, type) => {
+  assertValidIdentifier(table, 'table name');
+  assertValidIdentifier(column, 'column name');
   if (!hasColumn(table, column)) {
     run(`ALTER TABLE ${table} ADD COLUMN ${column} ${type}`);
     console.log(`Added ${column} column to ${table} table.`);

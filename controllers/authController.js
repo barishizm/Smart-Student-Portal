@@ -53,7 +53,7 @@ const renderRegisterWithErrors = (res, errors, formData) => {
     return res.status(400).render('register', {
         errors,
         formData,
-        error_msg: errors.map((err) => err.msg).join('<br>')
+        error_msg: errors.map((err) => err.msg)
     });
 };
 
@@ -177,13 +177,14 @@ exports.login = async (req, res) => {
         );
 
         if (!user || !user.password_hash) {
-            req.flash('error_msg', 'User not found');
+            // Use same message for both cases to prevent account enumeration
+            req.flash('error_msg', 'Invalid credentials');
             return res.redirect('/');
         }
 
         const isMatch = await bcrypt.compare(password, user.password_hash);
         if (!isMatch) {
-            req.flash('error_msg', 'Password incorrect');
+            req.flash('error_msg', 'Invalid credentials');
             return res.redirect('/');
         }
 
@@ -494,46 +495,49 @@ exports.forgotPasswordPage = (req, res) => {
 
 exports.requestPasswordReset = async (req, res) => {
     const identity = (req.body.identity || req.body.email || '').trim();
-    const password = req.body.password || '';
-    const confirmPassword = req.body.confirm_password || '';
 
-    if (!identity || !password || !confirmPassword) {
-        req.flash('error_msg', 'Please enter all fields');
-        return res.redirect('/auth/forgot-password');
-    }
-
-    if (password !== confirmPassword) {
-        req.flash('error_msg', 'Passwords do not match');
-        return res.redirect('/auth/forgot-password');
-    }
-
-    if (password.length < 6) {
-        req.flash('error_msg', 'Password must be at least 6 characters');
+    if (!identity) {
+        req.flash('error_msg', 'Please enter your email or username');
         return res.redirect('/auth/forgot-password');
     }
 
     try {
         const user = await dbGet(
-            'SELECT id FROM users WHERE lower(email) = lower(?) OR lower(username) = lower(?) LIMIT 1',
+            'SELECT id, email FROM users WHERE lower(email) = lower(?) OR lower(username) = lower(?) LIMIT 1',
             [identity, identity]
         );
 
+        // Always show same message to prevent account enumeration
+        const successMessage = 'If an account with that identity exists, a password reset link has been generated. Please contact IT support to receive your reset link.';
+
         if (!user) {
-            req.flash('error_msg', 'User not found');
+            req.flash('success_msg', successMessage);
             return res.redirect('/auth/forgot-password');
         }
 
         const now = Date.now();
-        const passwordHash = await bcrypt.hash(password, 10);
+        const token = crypto.randomBytes(32).toString('hex');
+        const tokenHash = hashResetToken(token);
+        const expiresAt = now + (60 * 60 * 1000); // 1 hour expiry
 
-        await dbRun('UPDATE users SET password_hash = ? WHERE id = ?', [passwordHash, user.id]);
+        // Invalidate any existing unused tokens for this user
         await dbRun('UPDATE password_reset_tokens SET used_at = ? WHERE user_id = ? AND used_at IS NULL', [now, user.id]);
 
-        req.flash('success_msg', 'Password updated successfully. Please sign in.');
-        return res.redirect('/');
+        // Create a new token
+        await dbRun(
+            'INSERT INTO password_reset_tokens (user_id, token_hash, expires_at, created_at) VALUES (?, ?, ?, ?)',
+            [user.id, tokenHash, expiresAt, now]
+        );
+
+        // In production, this token would be sent via email.
+        // For now, log it server-side only (never expose to client).
+        console.log(`Password reset token generated for user ${user.id}. Reset path: /auth/reset-password/${token}`);
+
+        req.flash('success_msg', successMessage);
+        return res.redirect('/auth/forgot-password');
     } catch (err) {
         console.error('Request password reset error:', err);
-        req.flash('error_msg', 'Could not reset password. Please try again.');
+        req.flash('error_msg', 'Could not process request. Please try again.');
         return res.redirect('/auth/forgot-password');
     }
 };

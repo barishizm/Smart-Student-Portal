@@ -50,9 +50,23 @@ const parsePage = (value) => {
 const getSafeReturnTo = (value) => {
   const candidate = String(value || '').trim();
   if (!candidate) return '/schedules/admin';
-  if (candidate.startsWith('/schedules/admin') || candidate.startsWith('/dashboard')) {
-    return candidate;
+
+  // Parse as URL to prevent open redirect via protocol-relative URLs or path traversal
+  try {
+    const parsed = new URL(candidate, 'http://localhost');
+    const normalizedPath = decodeURIComponent(parsed.pathname).replace(/\/+/g, '/');
+
+    if (
+      (normalizedPath.startsWith('/schedules/admin') || normalizedPath.startsWith('/dashboard')) &&
+      !normalizedPath.includes('..')
+    ) {
+      // Only return the pathname + search, never external hosts
+      return parsed.pathname + parsed.search;
+    }
+  } catch {
+    // Invalid URL, fall through to default
   }
+
   return '/schedules/admin';
 };
 

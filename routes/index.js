@@ -1,7 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const rateLimit = require('express-rate-limit');
 const db = require('../models/db');
 const { getEffectiveRole } = require('../config/auth');
+
+const contactLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 10,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { success: false, error: 'Too many messages. Please try again later.' }
+});
 
 const dbAll = (sql, params = []) =>
     new Promise((resolve, reject) => {
@@ -170,7 +179,7 @@ router.get('/contact', (req, res) => {
     res.render('contact', { user: req.session.user });
 });
 
-router.post('/contact', (req, res) => {
+router.post('/contact', contactLimiter, (req, res) => {
     if (!req.session.user) {
         return res.status(401).json({ success: false, error: 'Unauthorized' });
     }
@@ -225,8 +234,10 @@ router.get('/contact/messages', (req, res) => {
     const params = [];
 
     if (search) {
-        const keyword = `%${search}%`;
-        where.push('(cm.name LIKE ? OR cm.email LIKE ? OR cm.message LIKE ? OR COALESCE(u.username, \"\") LIKE ?)');
+        // Escape LIKE special characters to prevent pattern injection
+        const escapedSearch = search.replace(/[%_\\]/g, '\\$&');
+        const keyword = `%${escapedSearch}%`;
+        where.push('(cm.name LIKE ? ESCAPE \"\\\" OR cm.email LIKE ? ESCAPE \"\\\" OR cm.message LIKE ? ESCAPE \"\\\" OR COALESCE(u.username, \"\") LIKE ? ESCAPE \"\\\")');
         params.push(keyword, keyword, keyword, keyword);
     }
 
