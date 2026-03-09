@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const flash = require('connect-flash');
-const bodyParser = require('body-parser');
+const compression = require('compression');
 const methodOverride = require('method-override');
 const crypto = require('crypto');
 const helmet = require('helmet');
@@ -57,10 +57,15 @@ app.set('view engine', 'ejs');
 
 // Middleware
 app.disable('x-powered-by');
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(compression());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(methodOverride('_method'));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), {
+    maxAge: process.env.NODE_ENV === 'production' ? '7d' : 0,
+    etag: true,
+    lastModified: true
+}));
 app.use(helmet({
     contentSecurityPolicy: false,
     crossOriginEmbedderPolicy: false
@@ -83,6 +88,10 @@ app.use(session({
 // Flash messages
 app.use(flash());
 
+// Throttled event cleanup - run at most once per hour
+let lastEventCleanup = 0;
+const EVENT_CLEANUP_INTERVAL = 60 * 60 * 1000;
+
 // Global variables for flash messages and user session
 app.use(async (req, res, next) => {
     const now = new Date();
@@ -91,9 +100,9 @@ app.use(async (req, res, next) => {
         req.session.user.role = getEffectiveRole(req.session.user);
     }
 
-    const languageFromSessionUser = req.session?.user?.preferred_language;
-    const languageFromSession = req.session?.preferred_language;
-    const currentLanguage = normalizeLanguage(languageFromSessionUser || languageFromSession || 'en');
+    const currentLanguage = normalizeLanguage(
+        req.session?.user?.preferred_language || req.session?.preferred_language || 'en'
+    );
 
     req.session.preferred_language = currentLanguage;
     if (req.session.user) {
@@ -118,7 +127,12 @@ app.use(async (req, res, next) => {
 
     if (req.session?.user?.id && req.path === '/dashboard') {
         try {
-            await cleanupExpiredEvents({ olderThanDays: 30 });
+            const nowMs = Date.now();
+            if (nowMs - lastEventCleanup > EVENT_CLEANUP_INTERVAL) {
+                lastEventCleanup = nowMs;
+                await cleanupExpiredEvents({ olderThanDays: 30 });
+            }
+
             const [upcomingEvents, pastEvents] = await Promise.all([
                 listUpcomingEvents({ limit: 12 }),
                 listPastEvents({ limit: 20 }),

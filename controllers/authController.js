@@ -1,10 +1,10 @@
-const db = require('../models/db');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const { isAdminIdentity, getEffectiveRole } = require('../config/auth');
 const { normalizeLanguage } = require('../utils/i18n');
+const { dbGet, dbRun } = require('../utils/dbHelpers');
 
 const isSchoolEmail = (email) => /@(stud\.)?vilniustech\.lt$/i.test((email || '').trim());
 
@@ -37,28 +37,6 @@ const deleteAvatarFileFromDisk = (avatarPath) => {
         }
     });
 };
-
-const dbGet = (sql, params = []) =>
-    new Promise((resolve, reject) => {
-        db.get(sql, params, (err, row) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(row);
-            }
-        });
-    });
-
-const dbRun = (sql, params = []) =>
-    new Promise((resolve, reject) => {
-        db.run(sql, params, function onRun(err) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(this);
-            }
-        });
-    });
 
 const regenerateSession = (req) =>
     new Promise((resolve, reject) => {

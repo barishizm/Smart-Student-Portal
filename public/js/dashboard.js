@@ -34,6 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const dashboardI18n = i18nJsonEl ? JSON.parse(i18nJsonEl.textContent) : {};
   const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
 
+  // Use matchMedia instead of resize event for mobile breakpoint
+  const mobileMediaQuery = window.matchMedia('(max-width: 860px)');
+
   const formatDateLocal = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -50,14 +53,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const getCurrentLectureLabel = (date) => {
     const nowMinutes = (date.getHours() * 60) + date.getMinutes();
     const slots = [
-      { start: 8 * 60 + 30, end: 10 * 60 + 5, label: dashboardI18n.slot1 || '1st lecture' },
-      { start: 10 * 60 + 20, end: 11 * 60 + 55, label: dashboardI18n.slot2 || '2nd lecture' },
-      { start: 12 * 60 + 10, end: 13 * 60 + 45, label: dashboardI18n.slot3 || '3rd lecture' },
-      { start: 13 * 60 + 45, end: 14 * 60 + 30, label: dashboardI18n.lunchBreak || 'Lunch Break' },
-      { start: 14 * 60 + 30, end: 16 * 60 + 5, label: dashboardI18n.slot4 || '4th lecture' },
-      { start: 16 * 60 + 20, end: 17 * 60 + 55, label: dashboardI18n.slot5 || '5th lecture' },
-      { start: 18 * 60 + 10, end: 19 * 60 + 45, label: dashboardI18n.slot6 || '6th lecture' },
-      { start: 19 * 60 + 55, end: 21 * 60 + 30, label: dashboardI18n.slot7 || '7th lecture' }
+      { start: 510, end: 605, label: dashboardI18n.slot1 || '1st lecture' },
+      { start: 620, end: 715, label: dashboardI18n.slot2 || '2nd lecture' },
+      { start: 730, end: 825, label: dashboardI18n.slot3 || '3rd lecture' },
+      { start: 825, end: 870, label: dashboardI18n.lunchBreak || 'Lunch Break' },
+      { start: 870, end: 965, label: dashboardI18n.slot4 || '4th lecture' },
+      { start: 980, end: 1075, label: dashboardI18n.slot5 || '5th lecture' },
+      { start: 1090, end: 1185, label: dashboardI18n.slot6 || '6th lecture' },
+      { start: 1195, end: 1290, label: dashboardI18n.slot7 || '7th lecture' }
     ];
 
     const activeSlot = slots.find((slot) => nowMinutes >= slot.start && nowMinutes < slot.end);
@@ -134,12 +137,28 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   updateHeaderScheduleInfo();
-  setInterval(updateHeaderScheduleInfo, 30 * 1000);
+
+  // Pause polling when tab is not visible to save resources
+  let scheduleTimer = setInterval(updateHeaderScheduleInfo, 30_000);
+  let notificationTimer = setInterval(loadNotifications, 60_000);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      clearInterval(scheduleTimer);
+      clearInterval(notificationTimer);
+      scheduleTimer = null;
+      notificationTimer = null;
+    } else {
+      if (!scheduleTimer) scheduleTimer = setInterval(updateHeaderScheduleInfo, 30_000);
+      if (!notificationTimer) notificationTimer = setInterval(loadNotifications, 60_000);
+      updateHeaderScheduleInfo();
+    }
+  });
 
   // Mark the current page's nav link as active
   const currentPath = window.location.pathname;
-  const sidebarNavLinks = document.querySelectorAll('.sidebar .nav-item[href]');
-  sidebarNavLinks.forEach((link) => {
+  const sidebarNavLinks = sidebar?.querySelectorAll('.nav-item[href]');
+  sidebarNavLinks?.forEach((link) => {
     const href = link.getAttribute('href');
     if (href && href !== '#' && currentPath.startsWith(href)) {
       link.classList.add('active');
@@ -150,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const fitSidebarMenuScale = () => {
     if (!sidebar || !root || !nav) return;
 
-    if (root.classList.contains('collapsed') || window.matchMedia('(max-width: 860px)').matches) {
+    if (root.classList.contains('collapsed') || mobileMediaQuery.matches) {
       sidebar.style.setProperty('--menu-scale', '1');
       return;
     }
@@ -241,9 +260,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.addEventListener('click', (e) => {
-    if (sidebar && mobileMenuBtn && window.matchMedia('(max-width: 860px)').matches) {
-      const clickedInsideSidebar = sidebar.contains(e.target);
-      if (!clickedInsideSidebar) {
+    if (sidebar && mobileMenuBtn && mobileMediaQuery.matches) {
+      if (!sidebar.contains(e.target)) {
         closeMobileMenu();
       }
     }
@@ -323,12 +341,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   loadNotifications();
-  setInterval(loadNotifications, 60 * 1000);
 
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 860) {
-      closeMobileMenu();
-    }
+  // Close mobile menu on breakpoint change (replaces resize listener)
+  mobileMediaQuery.addEventListener('change', (e) => {
+    if (!e.matches) closeMobileMenu();
   });
 
   toggleUsernameCard?.addEventListener('click', () => {
@@ -417,17 +433,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const setToast = (msg) => {
     const el = document.createElement('div');
     el.textContent = msg;
-    el.style.position = 'fixed';
-    el.style.bottom = '18px';
-    el.style.left = '50%';
-    el.style.transform = 'translateX(-50%)';
-    el.style.padding = '10px 14px';
-    el.style.borderRadius = '14px';
-    el.style.background = 'rgba(255,255,255,.10)';
-    el.style.border = '1px solid rgba(255,255,255,.16)';
-    el.style.backdropFilter = 'blur(14px)';
-    el.style.color = 'rgba(255,255,255,.92)';
-    el.style.zIndex = '9999';
+    el.style.cssText = 'position:fixed;bottom:18px;left:50%;transform:translateX(-50%);padding:10px 14px;border-radius:14px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(14px);color:rgba(255,255,255,.92);z-index:9999';
     document.body.appendChild(el);
     setTimeout(() => el.remove(), 1200);
   };
@@ -435,44 +441,35 @@ document.addEventListener('DOMContentLoaded', () => {
   prevDay?.addEventListener('click', () => setToast('Previous day (demo)'));
   nextDay?.addEventListener('click', () => setToast('Next day (demo)'));
   todayBtn?.addEventListener('click', () => setToast('Today (demo)'));
-});
 
-document.addEventListener('DOMContentLoaded', () => {
-  const nav = document.getElementById('primaryNav');
-  if (!nav) return;
+  // Sidebar submenu accordion (consolidated from separate listener)
+  const primaryNav = document.getElementById('primaryNav');
+  if (primaryNav) {
+    const menuGroups = Array.from(primaryNav.querySelectorAll('.nav-group.has-submenu'));
+    if (menuGroups.length) {
+      primaryNav.addEventListener('click', (e) => {
+        const trigger = e.target.closest('.nav-trigger');
+        if (!trigger || !primaryNav.contains(trigger)) return;
 
-  const menuGroups = Array.from(nav.querySelectorAll('.nav-group.has-submenu'));
-  if (!menuGroups.length) return;
+        e.preventDefault();
+        const currentGroup = trigger.closest('.nav-group.has-submenu');
+        if (!currentGroup) return;
 
-  nav.addEventListener('click', (e) => {
-    const trigger = e.target.closest('.nav-trigger');
-    if (!trigger || !nav.contains(trigger)) return;
+        const willOpen = !currentGroup.classList.contains('open');
+        menuGroups.forEach((group) => {
+          if (group !== currentGroup) group.classList.remove('open');
+        });
+        currentGroup.classList.toggle('open', willOpen);
+      });
+    }
+  }
 
-    e.preventDefault();
-    const currentGroup = trigger.closest('.nav-group.has-submenu');
-    if (!currentGroup) return;
-
-    const willOpen = !currentGroup.classList.contains('open');
-    menuGroups.forEach((group) => {
-      if (group !== currentGroup) {
-        group.classList.remove('open');
-      }
-    });
-
-    currentGroup.classList.toggle('open', willOpen);
-  });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  const subTriggers = document.querySelectorAll('.nav-subtrigger');
-  if (!subTriggers.length) return;
-
-  subTriggers.forEach((trigger) => {
+  // Sub-submenu triggers (consolidated from separate listener)
+  document.querySelectorAll('.nav-subtrigger').forEach((trigger) => {
     trigger.addEventListener('click', (e) => {
       e.preventDefault();
       const group = trigger.closest('.nav-subgroup');
-      if (!group) return;
-      group.classList.toggle('open');
+      if (group) group.classList.toggle('open');
     });
   });
 });

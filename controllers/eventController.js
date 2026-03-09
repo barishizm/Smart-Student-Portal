@@ -1,13 +1,5 @@
-const db = require('../models/db');
 const { getEffectiveRole } = require('../config/auth');
-
-const dbRun = (sql, params = []) =>
-  new Promise((resolve, reject) => {
-    db.run(sql, params, function onRun(err) {
-      if (err) return reject(err);
-      return resolve(this);
-    });
-  });
+const { dbRun } = require('../utils/dbHelpers');
 
 const parseEventId = (value) => {
   const parsed = Number.parseInt(String(value), 10);
