@@ -54,7 +54,7 @@
                                             <td>
                                                 <a href="/admin/students/<%= student.id %>" class="btn small ghost"><%= t('students.view') %></a>
                                                 <a href="/admin/students/<%= student.id %>/edit" class="btn small"><%= t('students.edit') %></a>
-                                                <form action="/admin/students/<%= student.id %>/delete" method="POST" style="display:inline;" onsubmit="return confirmDeleteStudent(this);">
+                                                <form action="/admin/students/<%= student.id %>/delete" method="POST" class="inline-form" onsubmit="return confirmDeleteStudent(this);">
                                                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                                     <input type="hidden" name="delete_confirm" value="">
                                                     <button type="submit" class="btn small danger"><%= t('students.delete') %></button>
@@ -64,28 +64,28 @@
                                     <% }); %>
                                 <% } else { %>
                                     <tr>
-                                        <td colspan="7" style="text-align:center;"><%= t('students.noStudents') %></td>
+                                        <td colspan="7" class="text-center"><%= t('students.noStudents') %></td>
                                     </tr>
                                 <% } %>
                             </tbody>
                         </table>
                     </div>
 
-                    <div class="event-manage-list-wrap" style="margin-top:14px;">
+                    <div class="event-manage-list-wrap mt-md">
                         <% const emailLocksSource = typeof deletedEmailLocks !== 'undefined' ? deletedEmailLocks : []; %>
                         <% const emailLocks = Array.isArray(emailLocksSource) ? emailLocksSource : []; %>
                         <h3 class="profile-change-title"><%= t('students.unlockDeletedEmailTitle') %></h3>
-                        <p class="muted" style="margin-bottom:10px;"><%= t('students.unlockDeletedEmailHint') %></p>
+                        <p class="muted mb-sm"><%= t('students.unlockDeletedEmailHint') %></p>
 
-                        <form action="/admin/students/unlock-deleted-email" method="POST" class="profile-change-form" style="max-width:520px;">
+                        <form action="/admin/students/unlock-deleted-email" method="POST" class="profile-change-form student-unlock-form">
                             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                             <input type="email" name="email" class="profile-change-input" placeholder="<%= t('students.email') %>" required>
                             <button type="submit" class="btn small"><%= t('students.unlockDeletedEmailButton') %></button>
                         </form>
 
                         <% if (emailLocks.length > 0) { %>
-                            <div class="table-wrap" style="margin-top:12px;">
-                                <table class="table" style="min-width: 620px;">
+                            <div class="table-wrap mt-sm">
+                                <table class="table">
                                     <thead>
                                         <tr>
                                             <th><%= t('students.email') %></th>
@@ -103,7 +103,7 @@
                                                 <td><%= lockItem.email %></td>
                                                 <td><%= lockedDateLabel %></td>
                                                 <td>
-                                                    <form action="/admin/students/unlock-deleted-email" method="POST" style="display:inline;" onsubmit="return confirm('<%= t('students.unlockDeletedEmailConfirm') %>');">
+                                                    <form action="/admin/students/unlock-deleted-email" method="POST" class="inline-form" onsubmit="return confirm('<%= t('students.unlockDeletedEmailConfirm') %>');">
                                                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                                         <input type="hidden" name="email" value="<%= lockItem.email %>">
                                                         <button type="submit" class="btn small"><%= t('students.unlockDeletedEmailButton') %></button>

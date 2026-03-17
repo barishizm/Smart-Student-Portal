@@ -1476,9 +1476,9 @@ select.profile-change-input option{
 }
 
 .dash.collapsed .nav-item .nav-ico{
-  width: 30px;
-  height: 30px;
-  font-size: 18px;
+  width: 34px;
+  height: 34px;
+  font-size: 16px;
   margin: 0;
 }
 
@@ -2419,12 +2419,12 @@ select.profile-change-input option{
 
 /* Nav icons */
 .sidebar .nav-ico{
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
   background: rgba(255,255,255,.08);
   border: 1px solid rgba(255,255,255,.12);
-  font-size: 13px;
+  font-size: 15px;
   flex-shrink: 0;
   transition: background .18s ease, border-color .18s ease;
 }
@@ -2607,6 +2607,17 @@ select.profile-change-input option{
   transform: rotate(180deg);
 }
 
+/* ---- STUDENT PAGES ---- */
+.inline-form{ display: inline; }
+.text-center{ text-align: center; }
+.student-detail-content{ max-width: 700px; margin: 0 auto; }
+.student-detail-content .table th{ width: 180px; white-space: nowrap; }
+.student-unlock-form{ max-width: 520px; }
+.mt-sm{ margin-top: 12px; }
+.mt-md{ margin-top: 14px; }
+.mb-sm{ margin-bottom: 10px; }
+.hint-text{ font-size: 13px; }
+
 /* ---- COLLAPSED STATE ---- */
 .dash.collapsed{
   grid-template-columns: 72px 1fr;
@@ -2632,10 +2643,10 @@ select.profile-change-input option{
 }
 
 .dash.collapsed .nav-item .nav-ico{
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
-  font-size: 14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  font-size: 16px;
   margin: 0;
 }
 

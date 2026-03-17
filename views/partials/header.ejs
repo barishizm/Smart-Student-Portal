@@ -8,7 +8,7 @@
     <div class="notifications-wrap" id="notificationsMenu">
       <button class="icon-btn notifications-trigger" id="notificationsTrigger" type="button" aria-label="<%= t('header.notifications') %>" aria-haspopup="true" aria-expanded="false">
         <span class="dot" id="notificationDot" aria-hidden="true" hidden></span>
-        <span aria-hidden="true">🔔</span>
+        <i class="fa-solid fa-bell" aria-hidden="true"></i>
       </button>
 
       <div class="notifications-panel" id="notificationsPanel" role="menu" aria-label="<%= t('header.notifications') %>">
@@ -52,11 +52,11 @@
 
       <div class="profile-submenu" id="profileSubmenu">
         <a href="/profile" class="profile-subitem" id="profileLink">
-          <span aria-hidden="true">👤</span>
+          <i class="fa-solid fa-user" aria-hidden="true"></i>
           <%= t('header.profile') %>
         </a>
         <a href="/auth/logout" class="profile-subitem" id="profileLogout">
-          <span aria-hidden="true">↩</span>
+          <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
           <%= t('header.logout') %>
         </a>
       </div>
