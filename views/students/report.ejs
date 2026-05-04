@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>">
+<head>
+    <%- include('../partials/head') %>
+    <title>VILNIUS TECH | Student Report</title>
+    <style>
+      .xml-report-frame {
+        width: 100%;
+        min-height: 70vh;
+        border: 1px solid var(--card-border, rgba(130,185,255,.24));
+        border-radius: 12px;
+        background: #ffffff;
+      }
+      .report-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    </style>
+</head>
+<body>
+    <div class="dash">
+        <%- include('../partials/sidebar') %>
+
+        <main class="main">
+            <%- include('../partials/header') %>
+
+            <div class="content">
+                <div class="card">
+                    <div class="card-head">
+                        <h2>Student Report (XML + XSLT)</h2>
+                        <div class="actions report-actions">
+                            <a href="/admin/students" class="btn ghost"><%= t('students.back') %></a>
+                            <a href="/admin/students/xml" class="btn" target="_blank">Open Raw XML</a>
+                        </div>
+                    </div>
+
+                    <p class="muted" style="margin-bottom: 14px;">
+                        This report is generated from an XML export of the student records,
+                        transformed in the browser via XSLT.
+                    </p>
+
+                    <iframe
+                      class="xml-report-frame"
+                      src="/admin/students/xml"
+                      title="Student Report"
+                    ></iframe>
+                </div>
+            </div>
+
+            <%- include('../partials/footer') %>
+        </main>
+    </div>
+</body>
+</html>

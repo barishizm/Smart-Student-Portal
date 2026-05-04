@@ -75,7 +75,7 @@ app.use(helmet({
             fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
             imgSrc: ["'self'", "data:", "blob:"],
             connectSrc: ["'self'"],
-            frameSrc: ["'none'"],
+            frameSrc: ["'self'"],
             objectSrc: ["'none'"],
             baseUri: ["'self'"],
             formAction: ["'self'"],
@@ -179,6 +179,7 @@ const documentsRoutes = require('./routes/documents');
 app.use('/', indexRoutes);
 app.use('/auth', authRoutes);
 app.use('/admin/students', studentRoutes); // Protected route will be handled in studentRoutes
+app.use('/students', studentRoutes); // FR4 alias: /students, /students/new, /students/:id, /students/:id/edit
 app.use('/notifications', notificationRoutes);
 app.use('/events', eventsRoutes);
 app.use('/schedules', scheduleRoutes);

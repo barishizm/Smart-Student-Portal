@@ -146,6 +146,11 @@ exports.createStudent = async (req, res) => {
             return res.redirect('/admin/students/new');
         }
 
+        if (!/^[A-Za-z0-9]{3,20}$/.test(payload.studentId)) {
+            req.flash('error_msg', 'Student ID must be 3-20 alphanumeric characters');
+            return res.redirect('/admin/students/new');
+        }
+
         if (payload.yearOfStudy < 1 || payload.yearOfStudy > 12) {
             req.flash('error_msg', 'Year of study must be between 1 and 12');
             return res.redirect('/admin/students/new');
@@ -230,6 +235,11 @@ exports.updateStudent = async (req, res) => {
     try {
         if (!payload.fullName || !payload.studentId || !payload.email || !payload.programDepartment || !payload.yearOfStudy) {
             req.flash('error_msg', 'Please fill all required fields');
+            return res.redirect(`/admin/students/${id}/edit`);
+        }
+
+        if (!/^[A-Za-z0-9]{3,20}$/.test(payload.studentId)) {
+            req.flash('error_msg', 'Student ID must be 3-20 alphanumeric characters');
             return res.redirect(`/admin/students/${id}/edit`);
         }
 
@@ -365,6 +375,11 @@ exports.deleteStudent = async (req, res) => {
         req.flash('error_msg', 'Error deleting student/user');
         return res.redirect('/admin/students');
     }
+};
+
+// Student Report (renders XML + XSLT inside the admin UI)
+exports.studentReport = (req, res) => {
+    res.render('students/report');
 };
 
 // XML Export

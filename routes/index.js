@@ -46,13 +46,18 @@ const isEntryInCurrentWeekPattern = (entry, activeWeek) => {
     return true;
 };
 
-// Login Page (Home)
+// Login Page
 router.get('/', (req, res) => {
     // If already logged in, redirect to dashboard
     if (req.session.user) {
         return res.redirect('/dashboard');
     }
     res.render('login');
+});
+
+// Public Home Page (FR1) — describes the portal, accessible without login
+router.get('/home', (req, res) => {
+    res.render('home');
 });
 
 // Dashboard (Protected)

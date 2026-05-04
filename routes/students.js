@@ -43,6 +43,9 @@ router.post('/unlock-deleted-email', studentController.unlockDeletedAccountEmail
 // XML Export
 router.get('/xml', studentController.exportXML);
 
+// XML + XSLT Student Report (FR6)
+router.get('/report', studentController.studentReport);
+
 // Details
 router.get('/:id', studentController.viewStudentDetails);
 

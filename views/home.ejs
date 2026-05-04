@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage || 'en' %>">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="csrf-token" content="<%= csrfToken %>" />
+  <title>VILNIUS TECH | Smart Student Portal</title>
+  <link rel="stylesheet" href="/css/subsite.css" />
+  <style>
+    .home-hero h1 { font-size: 28px; margin-bottom: 10px; }
+    .home-hero p.lead { color: rgba(255,255,255,.78); margin-bottom: 18px; }
+    .home-actions { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+    .home-actions .btn { width: auto; padding: 12px 22px; }
+    .home-actions .btn.ghost {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(130,185,255,.34);
+      box-shadow: none;
+    }
+    .feature-box h3 { font-size: 15px; margin-bottom: 6px; }
+    .feature-box p { font-size: 13px; color: rgba(255,255,255,.74); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <strong>VILNIUS TECH | Smart Student Portal</strong>
+    <nav>
+      <a href="/home" class="active">Home</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/auth/logout">Logout</a>
+      <% } else { %>
+        <a href="/">Sign in</a>
+        <a href="/auth/register">Sign up</a>
+      <% } %>
+    </nav>
+  </header>
+
+  <section class="page">
+    <article class="card home-hero">
+      <h1>Smart Student Portal (SSP)</h1>
+      <p class="lead">
+        A web portal built for a university department to manage student records.
+        Administrators can store, view, and update student information in a structured,
+        secure, and user-friendly way.
+      </p>
+
+      <div class="features">
+        <div class="feature-box">
+          <h3>Student Records</h3>
+          <p>Full CRUD: list, view, add, edit, and delete students with validation and unique IDs.</p>
+        </div>
+        <div class="feature-box">
+          <h3>Session-Based Access</h3>
+          <p>Admin login protects the management area. Logout and flash feedback are built in.</p>
+        </div>
+        <div class="feature-box">
+          <h3>XML / XSLT Report</h3>
+          <p>Export the student list as XML and view it as an HTML report rendered through XSLT.</p>
+        </div>
+      </div>
+
+      <div class="home-actions">
+        <% if (user) { %>
+          <a href="/dashboard" class="btn">Go to Dashboard</a>
+          <a href="/students" class="btn ghost">Open Students</a>
+        <% } else { %>
+          <a href="/" class="btn">Sign in</a>
+          <a href="/about" class="btn ghost">About the System</a>
+        <% } %>
+        <a href="/contact" class="btn ghost">Contact</a>
+      </div>
+    </article>
+  </section>
+</body>
+</html>

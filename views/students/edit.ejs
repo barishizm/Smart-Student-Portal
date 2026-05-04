@@ -22,9 +22,9 @@
                         <div class="alert alert-danger"><%= error_msg %></div>
                     <% } %>
 
-                    <form action="/admin/students/<%= student.id %>" method="POST" class="profile-change-form">
+                    <form action="/admin/students/<%= student.id %>" method="POST" class="profile-change-form" data-student-form novalidate>
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                        <input type="text" name="student_id" value="<%= student.student_id %>" required class="profile-change-input" placeholder="<%= t('students.studentId') %>">
+                        <input type="text" name="student_id" value="<%= student.student_id %>" required pattern="[A-Za-z0-9]{3,20}" title="3-20 alphanumeric characters" class="profile-change-input" placeholder="<%= t('students.studentId') %>">
                         <input type="text" name="full_name" value="<%= student.display_full_name %>" required class="profile-change-input" placeholder="<%= t('students.fullName') %>">
                         <input type="email" name="email" value="<%= student.email %>" required class="profile-change-input" placeholder="<%= t('students.email') %>">
                         <input type="text" name="username" value="<%= student.username || '' %>" class="profile-change-input" placeholder="<%= t('students.linkedUsername') %> (<%= t('students.noLinkedUser') %>)">
@@ -52,6 +52,7 @@
             <%- include('../partials/footer') %>
         </main>
     </div>
+    <script src="/js/students-form.js"></script>
     <script>
       const toggleBtn = document.getElementById('togglePasswordFields');
       const panel = document.getElementById('passwordFields');

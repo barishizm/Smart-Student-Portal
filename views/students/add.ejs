@@ -22,9 +22,9 @@
                         <div class="alert alert-danger"><%= error_msg %></div>
                     <% } %>
 
-                    <form action="/admin/students" method="POST" class="profile-change-form">
+                    <form action="/admin/students" method="POST" class="profile-change-form" data-student-form novalidate>
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                        <input type="text" name="student_id" required class="profile-change-input" placeholder="<%= t('students.studentId') %>">
+                        <input type="text" name="student_id" required pattern="[A-Za-z0-9]{3,20}" title="3-20 alphanumeric characters" class="profile-change-input" placeholder="<%= t('students.studentId') %>">
                         <input type="text" name="full_name" required class="profile-change-input" placeholder="<%= t('students.fullName') %>">
                         <input type="email" name="email" required class="profile-change-input" placeholder="<%= t('students.email') %>">
                         <input type="text" name="program_department" required class="profile-change-input" placeholder="<%= t('students.programDepartment') %>">
@@ -41,5 +41,6 @@
             <%- include('../partials/footer') %>
         </main>
     </div>
+    <script src="/js/students-form.js"></script>
 </body>
 </html>

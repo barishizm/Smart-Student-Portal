@@ -1,302 +1,231 @@
-# Smart Student Portal
+# Smart Student Portal (SSP)
 
-A role-aware student management portal built with Express, EJS, and SQLite.  
-The app supports:
+A semester project for the Internet Technologies course. The Smart Student Portal
+is a complete web application that lets a university administrator manage
+student records through a structured, session-protected interface, and exposes
+the data as XML transformed into HTML through XSLT.
 
-- User registration and login.
-- Session-based authentication.
-- Admin-only student CRUD operations
-- XML export of student data with XSL styling
-
-This project is tailored for a university-style environment (VILNIUS TECH branding in UI), with a dedicated admin identity for student records management.
-
-## Table of Contents.
-
-- [Overview](#overview)
-- [Tech Stack](#tech-stack)
-- [Features](#features)
-- [Project Structure](#project-structure)
-- [How It Works](#how-it-works)
-- [Prerequisites](#prerequisites)
-- [Installation and Setup (Local)](#installation-and-setup-local)
-- [Run with Docker](#run-with-docker)
-- [Default Admin Account](#default-admin-account)
-- [Authentication and Authorization](#authentication-and-authorization)
-- [Database Schema](#database-schema)
-- [Available Routes](#available-routes)
-- [NPM Scripts](#npm-scripts)
-- [Troubleshooting](#troubleshooting)
-- [Security Notes](#security-notes)
-- [License](#license)
-
-## Overview
-
-Smart Student Portal provides a web interface for managing student records:
-
-- Students can register and sign in.
-- Authenticated users can access the dashboard.
-- Only admin users can access `/admin/students` and perform student management actions.
-- Admin users can export student records as XML via `/admin/students/xml`.
-
-The application stores data in a local SQLite database (`database.sqlite`) and initializes required tables automatically on startup.
+The implementation satisfies every functional requirement from the project
+brief (FR1–FR6) and includes additional features (multi-language support,
+notifications, schedules, profile management, secure cookies, CSRF, etc.).
 
 ## Tech Stack
 
-- Backend: Node.js, Express
-- Templating: EJS
-- Database: SQLite3
-- Auth/session: `express-session`, `bcrypt`, `connect-flash`
-- Request handling: `body-parser`, `method-override`
-- Containerization: Docker, Docker Compose
+- **Backend framework:** Node.js + Express 4
+- **Templating:** EJS (server-rendered views in `views/`)
+- **Database:** SQLite (`database.sqlite`, accessed via `better-sqlite3`)
+- **Auth/Session:** `express-session`, `bcrypt`, `connect-flash`
+- **Frontend:** HTML5, CSS3, vanilla JavaScript
+- **Data interchange:** XML + XSLT (browser-side transformation)
+- **Security:** Helmet, custom CSRF middleware, request rate limiting
 
-## Features
+## Implemented Features
 
-- Authentication
-  - Register with `username`, `email`, and password
-  - Login using either email or username (sent in `email` field)
-  - Logout support
-- Role handling
-  - Effective role is derived dynamically by identity
-  - Reserved admin identity: `admin@vilniustech.lt`
-- Student Management (admin only)
-  - List students
-  - Add student
-  - Edit student
-  - Delete student
-  - Export students as XML with linked XSL transform
-- UX and messaging
-  - Flash success/error messages
-  - Dashboard with role-aware content and navigation
+### FR1 — Public Website Pages
+- `GET /home` — public landing page describing the portal (`views/home.ejs`).
+- `GET /about` — features overview (`views/about.ejs`).
+- `GET /contact` — contact form with client + server validation
+  (`views/contact.ejs`, `routes/index.js`).
+
+### FR2 — Student Management Module (CRUD, admin only)
+| Action | Route | Template |
+| --- | --- | --- |
+| List | `GET /students` | `views/students/list.ejs` |
+| View | `GET /students/:id` | `views/students/detail.ejs` |
+| New form | `GET /students/new` | `views/students/add.ejs` |
+| Create | `POST /students` | — (controller) |
+| Edit form | `GET /students/:id/edit` | `views/students/edit.ejs` |
+| Update | `POST /students/:id` | — (controller) |
+| Delete | `POST /students/:id/delete` | — (controller) |
+
+The same routes are also available with the `/admin/students` prefix used by
+the admin UI links (e.g. `GET /admin/students`).
+
+Required student fields are stored in the `students` table:
+`student_id` (unique), `full_name`, `email`, `program_department`,
+`year_of_study`, `status` (Active / Inactive — enforced by `CHECK` constraint).
+
+### FR3 — Data Validation
+- **Client-side** (`public/js/students-form.js`):
+  required fields, email format, Student ID pattern
+  (`^[A-Za-z0-9]{3,20}$`), year-of-study range. Forms also use HTML5
+  `required`, `type="email"`, `pattern`, and `min`/`max` attributes.
+- **Server-side** (`controllers/studentController.js`):
+  same checks repeated before insert/update; duplicate `student_id` /
+  `email` rejected via the unique index and surfaced as a clear flash error.
+
+### FR4 — Flow Management + Templates
+All views are rendered through EJS (`app.set('view engine', 'ejs')` in
+`app.js`); no controller returns hard-coded HTML. Routes follow the
+brief's pattern (`/home`, `/students`, `/students/new`, `/students/:id`,
+`/students/:id/edit`).
+
+### FR5 — Session Management
+- `express-session` with HTTP-only, `sameSite=lax`, 8-hour cookie.
+- Login at `GET /` (`POST /auth/login`), logout at `GET /auth/logout`.
+- `isAuthenticated` and `isAdmin` middleware guard `/students`,
+  `/admin/students`, `/dashboard`, schedules, etc.
+- `connect-flash` provides success / error feedback (e.g.
+  *“Student added successfully”*).
+
+### FR6 — XML + XSLT
+- `GET /admin/students/xml` returns the full student list as XML
+  (`controllers/studentController.js#exportXML`) with proper escaping and
+  an `<?xml-stylesheet ?>` PI pointing at `/xsl/students.xsl`.
+- `public/xsl/students.xsl` transforms the XML into a styled HTML report
+  in the browser, including total count and Active/Inactive highlighting.
+- `GET /admin/students/report` shows a dedicated **Student Report** page
+  inside the admin UI (`views/students/report.ejs`) that embeds the
+  XML-with-XSLT output in an iframe.
+
+### Bonus / Optional features
+- Multi-language UI (`en`, `lt`, `lv`, `ru`, `tr`).
+- User profile, profile photo upload, password change.
+- Notifications, events, schedules, and supporting study pages.
+- CSRF protection (`utils/security.js`), rate-limited login + contact form.
+- Helmet security headers and a strict Content-Security-Policy.
 
 ## Project Structure
 
 ```text
 Smart-Student-Portal/
-├── app.js                   # Express app entrypoint and middleware setup
-├── config/
-│   └── auth.js              # Identity normalization and admin role rules
+├── app.js                       # Express app entry point + middleware
+├── config/auth.js               # Admin identity / role helpers
 ├── controllers/
-│   ├── authController.js    # Register/login/logout logic
-│   └── studentController.js # Student CRUD + XML export
-├── models/
-│   └── db.js                # SQLite connection + schema initialization
-├── routes/
-│   ├── index.js             # Home + dashboard routes
-│   ├── auth.js              # Auth routes
-│   └── students.js          # Admin-protected student routes
-├── scripts/
-│   └── seedAdmin.js         # Seeds/normalizes default admin user
+│   ├── authController.js        # Login / logout / register
+│   └── studentController.js     # CRUD + XML export + report
+├── models/db.js                 # SQLite schema + migrations
 ├── public/
-│   ├── css/                 # Styles
-│   ├── js/                  # Frontend scripts
-│   ├── images/              # UI assets
-│   └── xsl/
-│       └── students.xsl     # XML stylesheet for exported student list
-├── views/                   # EJS templates
-├── Dockerfile
-├── docker-compose.yml
-├── package.json
-└── database.sqlite          # Local DB (generated/updated at runtime)
+│   ├── css/                     # dashboard.css, login.css, subsite.css …
+│   ├── js/                      # script.js, students-form.js, contact.js …
+│   └── xsl/students.xsl         # XSLT for the XML report
+├── routes/
+│   ├── index.js                 # /, /home, /dashboard, /about, /contact
+│   ├── auth.js                  # /auth/*
+│   ├── students.js              # /students/* (mounted at /students and /admin/students)
+│   └── …
+├── scripts/seedAdmin.js         # Seeds default admin user
+├── views/                       # EJS templates (home, login, students/*, …)
+├── database.sqlite              # Auto-created on first run
+├── Dockerfile / docker-compose.yml
+└── package.json
 ```
-
-## How It Works
-
-1. `app.js` configures middleware, sessions, flash messages, static assets, and view engine.
-2. `models/db.js` opens SQLite DB and ensures `users` and `students` tables exist.
-3. On each request, `res.locals.user` and flash messages are injected for views.
-4. `routes/students.js` applies:
-   - `isAuthenticated`: requires logged-in session
-   - `isAdmin`: requires effective role `admin`
-5. Admin pages allow CRUD operations on `students`.
-6. XML export endpoint returns student XML with an XSL stylesheet reference.
 
 ## Prerequisites
 
-- Node.js 18+ recommended
-- npm 9+ recommended
-
-Optional:
-
-- Docker Desktop (for containerized run)
+- Node.js ≥ 18
+- npm ≥ 9
+- (Optional) Docker Desktop
 
 ## Installation and Setup (Local)
 
-1. Clone repository and enter project folder:
+```bash
+git clone <repo-url>
+cd Smart-Student-Portal
+npm install
 
-   ```bash
-   git clone <your-repo-url>
-   cd Smart-Student-Portal
-   ```
+# 1) Seed the admin account (deterministic if ADMIN_PASSWORD is set)
+ADMIN_PASSWORD=admin123 node scripts/seedAdmin.js
 
-2. Install dependencies:
+# 2) Start the server (default port 3001)
+npm start
 
-   ```bash
-   npm install
-   ```
+# Open http://localhost:3001/home   (public landing)
+#   or http://localhost:3001/        (login)
+```
 
-3. Seed admin user (recommended before first login):
-
-   ```bash
-   node scripts/seedAdmin.js
-   ```
-
-4. Start server:
-
-   ```bash
-   npm start
-   ```
-
-5. Open application:
-
-   ```text
-   http://localhost:3000
-   ```
+If `ADMIN_PASSWORD` is not set, `seedAdmin.js` generates and prints a random
+temporary password the first time it runs. Subsequent runs only normalize
+the admin record and will not change the password — re-seed after deleting
+`database.sqlite` if you need a fresh password.
 
 ## Run with Docker
 
-### Docker Compose (recommended)
-
 ```bash
 docker compose up --build
+# App: http://localhost:3001
 ```
 
-The app will be available at:
+The container runs `node scripts/seedAdmin.js` then `npm start`.
 
-```text
-http://localhost:3000
-```
+## Default Admin Account (Login Credentials for Testing)
 
-### Docker behavior
+| Field | Value |
+| --- | --- |
+| Email / Username | `admin@vilniustech.lt` |
+| Password | `admin123` (when seeded with `ADMIN_PASSWORD=admin123`) |
 
-- Container command runs:
-  - `node scripts/seedAdmin.js`
-  - then `npm start`
-- This ensures admin identity exists/gets normalized on container startup.
+The login form accepts either the email or the username. Any other
+registered user is treated as a regular student and cannot reach
+`/students` or `/admin/students`.
 
-## Default Admin Account
+## Database Setup
 
-By default, the admin seed script creates/normalizes:
+The SQLite database (`database.sqlite`) is created automatically the first
+time the server starts. All required tables and indexes are declared in
+`models/db.js`. To start from a clean state, delete `database.sqlite` and
+restart the server, then re-run `node scripts/seedAdmin.js`.
 
-- Username: `admin@vilniustech.lt`
-- Email: `admin@vilniustech.lt`
-- Password: value from `ADMIN_PASSWORD` (or a generated temporary password if unset)
+Key tables:
 
-Important:
+- `users` — `id`, `username`, `email`, `password_hash`, `role`, profile
+  fields, `preferred_language`.
+- `students` — `id`, `student_id` (UNIQUE), `full_name`, `name`, `surname`,
+  `email`, `program_department`, `year_of_study`,
+  `status` (`CHECK status IN ('Active','Inactive')`), `user_id`,
+  `group_name`.
+- `contact_messages`, `notifications`, `events`, `schedules`, etc.
 
-- Registration blocks this reserved admin identity from public signup.
-- Set `ADMIN_PASSWORD` before seeding in non-local environments.
+## Available Routes (high level)
 
-## Authentication and Authorization
+### Public
+- `GET /` — Login page
+- `GET /home` — Public landing page (FR1)
+- `GET /auth/register`, `POST /auth/register`
+- `POST /auth/login`, `GET /auth/logout`
+- `GET /auth/forgot-password`, `POST /auth/forgot-password`
 
-### Session auth
+### Authenticated
+- `GET /dashboard`
+- `GET /profile`, `POST /profile/*`
+- `GET /about`, `GET /contact`, `POST /contact`
 
-- User session is stored using `express-session`.
-- After login, session stores:
-  - `id`
-  - `username`
-  - `email`
-  - `role` (effective role)
+### Admin only (FR2, FR4, FR6)
+Both `/students/*` and `/admin/students/*` reach the same controllers:
 
-### Admin resolution
+- `GET /students` — list
+- `GET /students/new`, `POST /students` — create
+- `GET /students/:id` — detail
+- `GET /students/:id/edit`, `POST /students/:id` — update
+- `POST /students/:id/delete` — delete (with `DELETE` confirmation)
+- `GET /admin/students/xml` — XML export with linked XSLT
+- `GET /admin/students/report` — Student Report page (XML+XSLT iframe)
 
-Admin role is determined by identity in `config/auth.js`:
+## Screenshots
 
-- Any user with username or email equal to `admin@vilniustech.lt` is treated as admin.
-- Others are treated as student.
+Take the screenshots required by the brief from the running app:
 
-### Protected routes
-
-- `/dashboard`: requires authentication
-- `/admin/students/*`: requires authentication + admin role
-
-## Database Schema
-
-SQLite database file: `database.sqlite`
-
-### `users`
-
-- `id` INTEGER PRIMARY KEY AUTOINCREMENT
-- `username` TEXT UNIQUE
-- `email` TEXT (unique via partial index when not null)
-- `password_hash` TEXT
-- `role` TEXT DEFAULT `'student'`
-
-Additional normalization on startup:
-
-- email lowercased/trimmed
-- username trimmed
-- admin identity role forced to `admin`
-- non-admin identities forced to `student`
-
-### `students`
-
-- `id` INTEGER PRIMARY KEY AUTOINCREMENT
-- `name` TEXT NOT NULL
-- `surname` TEXT NOT NULL
-- `student_id` TEXT UNIQUE NOT NULL
-- `email` TEXT
-- `group_name` TEXT
-- `data` TEXT
-
-## Available Routes
-
-### Public routes
-
-- `GET /` - Login page
-- `GET /auth/register` - Registration page
-- `POST /auth/register` - Register user
-- `POST /auth/login` - Login
-- `GET /auth/logout` - Logout
-
-### Authenticated route
-
-- `GET /dashboard` - User dashboard
-
-### Admin-only routes
-
-- `GET /admin/students` - List students
-- `GET /admin/students/new` - Add form
-- `POST /admin/students` - Create student
-- `GET /admin/students/:id/edit` - Edit form
-- `POST /admin/students/:id` - Update student
-- `POST /admin/students/:id/delete` - Delete student
-- `GET /admin/students/xml` - XML export
+1. Student list page — `/admin/students`
+2. Add / Edit student form — `/admin/students/new` and `/admin/students/:id/edit`
+3. XML / XSLT report — `/admin/students/report` (and raw XML at
+   `/admin/students/xml`)
+4. Login page (logged out) and dashboard (logged in), plus the
+   *“not authorized”* flash message when a non-admin opens
+   `/admin/students`.
 
 ## NPM Scripts
 
-From `package.json`:
-
-- `npm start` - Start app (`node app.js`)
-- `npm test` - Placeholder (currently not implemented)
-
-## Troubleshooting
-
-- Port already in use:
-  - Change `PORT` environment variable or stop conflicting process.
-- Cannot login as admin:
-  - Run `node scripts/seedAdmin.js` and restart server.
-- `SQLITE_CONSTRAINT` when adding/updating data:
-  - Check duplicate `username`, `email`, or `student_id`.
-- Missing dependencies:
-  - Delete `node_modules` and reinstall with `npm install`.
+- `npm start` — start the app (`node app.js`).
 
 ## Security Notes
 
-Current implementation includes baseline protections, but production hardening is still required:
-
-- Session cookie hardening (`httpOnly`, `sameSite=lax`, secure in production).
-- CSRF protection for state-changing routes (forms + AJAX header token).
-- Login/password-reset rate limiting.
-- Helmet security headers.
-- XML escaping for student export.
-
-Recommended production settings:
-
-- Set strong `SESSION_SECRET` in environment.
-- Set `ADMIN_PASSWORD` before running `node scripts/seedAdmin.js`.
-- Enforce HTTPS and run behind a trusted reverse proxy.
-- Continue dependency patching (`npm audit`) and keep `sqlite3` stack updated.
+- Helmet headers + strict Content-Security-Policy (`frame-src 'self'`
+  required for the in-app XSLT report).
+- CSRF middleware on all state-changing forms (`utils/security.js`).
+- Rate-limiting on login and contact form.
+- `bcrypt` password hashing.
+- XML output is escaped before being written to the response.
 
 ## License
 
-This project includes a `LICENSE` file in the repository root.
+See the `LICENSE` file at the repository root.
